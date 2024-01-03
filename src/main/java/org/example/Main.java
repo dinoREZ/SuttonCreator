@@ -39,6 +39,7 @@ public class Main {
         processTemplate("Model.ftl", model, model.getName() + ".java", "api/models");
 
         processTemplate("Dao.ftl", model, model.getName() + "Dao.java", "database");
+        processTemplate("DaoImpl.ftl", model, model.getName() + "DaoImpl.java", "database/inmemory");
         processTemplate("DaoAdapter.ftl", model, model.getName() + "DaoAdapter.java", "database/hibernate");
         processTemplate("DaoHibernate.ftl", model, model.getName() + "DaoHibernate.java", "database/hibernate/dao");
         processTemplate("DaoHibernateImpl.ftl", model, model.getName() + "DaoHibernateImpl.java", "database/hibernate/dao");
