@@ -38,3 +38,6 @@ hs_err_pid*
 # binaryData of local FileSystem
 src/main/resources/binaryData
 
+# generated output
+src/main/resources/output
+
