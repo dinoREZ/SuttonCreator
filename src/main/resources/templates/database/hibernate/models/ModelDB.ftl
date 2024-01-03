@@ -1,3 +1,10 @@
+package ${basePackage}.server.database.hibernate.models;
+
+import de.fhws.fiw.fds.sutton.server.database.hibernate.models.AbstractDBModel;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "${name}s")
 public class ${name}DB extends AbstractDBModel {

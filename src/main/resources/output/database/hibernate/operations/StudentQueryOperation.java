@@ -1,3 +1,16 @@
+package de.fhws.fiw.fds.implementation.server.database.hibernate.operations;
+
+import dde.fhws.fiw.fds.implementation.server.database.hibernate.models.StudentDB;
+import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
+import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.AbstractDatabaseOperation;
+import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelHibernateResult;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
 public class StudentByQueryOperation extends AbstractDatabaseOperation<StudentDB, CollectionModelHibernateResult<StudentDB>> {
 
     private String firstName;

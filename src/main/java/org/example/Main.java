@@ -25,6 +25,7 @@ public class Main {
             model.addQueryParameter("String", "lastName");
             model.addLink("selfLinkOnSecond", Link.SelfLinkOnSecondary("courses", "students"));
             model.addLink("courses", new Link(InjectLink.Style.ABSOLUTE, "students/${instance.id}/courses", "getCoursesOfStudents", "courses", "true"));
+            model.setBasePackage("de.fhws.fiw.fds.implementation");
 
             FileUtils.cleanDirectory(new File(RESOURCE_PATH + "/output"));
 

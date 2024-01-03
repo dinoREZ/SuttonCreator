@@ -1,3 +1,12 @@
+package ${basePackage}.server.api.models;
+
+import com.owlike.genson.annotation.JsonConverter;
+import de.fhws.fiw.fds.sutton.server.api.converter.JsonServerLinkConverter;
+import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
+import org.glassfish.jersey.linking.InjectLink;
+
+import javax.ws.rs.core.Link;
+
 public class ${name} extends AbstractModel {
 
 <#--Attributes-->

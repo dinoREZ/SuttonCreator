@@ -1,3 +1,17 @@
+package ${basePackage}.server.database.hibernate;
+
+import ${basePackage}.server.api.models.${name};
+import ${basePackage}.server.database.${name}Dao;
+import ${basePackage}.server.database.hibernate.dao.${name}DaoHibernate;
+import ${basePackage}.server.database.hibernate.dao.${name}DaoHibernateImpl;
+import ${basePackage}.server.database.hibernate.models.${name}DB;
+import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
+import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelHibernateResult;
+import de.fhws.fiw.fds.sutton.server.database.hibernate.results.SingleModelHibernateResult;
+import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
+import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
+import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
+
 public class ${name}DaoAdapter implements ${name}Dao {
     private final ${name}DaoHibernate dao = new ${name}DaoHibernateImpl();
 

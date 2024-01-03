@@ -1,3 +1,16 @@
+package ${basePackage}.server.database.hibernate.operations;
+
+import d${basePackage}.server.database.hibernate.models.${name}DB;
+import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
+import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.AbstractDatabaseOperation;
+import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelHibernateResult;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
 public class ${name}ByQueryOperation extends AbstractDatabaseOperation<${name}DB, CollectionModelHibernateResult<${name}DB>> {
 
     <#list queryAttributes as attributeName, class>

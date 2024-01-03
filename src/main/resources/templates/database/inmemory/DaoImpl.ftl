@@ -1,3 +1,11 @@
+package ${basePackage}.server.database.inmemory;
+
+import ${basePackage}.server.api.models.${name};
+import ${basePackage}.server.database.${name}Dao;
+import de.fhws.fiw.fds.sutton.server.database.SearchParameter;
+import de.fhws.fiw.fds.sutton.server.database.inmemory.AbstractInMemoryStorage;
+import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
+
 public class ${name}DaoImpl extends AbstractInMemoryStorage<${name}> implements ${name}Dao {
     <#if hasQuery>
     @Override

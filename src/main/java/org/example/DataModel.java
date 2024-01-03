@@ -12,6 +12,7 @@ public class DataModel {
     private final Map<String, Link> links;
     private boolean hasQuery;
     private final Map<String, String> queryAttributes;
+    private String basePackage;
 
     public DataModel() {
         attributes = new HashMap<>();
@@ -57,5 +58,13 @@ public class DataModel {
 
     public void addQueryParameter(String type, String name) {
         queryAttributes.put(name, type);
+    }
+
+    public String getBasePackage() {
+        return basePackage;
+    }
+
+    public void setBasePackage(String basePackage) {
+        this.basePackage = basePackage;
     }
 }
