@@ -7,8 +7,8 @@ public class ${name}DaoHibernateImpl implements ${name}DaoHibernate {
 
 <#if hasQuery>
     @Override
-    public CollectionModelHibernateResult<${name}DB> readByQuery(<#list queryAttributes as name, class>${class} ${name}, </#list>SearchParameter searchParameter) {
-        return new ${name}QueryOperation(emf, <#list queryAttributes as name, _>${name}, </#list>searchParameter).start();
+    public CollectionModelHibernateResult<${name}DB> readByQuery(<#list queryAttributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
+        return new ${name}QueryOperation(emf, <#list queryAttributes as attributeName, _>${attributeName}, </#list>searchParameter).start();
     }
 </#if>
 

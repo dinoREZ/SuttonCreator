@@ -2,22 +2,22 @@
 @Table(name = "${name}s")
 public class ${name}DB extends AbstractDBModel {
 
-<#list attributes as name, class>
-    @Column(name = "${name}")
-    private ${class} ${name};
+<#list attributes as attributeName, class>
+    @Column(name = "${attributeName}")
+    private ${class} ${attributeName};
 
 </#list>
     public ${name}DB() {
 
     }
 
-<#list attributes as name, class>
-    public ${class} get${name?cap_first}() {
-        return ${name};
+<#list attributes as attributeName, class>
+    public ${class} get${attributeName?cap_first}() {
+        return ${attributeName};
     }
 
-    public void set${name?cap_first}() {
-        this.${name} = ${name};
+    public void set${attributeName?cap_first}() {
+        this.${attributeName} = ${attributeName};
     }
 
 </#list>

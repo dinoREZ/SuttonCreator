@@ -1,24 +1,24 @@
 public class ${name}ByQueryOperation extends AbstractDatabaseOperation<${name}DB, CollectionModelHibernateResult<${name}DB>> {
 
-    <#list queryAttributes as name, class>
-    private ${class} ${name};
+    <#list queryAttributes as attributeName, class>
+    private ${class} ${attributeName};
     </#list>
     private SearchParameter searchParameter;
 
-    public ${name}ByQueryOperation(EntityManagerFactory emf, <#list queryAttributes as name, class>${class} ${name}, </#list>SearchParameter searchParameter) {
+    public ${name}ByQueryOperation(EntityManagerFactory emf, <#list queryAttributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
         super(emf);
-        <#list queryAttributes as name, _>
-        this.${name} = ${name};
+        <#list queryAttributes as attributeName, _>
+        this.${attributeName} = ${attributeName};
         </#list>
         this.searchParameter = searchParameter;
     }
 
     private Predicate formulateConditions(CriteriaBuilder criteriaBuilder, Root<${name}DB> root) {
-        <#list queryAttributes as name, _>
-        final Predicate match${name?cap_first} =  criteriaBuilder.like(root.get("${name}"), "%" + this.${name} + "%");
+        <#list queryAttributes as attributeName, _>
+        final Predicate match${attributeName?cap_first} =  criteriaBuilder.like(root.get("${attributeName}"), "%" + this.${attributeName} + "%");
         </#list>
 
-        return criteriaBuilder.and(<#list queryAttributes as name, _>match${name?cap_first}<#sep>, </#list>);
+        return criteriaBuilder.and(<#list queryAttributes as attributeName, _>match${attributeName?cap_first}<#sep>, </#list>);
     }
 
     @Override

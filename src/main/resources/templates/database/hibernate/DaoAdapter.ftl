@@ -34,8 +34,8 @@ public class ${name}DaoAdapter implements ${name}Dao {
 
     <#if hasQuery>
     @Override
-    public CollectionModelResult<${name}> readByQuery(<#list queryAttributes as name, class>${class} ${name}, </#list>SearchParameter searchParameter) {
-        CollectionModelHibernateResult<${name}DB> result = dao.readByQuery(<#list queryAttributes as name, _>${name}, </#list>searchParameter);
+    public CollectionModelResult<${name}> readByQuery(<#list queryAttributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
+        CollectionModelHibernateResult<${name}DB> result = dao.readByQuery(<#list queryAttributes as attributeName, _>${attributeName}, </#list>searchParameter);
 
         CollectionModelResult<${name}> returnValue;
         if(result.hasError()) {
@@ -63,8 +63,8 @@ public class ${name}DaoAdapter implements ${name}Dao {
     private ${name}DB createFrom(${name} model) {
         final ${name}DB returnValue = new ${name}DB();
         returnValue.setId(model.getId());
-        <#list attributes as name, _>
-        returnValue.set${name?cap_first}(model.get${name?cap_first}());
+        <#list attributes as attributeName, _>
+        returnValue.set${attributeName?cap_first}(model.get${attributeName?cap_first}());
         </#list>
         return returnValue;
     }
@@ -72,8 +72,8 @@ public class ${name}DaoAdapter implements ${name}Dao {
     private ${name} createFrom(${name}DB model) {
         final ${name} returnValue = new ${name}();
         returnValue.setId(model.getId());
-        <#list attributes as name, _>
-        returnValue.set${name?cap_first}(model.get${name?cap_first}());
+        <#list attributes as attributeName, _>
+        returnValue.set${attributeName?cap_first}(model.get${attributeName?cap_first}());
         </#list>
         return returnValue;
     }
