@@ -6,12 +6,19 @@ import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
 import org.example.api.models.Model;
 import org.example.database.Dao;
+import org.example.database.DaoFactory;
+import org.example.database.RelationDao;
 import org.example.database.hibernate.DaoAdapter;
+import org.example.database.hibernate.RelationDaoAdapter;
 import org.example.database.hibernate.dao.DaoHibernate;
 import org.example.database.hibernate.dao.DaoHibernateImpl;
+import org.example.database.hibernate.dao.RelationDaoHibernate;
+import org.example.database.hibernate.dao.RelationDaoHibernateImpl;
 import org.example.database.hibernate.models.ModelDB;
+import org.example.database.hibernate.models.RelationDB;
 import org.example.database.hibernate.operations.*;
 import org.example.database.inmemory.DaoImpl;
+import org.example.database.inmemory.RelationDaoImpl;
 import org.glassfish.jersey.linking.InjectLink;
 
 import java.io.File;
@@ -33,6 +40,20 @@ public class Main {
     public static UpdateOperation updateOperation;
     public static DaoAdapter daoAdapter;
     public static Dao dao;
+    public static RelationDB relationDB;
+    public static RelationDao relationDao;
+    public static RelationDaoAdapter relationDaoAdapter;
+    public static RelationDaoHibernate relationDaoHibernate;
+    public static RelationDaoHibernateImpl relationDaoHibernateImpl;
+    public static RelationReadByIdOperation relationReadByIdOperation;
+    public static RelationUpdateOperation relationUpdateOperation;
+    public static RelationQueryOperation relationQueryOperation;
+    public static RelationDeleteBySecondaryIdOperation relationDeleteBySecondaryIdOperation;
+    public static RelationDeleteByPrimaryIdOperation relationDeleteByPrimaryIdOperation;
+    public static RelationPersistOperation relationPersistOperation;
+    public static RelationDeleteByIdOperation relationDeleteByIdOperation;
+    public static RelationDaoImpl relationDaoImpl;
+    public static DaoFactory daoFactory;
 
     public static void main(String[] args) {
         try {
@@ -109,6 +130,88 @@ public class Main {
             dao.addQueryParameter("String", "lastName");
             dao.setBasePackage("de.fhws.fiw.fds.implementation");
 
+            relationDB = new RelationDB();
+            relationDB.setPrimaryName("Student");
+            relationDB.setSecondaryName("Course");
+            relationDB.setBasePackage("de.fhws.fiw.fds.implementation");
+
+            relationDao = new RelationDao();
+            relationDao.setPrimaryName("Student");
+            relationDao.setSecondaryName("Course");
+            relationDao.setBasePackage("de.fhws.fiw.fds.implementation");
+            relationDao.setHasQuery(true);
+            relationDao.addQueryAttribute("String", "name");
+
+            relationDaoAdapter = new RelationDaoAdapter();
+            relationDaoAdapter.setPrimaryName("Student");
+            relationDaoAdapter.setSecondaryName("Course");
+            relationDaoAdapter.setBasePackage("de.fhws.fiw.fds.implementation");
+            relationDaoAdapter.addSecondaryAttribute("String", "name");
+            relationDaoAdapter.setHasQuery(true);
+            relationDaoAdapter.addQueryAttribute("String", "name");
+
+            relationDaoHibernate = new RelationDaoHibernate();
+            relationDaoHibernate.setPrimaryName("Student");
+            relationDaoHibernate.setSecondaryName("Course");
+            relationDaoHibernate.setBasePackage("de.fhws.fiw.fds.implementation");
+            relationDaoHibernate.setHasQuery(true);
+            relationDaoHibernate.addQueryParameter("String", "name");
+
+            relationDaoHibernateImpl = new RelationDaoHibernateImpl();
+            relationDaoHibernateImpl.setPrimaryName("Student");
+            relationDaoHibernateImpl.setSecondaryName("Course");
+            relationDaoHibernateImpl.setBasePackage("de.fhws.fiw.fds.implementation");
+            relationDaoHibernateImpl.setHasQuery(true);
+            relationDaoHibernateImpl.addQueryParameter("String", "name");
+
+            relationReadByIdOperation = new RelationReadByIdOperation();
+            relationReadByIdOperation.setPrimaryName("Student");
+            relationReadByIdOperation.setSecondaryName("Course");
+            relationReadByIdOperation.setBasePackage("de.fhws.fiw.fds.implementation");
+
+            relationUpdateOperation = new RelationUpdateOperation();
+            relationUpdateOperation.setPrimaryName("Student");
+            relationUpdateOperation.setSecondaryName("Course");
+            relationUpdateOperation.setBasePackage("de.fhws.fiw.fds.implementation");
+
+            relationQueryOperation = new RelationQueryOperation();
+            relationQueryOperation.setPrimaryName("Student");
+            relationQueryOperation.setSecondaryName("Course");
+            relationQueryOperation.setBasePackage("de.fhws.fiw.fds.implementation");
+            relationQueryOperation.addQueryParameter("String", "name");
+
+            relationDeleteBySecondaryIdOperation = new RelationDeleteBySecondaryIdOperation();
+            relationDeleteBySecondaryIdOperation.setPrimaryName("Student");
+            relationDeleteBySecondaryIdOperation.setSecondaryName("Course");
+            relationDeleteBySecondaryIdOperation.setBasePackage("de.fhws.fiw.fds.implementation");
+
+            relationDeleteByPrimaryIdOperation = new RelationDeleteByPrimaryIdOperation();
+            relationDeleteByPrimaryIdOperation.setPrimaryName("Student");
+            relationDeleteByPrimaryIdOperation.setSecondaryName("Course");
+            relationDeleteByPrimaryIdOperation.setBasePackage("de.fhws.fiw.fds.implementation");
+
+            relationPersistOperation = new RelationPersistOperation();
+            relationPersistOperation.setPrimaryName("Student");
+            relationPersistOperation.setSecondaryName("Course");
+            relationPersistOperation.setBasePackage("de.fhws.fiw.fds.implementation");
+
+            relationDeleteByIdOperation = new RelationDeleteByIdOperation();
+            relationDeleteByIdOperation.setPrimaryName("Student");
+            relationDeleteByIdOperation.setSecondaryName("Course");
+            relationDeleteByIdOperation.setBasePackage("de.fhws.fiw.fds.implementation");
+
+            relationDaoImpl = new RelationDaoImpl();
+            relationDaoImpl.setPrimaryName("Student");
+            relationDaoImpl.setSecondaryName("Course");
+            relationDaoImpl.setBasePackage("de.fhws.fiw.fds.implementation");
+            relationDaoImpl.addQueryParameter("String", "name");
+
+            daoFactory = new DaoFactory();
+            daoFactory.setBasePackage("de.fhws.fiw.fds.implementation");
+            daoFactory.setUsesInMemory(false);
+            daoFactory.addResource("Student");
+            daoFactory.addSubResource("Student", "Course");
+
             FileUtils.cleanDirectory(new File(RESOURCE_PATH + "/output"));
 
             processTemplates();
@@ -126,13 +229,27 @@ public class Main {
         processTemplate("DaoAdapter.ftl", daoAdapter, daoAdapter.getName() + "DaoAdapter.java", "database/hibernate");
         processTemplate("DaoHibernate.ftl", daoHibernate, daoHibernate.getName() + "DaoHibernate.java", "database/hibernate/dao");
         processTemplate("DaoHibernateImpl.ftl", daoHibernateImpl, daoHibernateImpl.getName() + "DaoHibernateImpl.java", "database/hibernate/dao");
-
         processTemplate("ReadByIdOperation.ftl", readByIdOperation, readByIdOperation.getName() + "ReadByIdOperation.java", "database/hibernate/operations");
         processTemplate("PersistOperation.ftl", persistOperation, persistOperation.getName() + "PersistOperation.java", "database/hibernate/operations");
         processTemplate("DeleteByIdOperation.ftl", deleteByIdOperation, deleteByIdOperation.getName() + "DeleteByIdOperation.java", "database/hibernate/operations");
         processTemplate("UpdateOperation.ftl", updateOperation, updateOperation.getName() + "UpdateOperation.java", "database/hibernate/operations");
         processTemplate("QueryOperation.ftl", queryOperation, queryOperation.getName() + "QueryOperation.java", "database/hibernate/operations");
         processTemplate("ModelDB.ftl", modelDB, modelDB.getName() + "DB.java", "database/hibernate/models");
+
+        processTemplate("RelationDB.ftl", relationDB, relationDB.getPrimaryName() + relationDB.getSecondaryName() + "DB.java", "database/hibernate/models");
+        processTemplate("RelationDao.ftl", relationDao, relationDao.getSecondaryName() + "sOf" + relationDao.getPrimaryName() + "Dao.java", "database");
+        processTemplate("RelationDaoAdapter.ftl", relationDaoAdapter, relationDaoAdapter.getSecondaryName() + "sOf" + relationDaoAdapter.getPrimaryName() + "DaoAdapter.java", "database/hibernate");
+        processTemplate("RelationDaoHibernate.ftl", relationDaoHibernate, relationDaoHibernate.getSecondaryName() + "sOf" + relationDaoHibernate.getPrimaryName() + "DaoHibernate.java", "database/hibernate/dao");
+        processTemplate("RelationDaoHibernateImpl.ftl", relationDaoHibernateImpl, relationDaoHibernateImpl.getSecondaryName() + "sOf" + relationDaoHibernateImpl.getPrimaryName() + "DaoHibernateImpl.java", "database/hibernate/dao");
+        processTemplate("RelationReadByIdOperation.ftl", relationReadByIdOperation, relationReadByIdOperation.getSecondaryName() + "sOf" + relationReadByIdOperation.getPrimaryName() + "ReadByIdOperation.java", "database/hibernate/operations");
+        processTemplate("RelationUpdateOperation.ftl", relationUpdateOperation, relationUpdateOperation.getSecondaryName() + "sOf" + relationUpdateOperation.getPrimaryName() + "UpdateOperation.java", "database/hibernate/operations");
+        processTemplate("RelationQueryOperation.ftl", relationQueryOperation, relationQueryOperation.getSecondaryName() + "sOf" + relationQueryOperation.getPrimaryName() + "QueryOperation.java", "database/hibernate/operations");
+        processTemplate("RelationDeleteBySecondaryIdOperation.ftl", relationDeleteBySecondaryIdOperation, relationDeleteBySecondaryIdOperation.getSecondaryName() + "sOf" + relationDeleteBySecondaryIdOperation.getPrimaryName() + "DeleteBySecondaryIdOperation.java", "database/hibernate/operations");
+        processTemplate("RelationDeleteByPrimaryIdOperation.ftl", relationDeleteByPrimaryIdOperation, relationDeleteByPrimaryIdOperation.getSecondaryName() + "sOf" + relationDeleteByPrimaryIdOperation.getPrimaryName() + "DeleteByPrimaryIdOperation.java", "database/hibernate/operations");
+        processTemplate("RelationPersistOperation.ftl", relationPersistOperation, relationPersistOperation.getSecondaryName() + "sOf" + relationPersistOperation.getPrimaryName() + "PersistOperation.java", "database/hibernate/operations");
+        processTemplate("RelationDeleteByIdOperation.ftl", relationDeleteByIdOperation, relationDeleteByIdOperation.getSecondaryName() + "sOf" + relationDeleteByIdOperation.getPrimaryName() + "DeleteByIdOperation.java", "database/hibernate/operations");
+        processTemplate("RelationDaoImpl.ftl", relationDaoImpl, relationDaoImpl.getSecondaryName() + "sOf" + relationDaoImpl.getPrimaryName() + "DaoImpl.java", "database/inmemory");
+        processTemplate("DaoFactory.ftl", daoFactory, "DaoFactory.java", "database");
     }
 
     private static void processTemplate(String fileName, Object dataModel, String outputName, String path) throws IOException, TemplateException {
