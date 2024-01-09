@@ -1,11 +1,11 @@
 package org.example;
 
-import java.util.ArrayList;
+import org.example.Link;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class DataModel {
+public class OldDataModel {
 
     private String name;
     private final Map<String, String> attributes;
@@ -14,7 +14,7 @@ public class DataModel {
     private final Map<String, String> queryAttributes;
     private String basePackage;
 
-    public DataModel() {
+    public OldDataModel() {
         attributes = new HashMap<>();
         links = new HashMap<>();
         queryAttributes = new HashMap<>();
