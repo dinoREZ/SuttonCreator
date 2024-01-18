@@ -51,7 +51,6 @@ public class ${secondaryName}sOf${primaryName}sDaoHibernateImpl implements ${sec
 
     @Override
     public CollectionModelHibernateResult<${secondaryName}DB> readAll(long primaryId, SearchParameter searchParameter) {
-        //TODO
-        return null;
+        return new ${secondaryName}sOf${primaryName}ReadAllOperation(emf, primaryId, searchParameter).start();
     }
 }

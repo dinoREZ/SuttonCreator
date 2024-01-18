@@ -35,8 +35,7 @@ public class ${name}DaoHibernateImpl implements ${name}DaoHibernate {
 
     @Override
     public CollectionModelHibernateResult<${name}DB> readAll(SearchParameter searchParameter) {
-        // TODO?
-        return null;
+        return new ${name}ReadAllOperation(emf, searchParameter).start();
     }
 
     @Override

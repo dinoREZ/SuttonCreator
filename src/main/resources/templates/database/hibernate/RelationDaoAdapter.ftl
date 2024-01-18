@@ -89,7 +89,17 @@ public class ${secondaryName}sOf${primaryName}DaoAdapter implements ${secondaryN
 
     @Override
     public CollectionModelResult<${secondaryName}> readAll(long primaryId, SearchParameter searchParameter) {
-        return null;
+        CollectionModelHibernateResult<${secondaryName}DB> result = dao.readAll(primaryId, searchParameter);
+
+        CollectionModelResult<${secondaryName}> returnValue;
+        if(result.hasError()) {
+            returnValue = new CollectionModelResult<>();
+            returnValue.setError();
+        }
+        else {
+            returnValue = new CollectionModelResult<>(result.getResult().stream().map(course -> createFrom(course, primaryId)).collect(Collectors.toList()));
+        }
+        return returnValue;
     }
 
     private ${secondaryName} createFrom(${secondaryName}DB ${secondaryName?lower_case}DB, long primaryId) {

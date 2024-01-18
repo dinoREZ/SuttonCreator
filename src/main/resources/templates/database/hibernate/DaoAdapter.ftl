@@ -42,8 +42,17 @@ public class ${name}DaoAdapter implements ${name}Dao {
 
     @Override
     public CollectionModelResult<${name}> readAll(SearchParameter searchParameter) {
-        // TODO
-        return null;
+        CollectionModelHibernateResult<${name}DB> result = dao.readAll(searchParameter);
+        CollectionModelResult<${name}> returnValue;
+
+        if(result.hasError()) {
+            returnValue = new CollectionModelResult<>();
+            returnValue.setError();
+        } else {
+            returnValue = new CollectionModelResult<>(result.getResult().stream().map(this::createFrom).collect(Collectors.toList()));
+        }
+
+        return returnValue;
     }
 
     <#if hasQuery>
