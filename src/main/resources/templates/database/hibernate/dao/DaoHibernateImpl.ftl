@@ -16,12 +16,12 @@ public class ${name}DaoHibernateImpl implements ${name}DaoHibernate {
         super();
     }
 
-<#if hasQuery>
+    <#list queries as query>
     @Override
-    public CollectionModelHibernateResult<${name}DB> readByQuery(<#list queryAttributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
-        return new ${name}QueryOperation(emf, <#list queryAttributes as attributeName, _>${attributeName}, </#list>searchParameter).start();
+    public CollectionModelHibernateResult<${name}DB> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(<#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
+        return new ${name}QueryOperation(emf, <#list query.attributes as attributeName, _>${attributeName}, </#list>searchParameter).start();
     }
-</#if>
+    </#list>
 
     @Override
     public NoContentResult create(${name}DB model) {

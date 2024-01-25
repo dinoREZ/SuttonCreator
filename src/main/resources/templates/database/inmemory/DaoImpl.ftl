@@ -7,17 +7,17 @@ import de.fhws.fiw.fds.sutton.server.database.inmemory.AbstractInMemoryStorage;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 
 public class ${name}DaoImpl extends AbstractInMemoryStorage<${name}> implements ${name}Dao {
-    <#if hasQuery>
+    <#list queries as query>
     @Override
-    public CollectionModelResult<${name}> readByQuery(String name, SearchParameter searchParameter) {
+    public CollectionModelResult<${name}> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(<#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
         return readByPredicate(
                 ${name?lower_case} -> (
-                    <#list queryAttributes as attributeName, _>
+                    <#list query.attributes as attributeName, _>
                     ${name?lower_case}.get${attributeName?cap_first}().toLowerCase().contains(${attributeName}.toLowerCase())<#sep> &&
                     </#list>
 
                 ),
                 searchParameter);
     }
-    </#if>
+    </#list>
 }

@@ -1,5 +1,6 @@
 [#ftl]
 [#-- @implicitly included --]
+[#-- @ftlvariable name="queries" type="java.util.List<org.example.Query>" --]
 [#-- @ftlvariable name="subResources" type="java.util.Map<String, String>" --]
 [#-- @ftlvariable name="usesInMemory" type="boolean" --]
 [#-- @ftlvariable name="resources" type="java.util.List<String>" --]

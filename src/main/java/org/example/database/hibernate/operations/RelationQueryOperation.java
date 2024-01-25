@@ -1,5 +1,7 @@
 package org.example.database.hibernate.operations;
 
+import org.example.Query;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,11 +10,7 @@ public class RelationQueryOperation {
     String primaryName;
     String secondaryName;
     String basePackage;
-    Map<String, String> queryAttributes;
-
-    public RelationQueryOperation() {
-        queryAttributes = new HashMap<>();
-    }
+    Query query;
 
     public String getPrimaryName() {
         return primaryName;
@@ -38,11 +36,11 @@ public class RelationQueryOperation {
         this.basePackage = basePackage;
     }
 
-    public Map<String, String> getQueryAttributes() {
-        return queryAttributes;
+    public Query getQuery() {
+        return query;
     }
 
-    public void addQueryParameter(String type, String name) {
-        queryAttributes.put(name, type);
+    public void setQuery(Query query) {
+        this.query = query;
     }
 }

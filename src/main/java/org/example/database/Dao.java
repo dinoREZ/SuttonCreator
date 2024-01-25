@@ -1,17 +1,18 @@
 package org.example.database;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.example.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Dao {
 
     private String name;
-    private boolean hasQuery;
-    private final Map<String, String> queryAttributes;
+    private final List<Query> queries;
     private String basePackage;
 
     public Dao() {
-        this.queryAttributes = new HashMap<>();
+        this.queries = new ArrayList<>();
     }
 
     public String getName() {
@@ -22,14 +23,6 @@ public class Dao {
         this.name = name;
     }
 
-    public boolean isHasQuery() {
-        return hasQuery;
-    }
-
-    public void setHasQuery(boolean hasQuery) {
-        this.hasQuery = hasQuery;
-    }
-
     public String getBasePackage() {
         return basePackage;
     }
@@ -38,13 +31,11 @@ public class Dao {
         this.basePackage = basePackage;
     }
 
-    public Map<String, String> getQueryAttributes() {
-        return queryAttributes;
+    public List<Query> getQueries() {
+        return queries;
     }
 
-    public void addQueryParameter(String type, String name) {
-        queryAttributes.put(name, type);
+    public void addQuery(Query query) {
+        queries.add(query);
     }
-
-
 }

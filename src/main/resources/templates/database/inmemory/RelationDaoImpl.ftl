@@ -10,16 +10,18 @@ import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
 
 public class ${secondaryName}sOf${primaryName}DaoImplNew extends AbstractInMemoryRelationStorage<${secondaryName}> implements ${secondaryName}sOf${primaryName}Dao {
 
+    <#list queries as query>
     @Override
-    public CollectionModelResult<${secondaryName}> readByQuery(long primaryId, String name, SearchParameter searchParameter) {
+    public CollectionModelResult<${secondaryName}> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(long primaryId, <#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
         return readByPredicate(primaryId,
                     ${secondaryName?lower_case} -> (
-                        <#list queryAttributes as attributeName, _>
+                        <#list query.attributes as attributeName, _>
                         ${secondaryName?lower_case}.get${attributeName?cap_first}().toLowerCase().contains(${attributeName}.toLowerCase())<#sep> &&
                         </#list>
 
                     );
     }
+    </#list>
 
     @Override
     public CollectionModelResult<${secondaryName}> readAll(long primaryId, SearchParameter searchParameter) {

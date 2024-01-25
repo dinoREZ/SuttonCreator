@@ -69,23 +69,35 @@ public class Main {
 
             daoImpl = new DaoImpl();
             daoImpl.setName("Student");
-            daoImpl.setHasQuery(true);
-            daoImpl.addQueryParameter("String", "firstName");
-            daoImpl.addQueryParameter("String", "lastName");
+            daoImpl.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+                    .addAttribute("String", "lastName")
+            );
+            daoImpl.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+            );
             daoImpl.setBasePackage("de.fhws.fiw.fds.implementation");
 
             daoHibernate = new DaoHibernate();
             daoHibernate.setName("Student");
-            daoHibernate.setHasQuery(true);
-            daoHibernate.addQueryParameter("String", "firstName");
-            daoHibernate.addQueryParameter("String", "lastName");
+            daoHibernate.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+                    .addAttribute("String", "lastName")
+            );
+            daoHibernate.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+            );
             daoHibernate.setBasePackage("de.fhws.fiw.fds.implementation");
 
             daoHibernateImpl = new DaoHibernateImpl();
             daoHibernateImpl.setName("Student");
-            daoHibernateImpl.setHasQuery(true);
-            daoHibernateImpl.addQueryParameter("String", "firstName");
-            daoHibernateImpl.addQueryParameter("String", "lastName");
+            daoHibernateImpl.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+                    .addAttribute("String", "lastName")
+            );
+            daoHibernateImpl.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+            );
             daoHibernateImpl.setBasePackage("de.fhws.fiw.fds.implementation");
 
             modelDB = new ModelDB();
@@ -104,8 +116,10 @@ public class Main {
 
             queryOperation = new QueryOperation();
             queryOperation.setName("Student");
-            queryOperation.addQueryParameter("String", "firstName");
-            queryOperation.addQueryParameter("String", "lastName");
+            queryOperation.setQuery(new Query()
+                    .addAttribute("String", "firstName")
+                    .addAttribute("String", "lastName")
+            );
             queryOperation.setBasePackage("de.fhws.fiw.fds.implementation");
 
             readByIdOperation = new ReadByIdOperation();
@@ -124,16 +138,24 @@ public class Main {
             daoAdapter.setName("Student");
             daoAdapter.addAttribute("String", "firstName");
             daoAdapter.addAttribute("String", "lastName");
-            daoAdapter.setHasQuery(true);
-            daoAdapter.addQueryParameter("String", "firstName");
-            daoAdapter.addQueryParameter("String", "lastName");
+            daoAdapter.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+                    .addAttribute("String", "lastName")
+            );
+            daoAdapter.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+            );
             daoAdapter.setBasePackage("de.fhws.fiw.fds.implementation");
 
             dao = new Dao();
             dao.setName("Student");
-            dao.setHasQuery(true);
-            dao.addQueryParameter("String", "firstName");
-            dao.addQueryParameter("String", "lastName");
+            dao.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+                    .addAttribute("String", "lastName")
+            );
+            dao.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+            );
             dao.setBasePackage("de.fhws.fiw.fds.implementation");
 
             relationDB = new RelationDB();
@@ -145,30 +167,50 @@ public class Main {
             relationDao.setPrimaryName("Student");
             relationDao.setSecondaryName("Course");
             relationDao.setBasePackage("de.fhws.fiw.fds.implementation");
-            relationDao.setHasQuery(true);
-            relationDao.addQueryAttribute("String", "name");
+            relationDao.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+                    .addAttribute("String", "lastName")
+            );
+            relationDao.addQuery(new Query()
+                    .addAttribute("String", "firstName")
+            );
 
             relationDaoAdapter = new RelationDaoAdapter();
             relationDaoAdapter.setPrimaryName("Student");
             relationDaoAdapter.setSecondaryName("Course");
             relationDaoAdapter.setBasePackage("de.fhws.fiw.fds.implementation");
             relationDaoAdapter.addSecondaryAttribute("String", "name");
-            relationDaoAdapter.setHasQuery(true);
-            relationDaoAdapter.addQueryAttribute("String", "name");
+            relationDaoAdapter.addQuery(new Query()
+                    .addAttribute("String", "name")
+                    .addAttribute("String", "test")
+            );
+            relationDaoAdapter.addQuery(new Query()
+                    .addAttribute("String", "name")
+            );
 
             relationDaoHibernate = new RelationDaoHibernate();
             relationDaoHibernate.setPrimaryName("Student");
             relationDaoHibernate.setSecondaryName("Course");
             relationDaoHibernate.setBasePackage("de.fhws.fiw.fds.implementation");
-            relationDaoHibernate.setHasQuery(true);
-            relationDaoHibernate.addQueryParameter("String", "name");
+            relationDaoHibernate.addQuery(new Query()
+                    .addAttribute("String", "name")
+                    .addAttribute("String", "test")
+            );
+            relationDaoHibernate.addQuery(new Query()
+                    .addAttribute("String", "name")
+            );
 
             relationDaoHibernateImpl = new RelationDaoHibernateImpl();
             relationDaoHibernateImpl.setPrimaryName("Student");
             relationDaoHibernateImpl.setSecondaryName("Course");
             relationDaoHibernateImpl.setBasePackage("de.fhws.fiw.fds.implementation");
-            relationDaoHibernateImpl.setHasQuery(true);
-            relationDaoHibernateImpl.addQueryParameter("String", "name");
+            relationDaoHibernateImpl.addQuery(new Query()
+                    .addAttribute("String", "name")
+                    .addAttribute("String", "test")
+            );
+            relationDaoHibernateImpl.addQuery(new Query()
+                    .addAttribute("String", "name")
+            );
 
             relationReadByIdOperation = new RelationReadByIdOperation();
             relationReadByIdOperation.setPrimaryName("Student");
@@ -189,7 +231,7 @@ public class Main {
             relationQueryOperation.setPrimaryName("Student");
             relationQueryOperation.setSecondaryName("Course");
             relationQueryOperation.setBasePackage("de.fhws.fiw.fds.implementation");
-            relationQueryOperation.addQueryParameter("String", "name");
+            relationQueryOperation.setQuery(new Query().addAttribute("String", "name"));
 
             relationDeleteBySecondaryIdOperation = new RelationDeleteBySecondaryIdOperation();
             relationDeleteBySecondaryIdOperation.setPrimaryName("Student");
@@ -215,7 +257,13 @@ public class Main {
             relationDaoImpl.setPrimaryName("Student");
             relationDaoImpl.setSecondaryName("Course");
             relationDaoImpl.setBasePackage("de.fhws.fiw.fds.implementation");
-            relationDaoImpl.addQueryParameter("String", "name");
+            relationDaoImpl.addQuery(new Query()
+                    .addAttribute("String", "name")
+            );
+            relationDaoImpl.addQuery(new Query()
+                    .addAttribute("String", "name")
+                    .addAttribute("String", "test")
+            );
 
             daoFactory = new DaoFactory();
             daoFactory.setBasePackage("de.fhws.fiw.fds.implementation");

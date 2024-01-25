@@ -18,15 +18,15 @@ import java.util.stream.Collectors;
 public class ${secondaryName}sOf${primaryName}ByQueryOperation extends AbstractDatabaseOperation<${secondaryName}DB, CollectionModelHibernateResult<${secondaryName}DB>> {
     private final Class<${primaryName}${secondaryName}DB> classOfRelation = ${primaryName}${secondaryName}DB.class;
     private final long primaryId;
-    <#list queryAttributes as attributeName, class>
+    <#list query.attributes as attributeName, class>
     private ${class} ${attributeName};
     </#list>
     private final SearchParameter searchParameter;
 
-    public ${secondaryName}sOf${primaryName}ByQueryOperation(EntityManagerFactory emf, long primaryId, <#list queryAttributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
+    public ${secondaryName}sOf${primaryName}ByQueryOperation(EntityManagerFactory emf, long primaryId, <#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
         super(emf);
         this.primaryId = primaryId;
-        <#list queryAttributes as attributeName, _>
+        <#list query.attributes as attributeName, _>
         this.${attributeName} = ${attributeName};
         </#list>
         this.searchParameter = searchParameter;
@@ -78,11 +78,11 @@ public class ${secondaryName}sOf${primaryName}ByQueryOperation extends AbstractD
     }
 
     private Predicate formulateConditions(CriteriaBuilder criteriaBuilder, Root<${primaryName}${secondaryName}DB> root, Join<${primaryName}${secondaryName}DB, ${secondaryName}DB> join) {
-        <#list queryAttributes as attributeName, _>
+        <#list query.attributes as attributeName, _>
         Predicate match${attributeName?cap_first} =  criteriaBuilder.like(join.get("${attributeName}"), "%" + this.${attributeName} + "%");
         </#list>
         Predicate primaryIdEquals = criteriaBuilder.equal(root.get(SuttonColumnConstants.DB_RELATION_ID).get(SuttonColumnConstants.PRIMARY_ID), this.primaryId);
 
-        return criteriaBuilder.and(primaryIdEquals, <#list queryAttributes as attributeName, _>match${attributeName?cap_first}<#sep>, </#list>);
+        return criteriaBuilder.and(primaryIdEquals, <#list query.attributes as attributeName, _>match${attributeName?cap_first}<#sep>, </#list>);
     }
 }

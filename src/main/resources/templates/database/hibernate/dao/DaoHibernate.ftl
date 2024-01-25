@@ -7,6 +7,8 @@ import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelH
 
 public interface ${name}DaoHibernate extends IDatabaseAccessObjectHibernate<${name}DB> {
 
-    <#if hasQuery>CollectionModelHibernateResult<${name}> readByQuery(<#list queryAttributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter);</#if>
+    <#list queries as query>
+    CollectionModelHibernateResult<${name}> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(<#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter);
+    </#list>
 
 }

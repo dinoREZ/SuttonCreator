@@ -21,10 +21,10 @@ public class ${secondaryName}sOf${primaryName}DaoAdapter implements ${secondaryN
         super();
     }
 
-    <#if hasQuery>
+    <#list queries as query>
     @Override
-    public CollectionModelResult<${secondaryName}> readByQuery(long primaryId, <#list queryAttributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
-        CollectionModelHibernateResult<${secondaryName}DB> result = this.dao.readByQuery(primaryId, <#list queryAttributes as attributeName, _>${attributeName}, </#list>searchParameter);
+    public CollectionModelResult<${secondaryName}> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(long primaryId, <#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
+        CollectionModelHibernateResult<${secondaryName}DB> result = this.dao.readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(primaryId, <#list query.attributes as attributeName, _>${attributeName}, </#list>searchParameter);
 
         CollectionModelResult<${secondaryName}> returnValue;
         if(result.hasError()) {
@@ -37,7 +37,7 @@ public class ${secondaryName}sOf${primaryName}DaoAdapter implements ${secondaryN
         return returnValue;
     }
 
-    </#if>
+    </#list>
     @Override
     public NoContentResult create(long primaryId, ${secondaryName} secondary) {
         ${secondaryName}DB ${secondaryName}DB = createFrom(secondary);

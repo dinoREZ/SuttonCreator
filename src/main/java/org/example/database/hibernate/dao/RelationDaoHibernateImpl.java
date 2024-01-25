@@ -1,6 +1,10 @@
 package org.example.database.hibernate.dao;
 
+import org.example.Query;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RelationDaoHibernateImpl {
@@ -8,11 +12,10 @@ public class RelationDaoHibernateImpl {
     String primaryName;
     String secondaryName;
     String basePackage;
-    boolean hasQuery;
-    Map<String, String> queryAttributes;
+    private final List<Query> queries;
 
     public RelationDaoHibernateImpl() {
-        queryAttributes = new HashMap<>();
+        this.queries = new ArrayList<>();
     }
 
     public String getPrimaryName() {
@@ -39,19 +42,11 @@ public class RelationDaoHibernateImpl {
         this.basePackage = basePackage;
     }
 
-    public boolean isHasQuery() {
-        return hasQuery;
+    public List<Query> getQueries() {
+        return queries;
     }
 
-    public void setHasQuery(boolean hasQuery) {
-        this.hasQuery = hasQuery;
-    }
-
-    public Map<String, String> getQueryAttributes() {
-        return queryAttributes;
-    }
-
-    public void addQueryParameter(String type, String name) {
-        queryAttributes.put(name, type);
+    public void addQuery(Query query) {
+        queries.add(query);
     }
 }

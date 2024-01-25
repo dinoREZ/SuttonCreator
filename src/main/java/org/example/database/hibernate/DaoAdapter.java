@@ -1,21 +1,23 @@
 package org.example.database.hibernate;
 
 import org.example.Link;
+import org.example.Query;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DaoAdapter {
 
     private String name;
     private final Map<String, String> attributes;
-    private boolean hasQuery;
-    private final Map<String, String> queryAttributes;
+    private final List<Query> queries;
     private String basePackage;
 
     public DaoAdapter() {
         attributes = new HashMap<>();
-        queryAttributes = new HashMap<>();
+        this.queries = new ArrayList<>();
     }
 
     public void setName(String name) {
@@ -34,21 +36,14 @@ public class DaoAdapter {
         return attributes;
     }
 
-    public boolean getHasQuery() {
-        return hasQuery;
+    public List<Query> getQueries() {
+        return queries;
     }
 
-    public void setHasQuery(boolean hasQuery) {
-        this.hasQuery = hasQuery;
+    public void addQuery(Query query) {
+        queries.add(query);
     }
 
-    public Map<String, String> getQueryAttributes() {
-        return queryAttributes;
-    }
-
-    public void addQueryParameter(String type, String name) {
-        queryAttributes.put(name, type);
-    }
 
     public String getBasePackage() {
         return basePackage;

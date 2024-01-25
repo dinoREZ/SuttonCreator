@@ -55,10 +55,10 @@ public class ${name}DaoAdapter implements ${name}Dao {
         return returnValue;
     }
 
-    <#if hasQuery>
+    <#list queries as query>
     @Override
-    public CollectionModelResult<${name}> readByQuery(<#list queryAttributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
-        CollectionModelHibernateResult<${name}DB> result = dao.readByQuery(<#list queryAttributes as attributeName, _>${attributeName}, </#list>searchParameter);
+    public CollectionModelResult<${name}> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(<#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
+        CollectionModelHibernateResult<${name}DB> result = dao.readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(<#list query.attributes as attributeName, _>${attributeName}, </#list>searchParameter);
 
         CollectionModelResult<${name}> returnValue;
         if(result.hasError()) {
@@ -72,7 +72,7 @@ public class ${name}DaoAdapter implements ${name}Dao {
         return returnValue;
     }
 
-    </#if>
+    </#list>
     @Override
     public NoContentResult update(${name} model) {
         return dao.update(createFrom(model));
