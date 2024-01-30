@@ -10,11 +10,18 @@ public class DaoFactory {
     String basePackage;
     boolean usesInMemory;
     List<String> resources;
-    Map<String, String> subResources;
+    Map<String, List<String>> subResources;
 
     public DaoFactory() {
         resources = new ArrayList<>();
         subResources = new HashMap<>();
+    }
+
+    public DaoFactory(String basePackage, boolean usesInMemory, List<String> resources, Map<String, List<String>> subResources) {
+        this.basePackage = basePackage;
+        this.usesInMemory = usesInMemory;
+        this.resources = resources;
+        this.subResources = subResources;
     }
 
     public String getBasePackage() {
@@ -41,11 +48,11 @@ public class DaoFactory {
         resources.add(name);
     }
 
-    public Map<String, String> getSubResources() {
+    public Map<String, List<String>> getSubResources() {
         return subResources;
     }
 
-    public void addSubResource(String primaryResource, String subResource) {
-        subResources.put(primaryResource, subResource);
+    public void addSubResource(String primaryResource, List<String> subResources) {
+        this.subResources.put(primaryResource, subResources);
     }
 }

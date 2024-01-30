@@ -24,8 +24,9 @@ import org.glassfish.jersey.linking.InjectLink;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
-public class Main {
+public class OldMain {
 
     public final static String RESOURCE_PATH = "src/main/resources";
     public static Model model;
@@ -269,7 +270,7 @@ public class Main {
             daoFactory.setBasePackage("de.fhws.fiw.fds.implementation");
             daoFactory.setUsesInMemory(false);
             daoFactory.addResource("Student");
-            daoFactory.addSubResource("Student", "Course");
+            daoFactory.addSubResource("Student", List.of("Course", "Test"));
 
             FileUtils.cleanDirectory(new File(RESOURCE_PATH + "/output"));
 
