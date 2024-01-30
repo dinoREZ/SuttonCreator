@@ -12,6 +12,16 @@ public class RelationQueryOperation {
     String basePackage;
     Query query;
 
+    public RelationQueryOperation() {
+    }
+
+    public RelationQueryOperation(String primaryName, String secondaryName, String basePackage, Query query) {
+        this.primaryName = primaryName;
+        this.secondaryName = secondaryName;
+        this.basePackage = basePackage;
+        this.query = query;
+    }
+
     public String getPrimaryName() {
         return primaryName;
     }

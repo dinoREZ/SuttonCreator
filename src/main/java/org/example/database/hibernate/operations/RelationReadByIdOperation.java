@@ -5,6 +5,15 @@ public class RelationReadByIdOperation {
     String secondaryName;
     String basePackage;
 
+    public RelationReadByIdOperation() {
+    }
+
+    public RelationReadByIdOperation(String primaryName, String secondaryName, String basePackage) {
+        this.primaryName = primaryName;
+        this.secondaryName = secondaryName;
+        this.basePackage = basePackage;
+    }
+
     public String getPrimaryName() {
         return primaryName;
     }

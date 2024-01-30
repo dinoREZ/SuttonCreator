@@ -6,6 +6,15 @@ public class RelationDB {
     String secondaryName;
     String basePackage;
 
+    public RelationDB() {
+    }
+
+    public RelationDB(String primaryName, String secondaryName, String basePackage) {
+        this.primaryName = primaryName;
+        this.secondaryName = secondaryName;
+        this.basePackage = basePackage;
+    }
+
     public String getPrimaryName() {
         return primaryName;
     }

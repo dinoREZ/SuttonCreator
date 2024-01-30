@@ -13,6 +13,12 @@ public class ModelDB {
         this.attributes = new HashMap<>();
     }
 
+    public ModelDB(String name, Map<String, String> attributes, String basePackage) {
+        this.name = name;
+        this.attributes = attributes;
+        this.basePackage = basePackage;
+    }
+
     public String getName() {
         return name;
     }

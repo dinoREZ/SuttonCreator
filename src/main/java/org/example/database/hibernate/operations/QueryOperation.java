@@ -11,6 +11,15 @@ public class QueryOperation {
     private Query query;
     private String basePackage;
 
+    public QueryOperation() {
+    }
+
+    public QueryOperation(String name, Query query, String basePackage) {
+        this.name = name;
+        this.query = query;
+        this.basePackage = basePackage;
+    }
+
     public String getName() {
         return name;
     }

@@ -6,6 +6,7 @@ import java.util.List;
 public class MetaModel {
     private final List<Resource> resources;
     private String basePackage;
+    private boolean usesInMemory;
 
     public MetaModel() {
         resources = new ArrayList<>();
@@ -26,5 +27,13 @@ public class MetaModel {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    public boolean usesInMemory() {
+        return usesInMemory;
+    }
+
+    public void setUsesInMemory(boolean usesInMemory) {
+        this.usesInMemory = usesInMemory;
     }
 }

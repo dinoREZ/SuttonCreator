@@ -6,6 +6,15 @@ public class RelationDeleteBySecondaryIdOperation {
     String secondaryName;
     String basePackage;
 
+    public RelationDeleteBySecondaryIdOperation() {
+    }
+
+    public RelationDeleteBySecondaryIdOperation(String primaryName, String secondaryName, String basePackage) {
+        this.primaryName = primaryName;
+        this.secondaryName = secondaryName;
+        this.basePackage = basePackage;
+    }
+
     public String getPrimaryName() {
         return primaryName;
     }

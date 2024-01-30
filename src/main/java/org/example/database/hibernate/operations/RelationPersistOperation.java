@@ -6,6 +6,15 @@ public class RelationPersistOperation {
     String secondaryName;
     String basePackage;
 
+    public RelationPersistOperation() {
+    }
+
+    public RelationPersistOperation(String primaryName, String secondaryName, String basePackage) {
+        this.primaryName = primaryName;
+        this.secondaryName = secondaryName;
+        this.basePackage = basePackage;
+    }
+
     public String getPrimaryName() {
         return primaryName;
     }

@@ -17,6 +17,12 @@ public class DaoImpl {
         this.queries = new ArrayList<>();
     }
 
+    public DaoImpl(String name, List<Query> queries, String basePackage) {
+        this.name = name;
+        this.queries = queries;
+        this.basePackage = basePackage;
+    }
+
     public String getName() {
         return name;
     }

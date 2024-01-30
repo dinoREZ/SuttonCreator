@@ -17,6 +17,13 @@ public class Model {
         links = new HashMap<>();
     }
 
+    public Model(String name, Map<String, String> attributes, Map<String, Link> links, String basePackage) {
+        this.name = name;
+        this.attributes = attributes;
+        this.links = links;
+        this.basePackage = basePackage;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

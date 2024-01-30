@@ -18,6 +18,13 @@ public class RelationDaoHibernateImpl {
         this.queries = new ArrayList<>();
     }
 
+    public RelationDaoHibernateImpl(String primaryName, String secondaryName, String basePackage, List<Query> queries) {
+        this.primaryName = primaryName;
+        this.secondaryName = secondaryName;
+        this.basePackage = basePackage;
+        this.queries = queries;
+    }
+
     public String getPrimaryName() {
         return primaryName;
     }

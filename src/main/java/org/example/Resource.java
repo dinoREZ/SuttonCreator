@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Resource {
-    String name;
+    private String name;
     private final Map<String, String> attributes;
     private final Map<String, Link> links;
     private final List<Query> queries;
@@ -23,8 +23,9 @@ public class Resource {
         return name;
     }
 
-    public void setName(String name) {
+    public Resource setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Map<String, String> getAttributes() {

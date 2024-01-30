@@ -17,6 +17,12 @@ public class DaoHibernateImpl {
         this.queries = new ArrayList<>();
     }
 
+    public DaoHibernateImpl(String name, List<Query> queries, String basePackage) {
+        this.name = name;
+        this.queries = queries;
+        this.basePackage = basePackage;
+    }
+
     public String getName() {
         return name;
     }

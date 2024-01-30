@@ -20,6 +20,13 @@ public class DaoAdapter {
         this.queries = new ArrayList<>();
     }
 
+    public DaoAdapter(String name, Map<String, String> attributes, List<Query> queries, String basePackage) {
+        this.name = name;
+        this.attributes = attributes;
+        this.queries = queries;
+        this.basePackage = basePackage;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

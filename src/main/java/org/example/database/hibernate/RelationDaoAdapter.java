@@ -21,6 +21,14 @@ public class RelationDaoAdapter {
         this.queries = new ArrayList<>();
     }
 
+    public RelationDaoAdapter(String primaryName, String secondaryName, String basePackage, Map<String, String> secondaryAttributes, List<Query> queries) {
+        this.primaryName = primaryName;
+        this.secondaryName = secondaryName;
+        this.basePackage = basePackage;
+        this.secondaryAttributes = secondaryAttributes;
+        this.queries = queries;
+    }
+
     public String getPrimaryName() {
         return primaryName;
     }
