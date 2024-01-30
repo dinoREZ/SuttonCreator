@@ -10,4 +10,21 @@ public class MetaModel {
     public MetaModel() {
         resources = new ArrayList<>();
     }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public MetaModel addResource(Resource resource) {
+        resources.add(resource);
+        return this;
+    }
+
+    public String getBasePackage() {
+        return basePackage;
+    }
+
+    public void setBasePackage(String basePackage) {
+        this.basePackage = basePackage;
+    }
 }

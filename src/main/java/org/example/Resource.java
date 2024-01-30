@@ -18,4 +18,48 @@ public class Resource {
         queries = new ArrayList<>();
         subResources = new ArrayList<>();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public Resource addAttribute(String type, String name) {
+        attributes.put(name, type);
+        return this;
+    }
+
+    public Map<String, Link> getLinks() {
+        return links;
+    }
+
+    public Resource addLink(String name, Link link) {
+        links.put(name, link);
+        return this;
+    }
+
+    public List<Query> getQueries() {
+        return queries;
+    }
+
+    public Resource addQuery(Query query) {
+        queries.add(query);
+        return this;
+    }
+
+    public List<Resource> getSubResources() {
+        return subResources;
+    }
+
+    public Resource addSubResource(Resource subResource) {
+        subResources.add(subResource);
+        return this;
+    }
 }
