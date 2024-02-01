@@ -2,7 +2,7 @@ package org.example;
 
 import org.apache.commons.lang3.StringUtils;
 import org.example.dataModels.MetaModel;
-import org.example.dataModels.models.Model;
+import org.example.dataModels.api.models.Model;
 import org.example.dataModels.database.Dao;
 import org.example.dataModels.database.DaoFactory;
 import org.example.dataModels.database.RelationDao;
@@ -20,7 +20,6 @@ import org.example.dataModels.database.inmemory.RelationDaoImpl;
 
 import java.util.Map;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Config {

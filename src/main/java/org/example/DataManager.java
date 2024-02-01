@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.dataModels.MetaModel;
-import org.example.dataModels.models.Model;
+import org.example.dataModels.api.models.Model;
 import org.example.dataModels.database.Dao;
 import org.example.dataModels.database.DaoFactory;
 import org.example.dataModels.database.RelationDao;

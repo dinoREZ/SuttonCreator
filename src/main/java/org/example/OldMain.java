@@ -4,7 +4,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
-import org.example.dataModels.models.Model;
+import org.example.dataModels.api.models.Model;
 import org.example.dataModels.database.Dao;
 import org.example.dataModels.database.DaoFactory;
 import org.example.dataModels.database.RelationDao;

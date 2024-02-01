@@ -1,4 +1,4 @@
-package org.example.dataModels.models;
+package org.example.dataModels.api.models;
 
 import org.example.Link;
 
