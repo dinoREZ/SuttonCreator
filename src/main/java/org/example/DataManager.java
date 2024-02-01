@@ -1,20 +1,21 @@
 package org.example;
 
-import org.example.api.models.Model;
-import org.example.database.Dao;
-import org.example.database.DaoFactory;
-import org.example.database.RelationDao;
-import org.example.database.hibernate.DaoAdapter;
-import org.example.database.hibernate.RelationDaoAdapter;
-import org.example.database.hibernate.dao.DaoHibernate;
-import org.example.database.hibernate.dao.DaoHibernateImpl;
-import org.example.database.hibernate.dao.RelationDaoHibernate;
-import org.example.database.hibernate.dao.RelationDaoHibernateImpl;
-import org.example.database.hibernate.models.ModelDB;
-import org.example.database.hibernate.models.RelationDB;
-import org.example.database.hibernate.operations.*;
-import org.example.database.inmemory.DaoImpl;
-import org.example.database.inmemory.RelationDaoImpl;
+import org.example.dataModels.MetaModel;
+import org.example.dataModels.models.Model;
+import org.example.dataModels.database.Dao;
+import org.example.dataModels.database.DaoFactory;
+import org.example.dataModels.database.RelationDao;
+import org.example.dataModels.database.hibernate.DaoAdapter;
+import org.example.dataModels.database.hibernate.RelationDaoAdapter;
+import org.example.dataModels.database.hibernate.dao.DaoHibernate;
+import org.example.dataModels.database.hibernate.dao.DaoHibernateImpl;
+import org.example.dataModels.database.hibernate.dao.RelationDaoHibernate;
+import org.example.dataModels.database.hibernate.dao.RelationDaoHibernateImpl;
+import org.example.dataModels.database.hibernate.models.ModelDB;
+import org.example.dataModels.database.hibernate.models.RelationDB;
+import org.example.dataModels.database.hibernate.operations.*;
+import org.example.dataModels.database.inmemory.DaoImpl;
+import org.example.dataModels.database.inmemory.RelationDaoImpl;
 
 import java.util.ArrayList;
 import java.util.List;
