@@ -14,6 +14,12 @@ public class MetaModel {
         resources = new ArrayList<>();
     }
 
+    public void accept(IVisitor visitor) {
+        visitor.enterMetaModel(this);
+        this.resources.forEach(r -> r.accept(visitor));
+        visitor.exitMetaModel(this);
+    }
+
     public List<Resource> getResources() {
         return resources;
     }

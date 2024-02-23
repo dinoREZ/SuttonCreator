@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.dataModels.IVisitor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,19 @@ public class Resource {
         links = new HashMap<>();
         queries = new ArrayList<>();
         subResources = new ArrayList<>();
+    }
+
+    public void accept(IVisitor visitor) {
+        visitor.enterResource(this);
+        this.queries.forEach(q -> q.accept(visitor));
+        this.subResources.forEach(s -> s.acceptSubResource(visitor));
+        visitor.exitResource(this);
+    }
+
+    public void acceptSubResource(IVisitor visitor) {
+        visitor.enterSubResource(this);
+        this.queries.forEach(q -> q.acceptSubQuery(visitor));
+        visitor.exitSubResource(this);
     }
 
     public String getName() {

@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.dataModels.IVisitor;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +10,16 @@ public class Query {
 
     public Query() {
         attributes = new HashMap<>();
+    }
+
+    public void accept(IVisitor visitor) {
+        visitor.enterQuery(this);
+        visitor.exitQuery(this);
+    }
+
+    public void acceptSubQuery(IVisitor visitor) {
+        visitor.enterSubQuery(this);
+        visitor.exitSubQuery(this);
     }
 
     public Map<String, String> getAttributes() {
