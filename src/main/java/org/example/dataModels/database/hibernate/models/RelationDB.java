@@ -1,6 +1,8 @@
 package org.example.dataModels.database.hibernate.models;
 
-public class RelationDB {
+import org.example.dataModels.DataModel;
+
+public class RelationDB implements DataModel {
 
     String primaryName;
     String secondaryName;
@@ -37,5 +39,10 @@ public class RelationDB {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getPrimaryName() + this.getSecondaryName() + "DB.java";
     }
 }

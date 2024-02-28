@@ -1,6 +1,8 @@
 package org.example.dataModels.database.hibernate.operations;
 
-public class RelationDeleteBySecondaryIdOperation {
+import org.example.dataModels.DataModel;
+
+public class RelationDeleteBySecondaryIdOperation implements DataModel {
 
     String primaryName;
     String secondaryName;
@@ -37,5 +39,10 @@ public class RelationDeleteBySecondaryIdOperation {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getPrimaryName() + this.getSecondaryName() + "DeleteBySecondaryIdOperation.java";
     }
 }

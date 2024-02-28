@@ -1,11 +1,12 @@
 package org.example.dataModels.api.models;
 
 import org.example.Link;
+import org.example.dataModels.DataModel;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Model {
+public class Model implements DataModel {
 
     private String name;
     private final Map<String, String> attributes;
@@ -54,5 +55,10 @@ public class Model {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getName() + ".java";
     }
 }

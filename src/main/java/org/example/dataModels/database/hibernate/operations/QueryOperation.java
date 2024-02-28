@@ -1,8 +1,12 @@
 package org.example.dataModels.database.hibernate.operations;
 
+import org.apache.commons.lang3.StringUtils;
 import org.example.Query;
+import org.example.dataModels.DataModel;
 
-public class QueryOperation {
+import java.util.stream.Collectors;
+
+public class QueryOperation implements DataModel {
 
     private String name;
     private Query query;
@@ -39,5 +43,17 @@ public class QueryOperation {
 
     public void setQuery(Query query) {
         this.query = query;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getName() + "QueryBy" +
+                this.getQuery()
+                        .getAttributes()
+                        .keySet()
+                        .stream()
+                        .map(StringUtils::capitalize)
+                        .collect(Collectors.joining())
+                + "Operation.java";
     }
 }

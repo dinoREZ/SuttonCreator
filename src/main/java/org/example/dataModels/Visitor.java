@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class Visitor implements IVisitor {
 
-    private final List<Object> dataModels;
+    private final List<DataModel> dataModels;
 
     private String basePackage;
     private boolean usesInMemory;
@@ -41,7 +41,7 @@ public class Visitor implements IVisitor {
         this.subResourceNames = new HashMap<>();
     }
 
-    public List<Object> getDataModels() {
+    public List<DataModel> getDataModels() {
         return dataModels;
     }
 

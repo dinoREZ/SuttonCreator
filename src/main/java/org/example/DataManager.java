@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.dataModels.DataModel;
 import org.example.dataModels.MetaModel;
 import org.example.dataModels.api.models.Model;
 import org.example.dataModels.database.Dao;
@@ -23,8 +24,8 @@ import java.util.stream.Collectors;
 
 public class DataManager {
 
-    public static List<Object> getDataModels(MetaModel metaModel) {
-        List<Object> dataModels = new ArrayList<>();
+    public static List<DataModel> getAllDataModels(MetaModel metaModel) {
+        List<DataModel> dataModels = new ArrayList<>();
 
         dataModels.add(new DaoFactory(
                 metaModel.getBasePackage(),

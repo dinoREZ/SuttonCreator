@@ -1,8 +1,12 @@
 package org.example.dataModels.database.hibernate.operations;
 
+import org.apache.commons.lang3.StringUtils;
 import org.example.Query;
+import org.example.dataModels.DataModel;
 
-public class RelationQueryOperation {
+import java.util.stream.Collectors;
+
+public class RelationQueryOperation implements DataModel {
 
     String primaryName;
     String secondaryName;
@@ -49,5 +53,17 @@ public class RelationQueryOperation {
 
     public void setQuery(Query query) {
         this.query = query;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getPrimaryName() + this.getSecondaryName() + "QueryBy" +
+                this.getQuery()
+                        .getAttributes()
+                        .keySet()
+                        .stream()
+                        .map(StringUtils::capitalize)
+                        .collect(Collectors.joining())
+                + "Operation.java";
     }
 }

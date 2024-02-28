@@ -1,6 +1,8 @@
 package org.example.dataModels.database.hibernate.operations;
 
-public class RelationReadAllOperation {
+import org.example.dataModels.DataModel;
+
+public class RelationReadAllOperation implements DataModel {
 
     String primaryName;
     String secondaryName;
@@ -37,5 +39,10 @@ public class RelationReadAllOperation {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getPrimaryName() + this.getSecondaryName() + "ReadAllOperation.java";
     }
 }

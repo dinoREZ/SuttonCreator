@@ -1,11 +1,12 @@
 package org.example.dataModels.database.inmemory;
 
 import org.example.Query;
+import org.example.dataModels.DataModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RelationDaoImpl {
+public class RelationDaoImpl implements DataModel {
     String primaryName;
     String secondaryName;
     String basePackage;
@@ -52,5 +53,10 @@ public class RelationDaoImpl {
 
     public void addQuery(Query query) {
         queries.add(query);
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getPrimaryName() + this.getSecondaryName() + "DaoImpl.java";
     }
 }

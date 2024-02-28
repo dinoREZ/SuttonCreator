@@ -1,6 +1,8 @@
 package org.example.dataModels.database.hibernate.operations;
 
-public class RelationUpdateOperation {
+import org.example.dataModels.DataModel;
+
+public class RelationUpdateOperation implements DataModel {
 
     String primaryName;
     String secondaryName;
@@ -37,5 +39,10 @@ public class RelationUpdateOperation {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getPrimaryName() + this.getSecondaryName() + "UpdateOperation.java";
     }
 }

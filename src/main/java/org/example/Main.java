@@ -4,6 +4,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
+import org.example.dataModels.DataModel;
 import org.example.dataModels.MetaModel;
 import org.glassfish.jersey.linking.InjectLink;
 
@@ -42,7 +43,7 @@ public class Main {
                 )
         );
 
-        List<Object> dataModels = DataManager.getDataModels(metaModel);
+        List<DataModel> dataModels = DataManager.getAllDataModels(metaModel);
 
         try {
             FileUtils.cleanDirectory(new File(RESOURCE_PATH + "/output"));
@@ -54,11 +55,11 @@ public class Main {
         cfg.setDefaultEncoding("UTF-8");
         cfg.setLogTemplateExceptions(false);
 
-        for (Object dataModel : dataModels) {
-            String basePath = Config.getPath(dataModel);
-            String templatePath = basePath + "/" + Config.getTemplateName(dataModel);
-            String outputDirectory = RESOURCE_PATH + "/output/" + basePath;
-            String outputPath = outputDirectory + "/" + Config.getOutputName(dataModel);
+        for (DataModel dataModel : dataModels) {
+            String basePath = dataModel.getPath();
+            String templatePath = basePath + "/" + dataModel.getTemplateName();
+            String outputDirectory = RESOURCE_PATH + "/output" + basePath;
+            String outputPath = outputDirectory + "/" + dataModel.getOutputName();
 
             Template template = cfg.getTemplate(templatePath);
             File directory = new File(outputDirectory);

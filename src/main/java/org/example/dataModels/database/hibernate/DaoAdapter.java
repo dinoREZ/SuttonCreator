@@ -1,13 +1,14 @@
 package org.example.dataModels.database.hibernate;
 
 import org.example.Query;
+import org.example.dataModels.DataModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DaoAdapter {
+public class DaoAdapter implements DataModel {
 
     private String name;
     private final Map<String, String> attributes;
@@ -57,5 +58,10 @@ public class DaoAdapter {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getName() + "DaoAdapter.java";
     }
 }

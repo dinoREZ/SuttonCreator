@@ -1,11 +1,13 @@
 package org.example.dataModels.database;
 
+import org.example.dataModels.DataModel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DaoFactory {
+public class DaoFactory implements DataModel {
 
     String basePackage;
     boolean usesInMemory;
@@ -54,5 +56,10 @@ public class DaoFactory {
 
     public void addSubResource(String primaryResource, List<String> subResources) {
         this.subResources.put(primaryResource, subResources);
+    }
+
+    @Override
+    public String getOutputName() {
+        return "DaoFactory.java";
     }
 }

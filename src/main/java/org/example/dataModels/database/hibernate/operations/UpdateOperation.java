@@ -1,6 +1,8 @@
 package org.example.dataModels.database.hibernate.operations;
 
-public class UpdateOperation {
+import org.example.dataModels.DataModel;
+
+public class UpdateOperation implements DataModel {
 
     private String name;
     private String basePackage;
@@ -27,5 +29,10 @@ public class UpdateOperation {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getName() + "UpdateOperation.java";
     }
 }

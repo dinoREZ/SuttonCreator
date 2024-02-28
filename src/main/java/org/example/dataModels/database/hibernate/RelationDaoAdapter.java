@@ -1,13 +1,14 @@
 package org.example.dataModels.database.hibernate;
 
 import org.example.Query;
+import org.example.dataModels.DataModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RelationDaoAdapter {
+public class RelationDaoAdapter implements DataModel {
 
     String primaryName;
     String secondaryName;
@@ -67,5 +68,10 @@ public class RelationDaoAdapter {
 
     public void addQuery(Query query) {
         queries.add(query);
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getPrimaryName() + this.getSecondaryName() + "DaoAdapter.java";
     }
 }

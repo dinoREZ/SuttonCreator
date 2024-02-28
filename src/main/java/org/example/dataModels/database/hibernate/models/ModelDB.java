@@ -1,9 +1,11 @@
 package org.example.dataModels.database.hibernate.models;
 
+import org.example.dataModels.DataModel;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModelDB {
+public class ModelDB implements DataModel {
 
     private String name;
     private final Map<String, String> attributes;
@@ -41,5 +43,10 @@ public class ModelDB {
 
     public Map<String, String> getAttributes() {
         return attributes;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getName() + "DB.java";
     }
 }

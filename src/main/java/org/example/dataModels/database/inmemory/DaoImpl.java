@@ -1,11 +1,12 @@
 package org.example.dataModels.database.inmemory;
 
 import org.example.Query;
+import org.example.dataModels.DataModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoImpl {
+public class DaoImpl implements DataModel {
 
     private String name;
     private final List<Query> queries;
@@ -43,5 +44,10 @@ public class DaoImpl {
 
     public void addQuery(Query query) {
         queries.add(query);
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getName() + "DaoImpl.java";
     }
 }

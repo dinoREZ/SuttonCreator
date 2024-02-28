@@ -1,6 +1,8 @@
 package org.example.dataModels.database.hibernate.operations;
 
-public class PersistOperation {
+import org.example.dataModels.DataModel;
+
+public class PersistOperation implements DataModel {
     private String name;
     private String basePackage;
 
@@ -26,5 +28,10 @@ public class PersistOperation {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getName() + "PersistOperation.java";
     }
 }

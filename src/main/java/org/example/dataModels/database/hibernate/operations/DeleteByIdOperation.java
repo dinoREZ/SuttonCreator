@@ -1,6 +1,8 @@
 package org.example.dataModels.database.hibernate.operations;
 
-public class DeleteByIdOperation {
+import org.example.dataModels.DataModel;
+
+public class DeleteByIdOperation implements DataModel {
 
     private String name;
     private String basePackage;
@@ -27,5 +29,10 @@ public class DeleteByIdOperation {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    @Override
+    public String getOutputName() {
+        return this.getName() + "DeleteByIdOperation.java";
     }
 }
