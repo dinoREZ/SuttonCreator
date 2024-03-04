@@ -128,7 +128,7 @@ public class DataManager {
                 .stream()
                 // This flatMap adds all the SubResource of each Resource to the stream
                 .flatMap(resource -> {
-                    List<Resource> subResources = resource.getSubResources();
+                    List<Resource> subResources = new ArrayList<>(resource.getSubResources());
                     subResources.add(resource);
                     return subResources.stream();
                 })
@@ -162,7 +162,7 @@ public class DataManager {
                     .stream()
                     // This flatMap adds all the SubResource of each Resource to the stream
                     .flatMap(resource -> {
-                        List<Resource> subResources = resource.getSubResources();
+                        List<Resource> subResources = new ArrayList<>(resource.getSubResources());
                         subResources.add(resource);
                         return subResources.stream();
                     })

@@ -4,6 +4,7 @@ import org.example.dataModels.IVisitor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Query {
     Map<String, String> attributes;
@@ -29,5 +30,18 @@ public class Query {
     public Query addAttribute(String type, String name) {
         attributes.put(name, type);
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Query query = (Query) o;
+        return Objects.equals(attributes, query.attributes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(attributes);
     }
 }

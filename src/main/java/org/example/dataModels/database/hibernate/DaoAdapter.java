@@ -3,10 +3,7 @@ package org.example.dataModels.database.hibernate;
 import org.example.Query;
 import org.example.dataModels.DataModel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DaoAdapter implements DataModel {
 
@@ -63,5 +60,18 @@ public class DaoAdapter implements DataModel {
     @Override
     public String getOutputName() {
         return this.getName() + "DaoAdapter.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DaoAdapter that = (DaoAdapter) o;
+        return Objects.equals(name, that.name) && Objects.equals(attributes, that.attributes) && Objects.equals(queries, that.queries) && Objects.equals(basePackage, that.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, attributes, queries, basePackage);
     }
 }

@@ -5,6 +5,7 @@ import org.example.dataModels.DataModel;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Model implements DataModel {
 
@@ -60,5 +61,18 @@ public class Model implements DataModel {
     @Override
     public String getOutputName() {
         return this.getName() + ".java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Model model = (Model) o;
+        return Objects.equals(name, model.name) && Objects.equals(attributes, model.attributes) && Objects.equals(links, model.links) && Objects.equals(basePackage, model.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, attributes, links, basePackage);
     }
 }

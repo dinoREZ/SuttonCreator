@@ -5,6 +5,7 @@ import org.example.dataModels.DataModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Dao implements DataModel {
 
@@ -49,5 +50,18 @@ public class Dao implements DataModel {
     @Override
     public String getOutputName() {
         return this.getName() + "Dao.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dao dao = (Dao) o;
+        return Objects.equals(name, dao.name) && Objects.equals(queries, dao.queries) && Objects.equals(basePackage, dao.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, queries, basePackage);
     }
 }

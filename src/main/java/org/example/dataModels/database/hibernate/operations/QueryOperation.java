@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.example.Query;
 import org.example.dataModels.DataModel;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class QueryOperation implements DataModel {
@@ -55,5 +56,18 @@ public class QueryOperation implements DataModel {
                         .map(StringUtils::capitalize)
                         .collect(Collectors.joining())
                 + "Operation.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QueryOperation that = (QueryOperation) o;
+        return Objects.equals(name, that.name) && Objects.equals(query, that.query) && Objects.equals(basePackage, that.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, query, basePackage);
     }
 }

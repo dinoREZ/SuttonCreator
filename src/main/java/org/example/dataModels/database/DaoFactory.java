@@ -2,10 +2,7 @@ package org.example.dataModels.database;
 
 import org.example.dataModels.DataModel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DaoFactory implements DataModel {
 
@@ -61,5 +58,18 @@ public class DaoFactory implements DataModel {
     @Override
     public String getOutputName() {
         return "DaoFactory.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DaoFactory that = (DaoFactory) o;
+        return usesInMemory == that.usesInMemory && Objects.equals(basePackage, that.basePackage) && Objects.equals(resources, that.resources) && Objects.equals(subResources, that.subResources);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(basePackage, usesInMemory, resources, subResources);
     }
 }

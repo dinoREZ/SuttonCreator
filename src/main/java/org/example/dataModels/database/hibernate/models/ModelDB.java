@@ -4,6 +4,7 @@ import org.example.dataModels.DataModel;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ModelDB implements DataModel {
 
@@ -48,5 +49,18 @@ public class ModelDB implements DataModel {
     @Override
     public String getOutputName() {
         return this.getName() + "DB.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ModelDB modelDB = (ModelDB) o;
+        return Objects.equals(name, modelDB.name) && Objects.equals(attributes, modelDB.attributes) && Objects.equals(basePackage, modelDB.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, attributes, basePackage);
     }
 }

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.example.Query;
 import org.example.dataModels.DataModel;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class RelationQueryOperation implements DataModel {
@@ -65,5 +66,18 @@ public class RelationQueryOperation implements DataModel {
                         .map(StringUtils::capitalize)
                         .collect(Collectors.joining())
                 + "Operation.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RelationQueryOperation that = (RelationQueryOperation) o;
+        return Objects.equals(primaryName, that.primaryName) && Objects.equals(secondaryName, that.secondaryName) && Objects.equals(basePackage, that.basePackage) && Objects.equals(query, that.query);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(primaryName, secondaryName, basePackage, query);
     }
 }

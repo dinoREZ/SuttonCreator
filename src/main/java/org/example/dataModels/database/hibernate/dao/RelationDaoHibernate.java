@@ -5,6 +5,7 @@ import org.example.dataModels.DataModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RelationDaoHibernate implements DataModel {
 
@@ -59,5 +60,18 @@ public class RelationDaoHibernate implements DataModel {
     @Override
     public String getOutputName() {
         return this.getPrimaryName() + this.getSecondaryName() + "DaoHibernate.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RelationDaoHibernate that = (RelationDaoHibernate) o;
+        return Objects.equals(primaryName, that.primaryName) && Objects.equals(secondaryName, that.secondaryName) && Objects.equals(basePackage, that.basePackage) && Objects.equals(queries, that.queries);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(primaryName, secondaryName, basePackage, queries);
     }
 }

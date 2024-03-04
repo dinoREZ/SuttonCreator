@@ -2,6 +2,8 @@ package org.example.dataModels.database.hibernate.operations;
 
 import org.example.dataModels.DataModel;
 
+import java.util.Objects;
+
 public class RelationReadByIdOperation implements DataModel {
     String primaryName;
     String secondaryName;
@@ -43,5 +45,18 @@ public class RelationReadByIdOperation implements DataModel {
     @Override
     public String getOutputName() {
         return this.getPrimaryName() + this.getSecondaryName() + "ReadByIdOperation.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RelationReadByIdOperation that = (RelationReadByIdOperation) o;
+        return Objects.equals(primaryName, that.primaryName) && Objects.equals(secondaryName, that.secondaryName) && Objects.equals(basePackage, that.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(primaryName, secondaryName, basePackage);
     }
 }
