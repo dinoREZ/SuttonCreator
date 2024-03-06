@@ -1,5 +1,7 @@
 [#ftl]
 [#-- @implicitly included --]
+[#-- @ftlvariable name="secondaryPathElement" type="java.lang.String" --]
+[#-- @ftlvariable name="primaryPathElement" type="java.lang.String" --]
 [#-- @ftlvariable name="pathElement" type="java.lang.String" --]
 [#-- @ftlvariable name="useEtags" type="boolean" --]
 [#-- @ftlvariable name="states" type="java.util.List<org.example.State>" --]
