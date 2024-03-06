@@ -69,8 +69,9 @@ public class Resource {
         return pathElement;
     }
 
-    public void setPathElement(String pathElement) {
+    public Resource setPathElement(String pathElement) {
         this.pathElement = pathElement;
+        return this;
     }
 
     public Map<String, String> getAttributes() {

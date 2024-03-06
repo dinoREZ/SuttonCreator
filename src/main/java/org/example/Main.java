@@ -33,6 +33,7 @@ public class Main {
                 )
                 .addLink("selfLink", Link.SelfLinkOnPrimary("students"))
                 .addLink("courses", new Link(InjectLink.Style.ABSOLUTE, "students/${instance.id}/courses", "getCoursesOfStudents", "courses", "true"))
+                .setPathElement("students")
                 .addSubResource(new Resource()
                         .setName("Course")
                         .addAttribute("String", "name")
@@ -43,12 +44,13 @@ public class Main {
                         )
                         .addLink("selfLinkOnSecond", Link.SelfLinkOnSecondary("students", "courses"))
                         .addLink("selfLink", Link.SelfLinkOnPrimary("courses"))
+                        .setPathElement("courses")
                 )
         );
 
         List<DataModel> dataModels = DataManager.getAllDataModels(metaModel);
 
-        dataModels = List.of(new GetDispatcherState(List.of(new Resource().setName("First").addState(new State().setStateType(StateType.GET_ALL)), new Resource().setName("Second").addState(new State().setStateType(StateType.GET_ALL))), "org.example"));
+        //dataModels = List.of(new GetDispatcherState(List.of(new Resource().setName("First").addState(new State().setStateType(StateType.GET_ALL)), new Resource().setName("Second").addState(new State().setStateType(StateType.GET_ALL))), "org.example"));
 
         try {
             FileUtils.cleanDirectory(new File(RESOURCE_PATH + "/output"));
