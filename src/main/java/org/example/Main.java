@@ -6,12 +6,15 @@ import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
 import org.example.dataModels.DataModel;
 import org.example.dataModels.MetaModel;
+import org.example.dataModels.api.states.*;
 import org.glassfish.jersey.linking.InjectLink;
 
+import javax.ws.rs.core.CacheControl;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static org.example.Config.RESOURCE_PATH;
 
@@ -44,6 +47,8 @@ public class Main {
         );
 
         List<DataModel> dataModels = DataManager.getAllDataModels(metaModel);
+
+        dataModels = List.of(new PutRelationState("Primary", "Secondary", true, List.of(new State().setStateType(StateType.POST)), "org.example"));
 
         try {
             FileUtils.cleanDirectory(new File(RESOURCE_PATH + "/output"));
