@@ -5,6 +5,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.example.dataModels.DataModel;
 import org.example.dataModels.MetaModel;
 import org.example.dataModels.api.models.Model;
+import org.example.dataModels.api.queries.RelationQuery;
 import org.example.dataModels.api.services.DispatcherService;
 import org.example.dataModels.api.services.Service;
 import org.example.dataModels.api.states.*;
@@ -68,6 +69,7 @@ public class DataManager {
 
                 for (Query query : resource.getQueries()) {
                     dataModels.add(new QueryOperation(resource.getName(), query, metaModel.getBasePackage()));
+                    dataModels.add(new org.example.dataModels.api.queries.Query(resource.getName(), query, metaModel.getBasePackage()));
                 }
             }
 
@@ -105,6 +107,7 @@ public class DataManager {
 
                     for (Query query : subResource.getQueries()) {
                         dataModels.add(new RelationQueryOperation(resource.getName(), subResource.getName(), metaModel.getBasePackage(), query));
+                        dataModels.add(new RelationQuery(resource.getName(), subResource.getName(), query, metaModel.getBasePackage()));
                     }
                 }
             }
@@ -624,5 +627,32 @@ public class DataManager {
 
     public static List<DispatcherService> getAllDispatcherServices(MetaModel metaModel) {
         return List.of(new DispatcherService(metaModel.getBasePackage()));
+    }
+
+    public static List<org.example.dataModels.api.queries.Query> getAllQueries(MetaModel metaModel) {
+        return metaModel.getResources()
+                .stream()
+                .flatMap(resource -> resource.getQueries()
+                        .stream()
+                        .map(query -> Pair.of(resource.getName(), query))
+                )
+                .map(pair -> new org.example.dataModels.api.queries.Query(pair.getLeft(), pair.getRight(), metaModel.getBasePackage()))
+                .collect(Collectors.toList());
+    }
+
+    public static List<RelationQuery> getAllRelationQueries(MetaModel metaModel) {
+        return metaModel.getResources()
+                .stream()
+                .flatMap(resource -> resource.getSubResources()
+                        .stream()
+                        .map(subResource -> Pair.of(resource.getName(), subResource))
+                        .flatMap(subResourcePair -> subResourcePair.getValue()
+                                .getQueries()
+                                .stream()
+                                .map(query -> Triple.of(subResourcePair.getKey(), subResourcePair.getValue().getName(), query))
+                        )
+                )
+                .map(triple -> new RelationQuery(triple.getLeft(), triple.getMiddle(), triple.getRight(), metaModel.getBasePackage()))
+                .collect(Collectors.toList());
     }
 }

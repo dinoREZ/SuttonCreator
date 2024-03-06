@@ -22,8 +22,8 @@ public class MetaModelToDataModelsTest {
                 .addAttribute("String" , "firstName")
                 .addAttribute("String", "lastName")
                 .addQuery(new Query()
-                        .addAttribute("String", "firstName")
-                        .addAttribute("String", "lastName")
+                        .addAttribute("String", "firstName", "")
+                        .addAttribute("String", "lastName", "")
                 )
                 .addLink("selfLink", Link.SelfLinkOnPrimary("students"))
                 .addLink("courses", new Link(InjectLink.Style.ABSOLUTE, "students/${instance.id}/courses", "getCoursesOfStudents", "courses", "true"))
@@ -32,8 +32,8 @@ public class MetaModelToDataModelsTest {
                         .addAttribute("String", "name")
                         .addAttribute("String", "room")
                         .addQuery(new Query()
-                                .addAttribute("String", "name")
-                                .addAttribute("String", "room")
+                                .addAttribute("String", "name", "")
+                                .addAttribute("String", "room", "")
                         )
                         .addLink("selfLinkOnSecond", Link.SelfLinkOnSecondary("students", "courses"))
                         .addLink("selfLink", Link.SelfLinkOnPrimary("courses"))
@@ -102,6 +102,8 @@ public class MetaModelToDataModelsTest {
         multiMethodApproach.addAll(DataManager.getAllDispatcherStates(metaModel));
         multiMethodApproach.addAll(DataManager.getAllServices(metaModel));
         multiMethodApproach.addAll(DataManager.getAllDispatcherServices(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllQueries(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllRelationQueries(metaModel));
 
         assertEquals(singleMethodApproach.size(), multiMethodApproach.size());
 
