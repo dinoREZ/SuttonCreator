@@ -5,6 +5,7 @@ import org.example.dataModels.DataModel;
 
 import javax.ws.rs.core.CacheControl;
 import java.util.List;
+import java.util.Objects;
 
 public class GetRelationState implements DataModel {
 
@@ -51,5 +52,18 @@ public class GetRelationState implements DataModel {
     @Override
     public String getOutputName() {
         return "Get" + primaryName + secondaryName + "State.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GetRelationState that = (GetRelationState) o;
+        return useEtags == that.useEtags && Objects.equals(primaryName, that.primaryName) && Objects.equals(secondaryName, that.secondaryName) && Objects.equals(cacheControl, that.cacheControl) && Objects.equals(states, that.states) && Objects.equals(basePackage, that.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(primaryName, secondaryName, useEtags, cacheControl, states, basePackage);
     }
 }

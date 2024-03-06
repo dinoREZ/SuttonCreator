@@ -1,7 +1,4 @@
-import org.example.DataManager;
-import org.example.Link;
-import org.example.Query;
-import org.example.Resource;
+import org.example.*;
 import org.example.dataModels.DataModel;
 import org.example.dataModels.MetaModel;
 import org.example.dataModels.Visitor;
@@ -88,6 +85,21 @@ public class MetaModelToDataModelsTest {
         multiMethodApproach.addAll(DataManager.getAllRelationReadByIdOperations(metaModel));
         multiMethodApproach.addAll(DataManager.getAllRelationUpdateOperations(metaModel));
         multiMethodApproach.addAll(DataManager.getAllRelationQueryOperations(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllDeleteStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllGetCollectionStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllGetStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllPostStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllPutStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllRelTypes(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllUris(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllDeleteRelationStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllGetRelationCollectionStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllGetRelationStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllPostRelationStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllPutRelationStates(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllRelationRelTypes(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllRelationUris(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllDispatcherStates(metaModel));
 
         assertEquals(singleMethodApproach.size(), multiMethodApproach.size());
 

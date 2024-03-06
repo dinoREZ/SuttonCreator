@@ -4,6 +4,7 @@ import org.example.State;
 import org.example.dataModels.DataModel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PutState implements DataModel {
 
@@ -38,5 +39,18 @@ public class PutState implements DataModel {
     @Override
     public String getOutputName() {
         return "Put" + name + "State.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PutState putState = (PutState) o;
+        return useEtags == putState.useEtags && Objects.equals(name, putState.name) && Objects.equals(states, putState.states) && Objects.equals(basePackage, putState.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, useEtags, states, basePackage);
     }
 }

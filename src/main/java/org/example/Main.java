@@ -48,7 +48,7 @@ public class Main {
 
         List<DataModel> dataModels = DataManager.getAllDataModels(metaModel);
 
-        dataModels = List.of(new PutRelationState("Primary", "Secondary", true, List.of(new State().setStateType(StateType.POST)), "org.example"));
+        dataModels = List.of(new GetDispatcherState(List.of(new Resource().setName("First").addState(new State().setStateType(StateType.GET_ALL)), new Resource().setName("Second").addState(new State().setStateType(StateType.GET_ALL))), "org.example"));
 
         try {
             FileUtils.cleanDirectory(new File(RESOURCE_PATH + "/output"));

@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.dataModels.IVisitor;
 
+import javax.ws.rs.core.CacheControl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,9 @@ import java.util.Map;
 
 public class Resource {
     private String name;
+    private boolean useEtags;
+    private CacheControl cacheControl;
+    private String pathElement;
     private final Map<String, String> attributes;
     private final Map<String, Link> links;
     private final List<Query> queries;
@@ -43,6 +47,30 @@ public class Resource {
     public Resource setName(String name) {
         this.name = name;
         return this;
+    }
+
+    public boolean isUseEtags() {
+        return useEtags;
+    }
+
+    public void setUseEtags(boolean useEtags) {
+        this.useEtags = useEtags;
+    }
+
+    public CacheControl getCacheControl() {
+        return cacheControl;
+    }
+
+    public void setCacheControl(CacheControl cacheControl) {
+        this.cacheControl = cacheControl;
+    }
+
+    public String getPathElement() {
+        return pathElement;
+    }
+
+    public void setPathElement(String pathElement) {
+        this.pathElement = pathElement;
     }
 
     public Map<String, String> getAttributes() {

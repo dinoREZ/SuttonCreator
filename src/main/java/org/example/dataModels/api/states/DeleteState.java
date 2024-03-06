@@ -58,4 +58,17 @@ public class DeleteState implements DataModel {
     public String getOutputName() {
         return "Delete" + name + "State.java";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeleteState that = (DeleteState) o;
+        return Objects.equals(name, that.name) && Objects.equals(states, that.states) && Objects.equals(resources, that.resources) && Objects.equals(basePackage, that.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, states, resources, basePackage);
+    }
 }

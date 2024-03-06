@@ -4,6 +4,7 @@ import org.example.State;
 import org.example.dataModels.DataModel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GetCollectionState implements DataModel {
 
@@ -32,5 +33,18 @@ public class GetCollectionState implements DataModel {
     @Override
     public String getOutputName() {
         return "Get" + name + "CollectionState.java";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GetCollectionState that = (GetCollectionState) o;
+        return Objects.equals(name, that.name) && Objects.equals(states, that.states) && Objects.equals(basePackage, that.basePackage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, states, basePackage);
     }
 }

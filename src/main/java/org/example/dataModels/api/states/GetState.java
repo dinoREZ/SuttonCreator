@@ -79,11 +79,11 @@ public class GetState implements DataModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GetState getState = (GetState) o;
-        return useEtags == getState.useEtags && Objects.equals(name, getState.name) && Objects.equals(cacheControl, getState.cacheControl) && Objects.equals(states, getState.states);
+        return useEtags == getState.useEtags && Objects.equals(name, getState.name) && Objects.equals(cacheControl, getState.cacheControl) && Objects.equals(states, getState.states) && Objects.equals(basePackage, getState.basePackage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, useEtags, cacheControl, states);
+        return Objects.hash(name, useEtags, cacheControl, states, basePackage);
     }
 }
