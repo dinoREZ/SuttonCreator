@@ -18,16 +18,16 @@ import java.util.stream.Collectors;
 public class ${secondaryName}sOf${primaryName}ByQueryOperation extends AbstractDatabaseOperation<${secondaryName}DB, CollectionModelHibernateResult<${secondaryName}DB>> {
     private final Class<${primaryName}${secondaryName}DB> classOfRelation = ${primaryName}${secondaryName}DB.class;
     private final long primaryId;
-    <#list query.attributes as attributeName, class>
-    private ${class} ${attributeName};
+    <#list query.attributes as attributeTriple>
+    private ${attributeTriple.left} ${attributeTriple.middle};
     </#list>
     private final SearchParameter searchParameter;
 
-    public ${secondaryName}sOf${primaryName}ByQueryOperation(EntityManagerFactory emf, long primaryId, <#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
+    public ${secondaryName}sOf${primaryName}ByQueryOperation(EntityManagerFactory emf, long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
         super(emf);
         this.primaryId = primaryId;
-        <#list query.attributes as attributeName, _>
-        this.${attributeName} = ${attributeName};
+        <#list query.attributes as attributeTriple>
+        this.${attributeTriple.middle} = ${attributeTriple.middle};
         </#list>
         this.searchParameter = searchParameter;
     }
@@ -78,11 +78,11 @@ public class ${secondaryName}sOf${primaryName}ByQueryOperation extends AbstractD
     }
 
     private Predicate formulateConditions(CriteriaBuilder criteriaBuilder, Root<${primaryName}${secondaryName}DB> root, Join<${primaryName}${secondaryName}DB, ${secondaryName}DB> join) {
-        <#list query.attributes as attributeName, _>
-        Predicate match${attributeName?cap_first} =  criteriaBuilder.like(join.get("${attributeName}"), "%" + this.${attributeName} + "%");
+        <#list query.attributes as attributeTriple>
+        Predicate match${attributeTriple.middle?cap_first} =  criteriaBuilder.like(join.get("${attributeTriple.middle}"), "%" + this.${attributeTriple.middle} + "%");
         </#list>
         Predicate primaryIdEquals = criteriaBuilder.equal(root.get(SuttonColumnConstants.DB_RELATION_ID).get(SuttonColumnConstants.PRIMARY_ID), this.primaryId);
 
-        return criteriaBuilder.and(primaryIdEquals, <#list query.attributes as attributeName, _>match${attributeName?cap_first}<#sep>, </#list>);
+        return criteriaBuilder.and(primaryIdEquals, <#list query.attributes as attributeTriple>match${attributeTriple.middle?cap_first}<#sep>, </#list>);
     }
 }

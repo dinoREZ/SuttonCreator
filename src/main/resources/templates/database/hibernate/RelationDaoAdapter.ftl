@@ -23,8 +23,8 @@ public class ${secondaryName}sOf${primaryName}DaoAdapter implements ${secondaryN
 
     <#list queries as query>
     @Override
-    public CollectionModelResult<${secondaryName}> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(long primaryId, <#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
-        CollectionModelHibernateResult<${secondaryName}DB> result = this.dao.readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(primaryId, <#list query.attributes as attributeName, _>${attributeName}, </#list>searchParameter);
+    public CollectionModelResult<${secondaryName}> readBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
+        CollectionModelHibernateResult<${secondaryName}DB> result = this.dao.readBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(primaryId, <#list query.attributes as attributeTriple>${attributeTriple.middle}, </#list>searchParameter);
 
         CollectionModelResult<${secondaryName}> returnValue;
         if(result.hasError()) {

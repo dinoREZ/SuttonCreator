@@ -1,18 +1,17 @@
 package org.example;
 
+import org.apache.commons.lang3.tuple.Triple;
 import org.example.dataModels.IVisitor;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Query {
 
     String subPathElement;
-    Map<String, String> attributes;
+    List<Triple<String, String, String>> attributes; // type, name, defaultValue
 
     public Query() {
-        attributes = new HashMap<>();
+        attributes = new ArrayList<>();
     }
 
     public void accept(IVisitor visitor) {
@@ -34,12 +33,12 @@ public class Query {
         return this;
     }
 
-    public Map<String, String> getAttributes() {
+    public List<Triple<String, String, String>> getAttributes() {
         return attributes;
     }
 
-    public Query addAttribute(String type, String name) {
-        attributes.put(name, type);
+    public Query addAttribute(String type, String name, String defaultValue) {
+        attributes.add(Triple.of(type, name, defaultValue));
         return this;
     }
 

@@ -57,8 +57,8 @@ public class ${name}DaoAdapter implements ${name}Dao {
 
     <#list queries as query>
     @Override
-    public CollectionModelResult<${name}> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(<#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
-        CollectionModelHibernateResult<${name}DB> result = dao.readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(<#list query.attributes as attributeName, _>${attributeName}, </#list>searchParameter);
+    public CollectionModelResult<${name}> readBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(<#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
+        CollectionModelHibernateResult<${name}DB> result = dao.readBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(<#list query.attributes as attributeTriple>${attributeTriple.middle}, </#list>searchParameter);
 
         CollectionModelResult<${name}> returnValue;
         if(result.hasError()) {

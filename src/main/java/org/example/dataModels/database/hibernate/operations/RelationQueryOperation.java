@@ -1,6 +1,7 @@
 package org.example.dataModels.database.hibernate.operations;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
 import org.example.Query;
 import org.example.dataModels.DataModel;
 
@@ -61,8 +62,8 @@ public class RelationQueryOperation implements DataModel {
         return this.getPrimaryName() + this.getSecondaryName() + "QueryBy" +
                 this.getQuery()
                         .getAttributes()
-                        .keySet()
                         .stream()
+                        .map(Triple::getMiddle)
                         .map(StringUtils::capitalize)
                         .collect(Collectors.joining())
                 + "Operation.java";

@@ -7,6 +7,6 @@ import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelH
 
 public interface ${secondaryName}sOf${primaryName}sDaoHibernate extends IDatabaseRelationAccessObjectHibernate<${secondaryName}DB> {
     <#list queries as query>
-    CollectionModelHibernateResult<${secondaryName}DB> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(long primaryId, <#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter);
+    CollectionModelHibernateResult<${secondaryName}DB> readBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter);
     </#list>
 }

@@ -13,25 +13,25 @@ import java.util.List;
 
 public class ${name}ByQueryOperation extends AbstractDatabaseOperation<${name}DB, CollectionModelHibernateResult<${name}DB>> {
 
-    <#list query.attributes as attributeName, class>
-    private ${class} ${attributeName};
+    <#list query.attributes as attributeTriple>
+    private ${attributeTriple.left} ${attributeTriple.middle};
     </#list>
     private SearchParameter searchParameter;
 
-    public ${name}ByQueryOperation(EntityManagerFactory emf, <#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
+    public ${name}ByQueryOperation(EntityManagerFactory emf, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
         super(emf);
-        <#list query.attributes as attributeName, _>
-        this.${attributeName} = ${attributeName};
+        <#list query.attributes as attributeTriple>
+        this.${attributeTriple.middle} = ${attributeTriple.middle};
         </#list>
         this.searchParameter = searchParameter;
     }
 
     private Predicate formulateConditions(CriteriaBuilder criteriaBuilder, Root<${name}DB> root) {
-        <#list query.attributes as attributeName, _>
-        final Predicate match${attributeName?cap_first} =  criteriaBuilder.like(root.get("${attributeName}"), "%" + this.${attributeName} + "%");
+        <#list query.attributes as attributeTriple>
+        final Predicate match${attributeTriple.middle?cap_first} =  criteriaBuilder.like(root.get("${attributeTriple.middle}"), "%" + this.${attributeTriple.middle} + "%");
         </#list>
 
-        return criteriaBuilder.and(<#list query.attributes as attributeName, _>match${attributeName?cap_first}<#sep>, </#list>);
+        return criteriaBuilder.and(<#list query.attributes as attributeTriple>match${attributeTriple.middle?cap_first}<#sep>, </#list>);
     }
 
     @Override

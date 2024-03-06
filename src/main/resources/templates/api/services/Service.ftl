@@ -5,11 +5,11 @@ import ${basePackage}.server.api.models.${resource.name};
 import ${basePackage}.server.api.models.${subResource.name};
 </#list>
 <#list resource.queries as query>
-import ${basePackage}.server.api.queries.${resource.name}By<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>Query;
+import ${basePackage}.server.api.queries.${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query;
 </#list>
 <#list resource.subResources as subResource>
 <#list subResource.queries as query>
-import ${basePackage}.server.api.queries.${resource.name}${subResource.name}By<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>Query;
+import ${basePackage}.server.api.queries.${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query;
 </#list>
 </#list>
 import ${basePackage}.server.api.rateLimiting.AnyApiKeyRateLimiter;
@@ -43,8 +43,8 @@ public class ${resource.name}Service extends AbstractService {
     @GET
     @Path("${query.subPathElement}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get${resource.name}By<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(<#list query.attributes as attributeName, type>@DefaultValue("0") @QueryParam("${attributeName}") ${type} ${attributeName}<#sep>, </#list>) {
-        ${resource.name}By<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>Query query = new ${resource.name}By<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>Query(<#list query.attributes as attributeName, type>${attributeName}<#sep>, </#list>);
+    public Response get${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(<#list query.attributes as attributeTriple>@DefaultValue("${attributeTriple.right}") @QueryParam("${attributeTriple.middle}") ${attributeTriple.left} ${attributeTriple.middle}<#sep>, </#list>) {
+        ${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query query = new ${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query(<#list query.attributes as attributeTriple>${attributeTriple.middle}<#sep>, </#list>);
         return new Get${resource.name}CollectionState.Builder()
                 .setQuery(query)
                 .setUriInfo(this.uriInfo)
@@ -145,11 +145,11 @@ public class ${resource.name}Service extends AbstractService {
     @Path("${query.subPathElement}")
     @Path("{primaryId : \\d+}/${subResource.pathElement}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get${resource.name}${subResource.name}By<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(@PathParam("primaryId") final long primaryId,
-                                       <#list query.attributes as attributeName, type>@DefaultValue("0") @QueryParam("${attributeName}") ${type} ${attributeName}<#sep>, </#list>) {
+    public Response get${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(@PathParam("primaryId") final long primaryId,
+                                       <#list query.attributes as attributeTriple>@DefaultValue("${attributeTriple.right}") @QueryParam("${attributeTriple.middle}") ${attributeTriple.left} ${attributeTriple.middle}<#sep>, </#list>) {
         return new Get${resource.name}${subResource.name}CollectionState.Builder()
                 .setParentId(primaryId)
-                .setQuery(new ${resource.name}${subResource.name}By<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>Query(<#list query.attributes as attributeName, _>${attributeName}<#sep>, </#list>))
+                .setQuery(new ${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query(<#list query.attributes as attributeTriple>${attributeTriple.middle}<#sep>, </#list>))
                 .setUriInfo(this.uriInfo)
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)

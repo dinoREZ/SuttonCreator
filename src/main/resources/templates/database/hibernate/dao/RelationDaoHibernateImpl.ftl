@@ -14,8 +14,8 @@ public class ${secondaryName}sOf${primaryName}sDaoHibernateImpl implements ${sec
 
     <#list queries as query>
     @Override
-    public CollectionModelHibernateResult<${secondaryName}DB> readBy<#list query.attributes as attributeName, _>${attributeName?cap_first}</#list>(long primaryId, <#list query.attributes as attributeName, class>${class} ${attributeName}, </#list>SearchParameter searchParameter) {
-        return new ${secondaryName}sOf${primaryName}ByQueryOperation(emf, primaryId, <#list query.attributes as attributeName, _>${attributeName}, </#list>searchParameter).start();
+    public CollectionModelHibernateResult<${secondaryName}DB> readBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
+        return new ${secondaryName}sOf${primaryName}ByQueryOperation(emf, primaryId, <#list query.attributes as attributeTriple>${attributeTriple.middle}, </#list>searchParameter).start();
     }
 
     </#list>
