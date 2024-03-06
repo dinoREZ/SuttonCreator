@@ -28,13 +28,13 @@ public class Delete${name}State extends AbstractDeleteState<${name}> {
 
     @Override
     protected NoContentResult deleteModel() {
-        <#list subResources as resource, subResourceList>
-        <#list subResourceList as subResource>
-        <#if resource == name>
-        DaoFactory.getInstance().get${resource}${subResource}Dao().deleteRelationsFromPrimary(modelIdToDelete);
+        <#list resources as resource>
+        <#list resource.subResources as subResource>
+        <#if resource.name == name>
+        DaoFactory.getInstance().get${resource.name}${subResource.name}Dao().deleteRelationsFromPrimary(modelIdToDelete);
         </#if>
-        <#if subResource == name>
-        DaoFactory.getInstance().get${resource}${subResource}Dao().deleteRelationsToSecondary(modelIdToDelete);
+        <#if subResource.name == name>
+        DaoFactory.getInstance().get${resource.name}${subResource.name}Dao().deleteRelationsToSecondary(modelIdToDelete);
         </#if>
         </#list>
         </#list>

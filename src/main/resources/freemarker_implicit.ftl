@@ -7,7 +7,7 @@
 [#-- @ftlvariable name="queries" type="java.util.List<org.example.Query>" --]
 [#-- @ftlvariable name="subResources" type="java.util.Map<String, java.util.List<String>>" --]
 [#-- @ftlvariable name="usesInMemory" type="boolean" --]
-[#-- @ftlvariable name="resources" type="java.util.List<String>" --]
+[#-- @ftlvariable name="resources" type="java.util.List<org.example.Resource>" --]
 [#-- @ftlvariable name="secondaryAttributes" type="java.util.Map<String, String>" --]
 [#-- @ftlvariable name="secondaryName" type="java.lang.String" --]
 [#-- @ftlvariable name="primaryName" type="String" --]

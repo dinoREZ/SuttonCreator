@@ -1,5 +1,6 @@
 package org.example.dataModels.database;
 
+import org.example.Resource;
 import org.example.dataModels.DataModel;
 
 import java.util.*;
@@ -8,19 +9,16 @@ public class DaoFactory implements DataModel {
 
     String basePackage;
     boolean usesInMemory;
-    List<String> resources;
-    Map<String, List<String>> subResources;
+    List<Resource> resources;
 
     public DaoFactory() {
         resources = new ArrayList<>();
-        subResources = new HashMap<>();
     }
 
-    public DaoFactory(String basePackage, boolean usesInMemory, List<String> resources, Map<String, List<String>> subResources) {
+    public DaoFactory(String basePackage, boolean usesInMemory, List<Resource> resources) {
         this.basePackage = basePackage;
         this.usesInMemory = usesInMemory;
         this.resources = resources;
-        this.subResources = subResources;
     }
 
     public String getBasePackage() {
@@ -39,20 +37,12 @@ public class DaoFactory implements DataModel {
         this.usesInMemory = usesInMemory;
     }
 
-    public List<String> getResources() {
+    public List<Resource> getResources() {
         return resources;
     }
 
-    public void addResource(String name) {
-        resources.add(name);
-    }
-
-    public Map<String, List<String>> getSubResources() {
-        return subResources;
-    }
-
-    public void addSubResource(String primaryResource, List<String> subResources) {
-        this.subResources.put(primaryResource, subResources);
+    public void addResource(Resource resource) {
+        resources.add(resource);
     }
 
     @Override
@@ -65,11 +55,11 @@ public class DaoFactory implements DataModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DaoFactory that = (DaoFactory) o;
-        return usesInMemory == that.usesInMemory && Objects.equals(basePackage, that.basePackage) && Objects.equals(resources, that.resources) && Objects.equals(subResources, that.subResources);
+        return usesInMemory == that.usesInMemory && Objects.equals(basePackage, that.basePackage) && Objects.equals(resources, that.resources);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(basePackage, usesInMemory, resources, subResources);
+        return Objects.hash(basePackage, usesInMemory, resources);
     }
 }

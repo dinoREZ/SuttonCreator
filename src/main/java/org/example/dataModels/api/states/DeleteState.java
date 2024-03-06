@@ -1,28 +1,28 @@
 package org.example.dataModels.api.states;
 
+import org.example.Resource;
 import org.example.State;
 import org.example.dataModels.DataModel;
 
-import javax.ws.rs.core.CacheControl;
 import java.util.*;
 
 public class DeleteState implements DataModel {
 
     private String name;
     private final List<State> states;
-    private final Map<String, List<String>> subResources;
+    private final List<Resource> resources;
     private String basePackage;
 
 
     public DeleteState() {
         states = new ArrayList<>();
-        subResources = new HashMap<>();
+        resources = new ArrayList<>();
     }
 
-    public DeleteState(String name, List<State> states, Map<String, List<String>> subResources, String basePackage) {
+    public DeleteState(String name, List<State> states, List<Resource> resources, String basePackage) {
         this.name = name;
         this.states = states;
-        this.subResources = subResources;
+        this.resources = resources;
         this.basePackage = basePackage;
     }
 
@@ -42,10 +42,9 @@ public class DeleteState implements DataModel {
         states.add(state);
     }
 
-    public Map<String, List<String>> getSubResources() {
-        return subResources;
+    public List<Resource> getResources() {
+        return resources;
     }
-
 
     public String getBasePackage() {
         return basePackage;

@@ -29,22 +29,7 @@ public class DataManager {
     public static List<DataModel> getAllDataModels(MetaModel metaModel) {
         List<DataModel> dataModels = new ArrayList<>();
 
-        dataModels.add(new DaoFactory(
-                metaModel.getBasePackage(),
-                metaModel.usesInMemory(),
-                metaModel.getResources()
-                        .stream()
-                        .map(Resource::getName)
-                        .collect(Collectors.toList()),
-                metaModel.getResources()
-                        .stream()
-                        .collect(Collectors.toMap(Resource::getName,
-                                resource -> resource.getSubResources()
-                                        .stream()
-                                        .map(Resource::getName)
-                                        .collect(Collectors.toList())
-                        ))
-                ));
+        dataModels.add(new DaoFactory(metaModel.getBasePackage(), metaModel.usesInMemory(), metaModel.getResources()));
 
         for (Resource resource : metaModel.getResources()) {
             dataModels.add(new Model(resource.getName(), resource.getAttributes(), resource.getLinks(), metaModel.getBasePackage()));
@@ -103,24 +88,7 @@ public class DataManager {
     }
 
     public static List<DaoFactory> getAllDaoFactories(MetaModel metaModel) {
-        return List.of(
-                new DaoFactory(
-                        metaModel.getBasePackage(),
-                        metaModel.usesInMemory(),
-                        metaModel.getResources()
-                                .stream()
-                                .map(Resource::getName)
-                                .collect(Collectors.toList()),
-                        metaModel.getResources()
-                                .stream()
-                                .collect(Collectors.toMap(Resource::getName,
-                                        resource -> resource.getSubResources()
-                                                .stream()
-                                                .map(Resource::getName)
-                                                .collect(Collectors.toList())
-                                ))
-                )
-        );
+        return List.of(new DaoFactory(metaModel.getBasePackage(), metaModel.usesInMemory(), metaModel.getResources()));
     }
 
     public static List<Model> getAllModels(MetaModel metaModel) {

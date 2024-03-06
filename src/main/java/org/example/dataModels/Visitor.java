@@ -31,14 +31,12 @@ public class Visitor implements IVisitor {
     private boolean usesInMemory;
     private String resourceName;
     private String subResourceName;
-    private final List<String> resourceNames;
-    private final Map<String, List<String>> subResourceNames;
+    private final List<Resource> resources;
 
 
     public Visitor() {
         this.dataModels = new ArrayList<>();
-        this.resourceNames = new ArrayList<>();
-        this.subResourceNames = new HashMap<>();
+        this.resources = new ArrayList<>();
     }
 
     public List<DataModel> getDataModels() {
@@ -53,13 +51,13 @@ public class Visitor implements IVisitor {
 
     @Override
     public void exitMetaModel(MetaModel metaModel) {
-        dataModels.add(new DaoFactory(basePackage, usesInMemory, resourceNames, subResourceNames));
+        dataModels.add(new DaoFactory(basePackage, usesInMemory, resources));
     }
 
     @Override
     public void enterResource(Resource resource) {
         this.resourceName = resource.getName();
-        this.resourceNames.add(resource.getName());
+        this.resources.add(resource);
     }
 
     @Override
@@ -96,8 +94,6 @@ public class Visitor implements IVisitor {
     @Override
     public void enterSubResource(Resource subResource) {
         this.subResourceName = subResource.getName();
-        this.subResourceNames.putIfAbsent(resourceName, new ArrayList<>());
-        this.subResourceNames.get(resourceName).add(subResource.getName());
     }
 
     @Override
