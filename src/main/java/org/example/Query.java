@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Query {
+
+    String subPathElement;
     Map<String, String> attributes;
 
     public Query() {
@@ -21,6 +23,15 @@ public class Query {
     public void acceptSubQuery(IVisitor visitor) {
         visitor.enterSubQuery(this);
         visitor.exitSubQuery(this);
+    }
+
+    public String getSubPathElement() {
+        return subPathElement;
+    }
+
+    public Query setSubPathElement(String subPathElement) {
+        this.subPathElement = subPathElement;
+        return this;
     }
 
     public Map<String, String> getAttributes() {

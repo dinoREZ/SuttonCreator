@@ -40,6 +40,11 @@ public class Resource {
         visitor.exitSubResource(this);
     }
 
+    public boolean isDefaultGetNeeded() {
+        // If there is a query with an empty SubPathElement, it replaces the default get
+        return this.queries.stream().noneMatch(query -> "".equals(query.getSubPathElement()));
+    }
+
     public String getName() {
         return name;
     }

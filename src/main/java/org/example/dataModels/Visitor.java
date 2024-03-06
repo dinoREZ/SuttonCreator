@@ -3,6 +3,8 @@ package org.example.dataModels;
 import org.example.Query;
 import org.example.Resource;
 import org.example.dataModels.api.models.Model;
+import org.example.dataModels.api.services.DispatcherService;
+import org.example.dataModels.api.services.Service;
 import org.example.dataModels.api.states.*;
 import org.example.dataModels.database.Dao;
 import org.example.dataModels.database.DaoFactory;
@@ -55,6 +57,7 @@ public class Visitor implements IVisitor {
     public void exitMetaModel(MetaModel metaModel) {
         dataModels.add(new DaoFactory(basePackage, usesInMemory, resources));
         dataModels.add(new GetDispatcherState(resources, basePackage));
+        dataModels.add(new DispatcherService(basePackage));
     }
 
     @Override
@@ -74,6 +77,8 @@ public class Visitor implements IVisitor {
         dataModels.add(new PutState(resource.getName(), resource.isUseEtags(), resource.getStates(), basePackage));
         dataModels.add(new RelTypes(resource.getName(), basePackage));
         dataModels.add(new Uri(resource.getName(), resource.getPathElement(), basePackage));
+
+        dataModels.add(new Service(resource, basePackage));
 
         if(usesInMemory) {
             dataModels.add(new DaoImpl(resource.getName(), resource.getQueries(), basePackage));
@@ -118,6 +123,8 @@ public class Visitor implements IVisitor {
         dataModels.add(new PutRelationState(currentResource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getStates(), basePackage));
         dataModels.add(new RelationRelTypes(currentResource.getName(), subResource.getName(), basePackage));
         dataModels.add(new RelationUri(currentResource.getName(), subResource.getName(), currentResource.getPathElement(), subResource.getPathElement(), basePackage));
+
+        dataModels.add(new Service(subResource, basePackage));
 
         if(usesInMemory) {
             dataModels.add(new RelationDaoImpl(currentResource.getName(), subResource.getName(), basePackage, subResource.getQueries()));

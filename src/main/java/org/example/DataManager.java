@@ -5,6 +5,8 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.example.dataModels.DataModel;
 import org.example.dataModels.MetaModel;
 import org.example.dataModels.api.models.Model;
+import org.example.dataModels.api.services.DispatcherService;
+import org.example.dataModels.api.services.Service;
 import org.example.dataModels.api.states.*;
 import org.example.dataModels.database.Dao;
 import org.example.dataModels.database.DaoFactory;
@@ -33,6 +35,8 @@ public class DataManager {
         dataModels.add(new DaoFactory(metaModel.getBasePackage(), metaModel.usesInMemory(), metaModel.getResources()));
         dataModels.add(new GetDispatcherState(metaModel.getResources(), metaModel.getBasePackage()));
 
+        dataModels.add(new DispatcherService(metaModel.getBasePackage()));
+
         for (Resource resource : metaModel.getResources()) {
             dataModels.add(new Model(resource.getName(), resource.getAttributes(), resource.getLinks(), metaModel.getBasePackage()));
             dataModels.add(new Dao(resource.getName(), resource.getQueries(), metaModel.getBasePackage()));
@@ -44,6 +48,8 @@ public class DataManager {
             dataModels.add(new PutState(resource.getName(), resource.isUseEtags(), resource.getStates(), metaModel.getBasePackage()));
             dataModels.add(new RelTypes(resource.getName(), metaModel.getBasePackage()));
             dataModels.add(new Uri(resource.getName(), resource.getPathElement(), metaModel.getBasePackage()));
+
+            dataModels.add(new Service(resource, metaModel.getBasePackage()));
 
             if(metaModel.usesInMemory()) {
                 dataModels.add(new DaoImpl(resource.getName(), resource.getQueries(), metaModel.getBasePackage()));
@@ -76,6 +82,8 @@ public class DataManager {
                 dataModels.add(new PutRelationState(resource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getStates(), metaModel.getBasePackage()));
                 dataModels.add(new RelationRelTypes(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
                 dataModels.add(new RelationUri(resource.getName(), subResource.getName(), resource.getPathElement(), subResource.getPathElement(), metaModel.getBasePackage()));
+
+                dataModels.add(new Service(subResource, metaModel.getBasePackage()));
 
                 if(metaModel.usesInMemory()) {
                     dataModels.add(new RelationDaoImpl(resource.getName(), subResource.getName(), metaModel.getBasePackage(), subResource.getQueries()));
@@ -599,5 +607,22 @@ public class DataManager {
                 )
                 .map(pair -> new RelationUri(pair.getLeft().getName(), pair.getRight().getName(), pair.getLeft().getPathElement(), pair.getRight().getPathElement(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
+    }
+
+    public static List<Service> getAllServices(MetaModel metaModel) {
+        return metaModel.getResources()
+                .stream()
+                // This flatMap adds all the SubResource of each Resource to the stream
+                .flatMap(resource -> {
+                    List<Resource> subResources = new ArrayList<>(resource.getSubResources());
+                    subResources.add(resource);
+                    return subResources.stream();
+                })
+                .map(resource -> new Service(resource, metaModel.getBasePackage()))
+                .collect(Collectors.toList());
+    }
+
+    public static List<DispatcherService> getAllDispatcherServices(MetaModel metaModel) {
+        return List.of(new DispatcherService(metaModel.getBasePackage()));
     }
 }
