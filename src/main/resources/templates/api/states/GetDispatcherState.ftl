@@ -10,9 +10,9 @@ import java.util.List;
 
 import static de.fhws.fiw.fds.sutton.server.AbstractDatabaseInstaller.RoleNames.GUEST_ROLES;
 
-public class GetDispatcher extends AbstractGetDispatcherState {
+public class GetDispatcherState extends AbstractGetDispatcherState {
 
-    protected GetDispatcher(Builder builder) {
+    protected GetDispatcherState(Builder builder) {
         super(builder);
     }
 
@@ -34,8 +34,8 @@ public class GetDispatcher extends AbstractGetDispatcherState {
 
     public static class Builder extends AbstractDispatcherStateBuilder {
         @Override
-        public GetDispatcher build() {
-            return new GetDispatcher( this );
+        public GetDispatcherState build() {
+            return new GetDispatcherState( this );
         }
     }
 }
