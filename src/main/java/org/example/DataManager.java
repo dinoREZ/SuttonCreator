@@ -2,10 +2,7 @@ package org.example;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
-import org.example.dataModels.Application;
-import org.example.dataModels.DataModel;
-import org.example.dataModels.MetaModel;
-import org.example.dataModels.Start;
+import org.example.dataModels.*;
 import org.example.dataModels.api.models.Model;
 import org.example.dataModels.api.queries.RelationQuery;
 import org.example.dataModels.api.services.DispatcherService;
@@ -40,6 +37,7 @@ public class DataManager {
         dataModels.add(new DispatcherService(metaModel.getBasePackage()));
         dataModels.add(new Application(metaModel.getResources(), metaModel.getBasePackage()));
         dataModels.add(new Start(metaModel.getBaseContextPath(), metaModel.getBasePackage()));
+        dataModels.add(new DatabaseInstaller(metaModel.getBasePackage()));
 
         for (Resource resource : metaModel.getResources()) {
             dataModels.add(new Model(resource.getName(), resource.getAttributes(), resource.getLinks(), metaModel.getBasePackage()));
@@ -665,5 +663,9 @@ public class DataManager {
 
     public static List<Start> getAllStarts(MetaModel metaModel) {
         return List.of(new Start(metaModel.getBaseContextPath(), metaModel.getBasePackage()));
+    }
+
+    public static List<DatabaseInstaller> getAllDatabaseInstallers(MetaModel metaModel) {
+        return List.of(new DatabaseInstaller(metaModel.getBasePackage()));
     }
 }

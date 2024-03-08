@@ -63,6 +63,7 @@ public class Visitor implements IVisitor {
         dataModels.add(new DispatcherService(basePackage));
         dataModels.add(new Start(baseContextPath, basePackage));
         dataModels.add(new Application(resources, basePackage));
+        dataModels.add(new DatabaseInstaller(basePackage));
     }
 
     @Override

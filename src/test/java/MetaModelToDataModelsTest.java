@@ -15,30 +15,35 @@ public class MetaModelToDataModelsTest {
 
     @BeforeAll
     static void createMetaModel() {
-        metaModel = new MetaModel();
-        metaModel.setBasePackage("de.fhws.fiw.fds.implementation");
-        metaModel.addResource(new Resource()
-                .setName("Student")
-                .addAttribute("String" , "firstName")
-                .addAttribute("String", "lastName")
-                .addQuery(new Query()
-                        .addAttribute("String", "firstName", "")
-                        .addAttribute("String", "lastName", "")
-                )
-                .addLink("selfLink", Link.SelfLinkOnPrimary("students"))
-                .addLink("courses", new Link(InjectLink.Style.ABSOLUTE, "students/${instance.id}/courses", "getCoursesOfStudents", "courses", "true"))
-                .addSubResource(new Resource()
-                        .setName("Course")
-                        .addAttribute("String", "name")
-                        .addAttribute("String", "room")
+        metaModel = new MetaModel()
+                .setBasePackage("implementationNew")
+                .setBaseContextPath("test")
+                .addResource(new Resource()
+                        .setName("Student")
+                        .addAttribute("String" , "firstName")
+                        .addAttribute("String", "lastName")
                         .addQuery(new Query()
-                                .addAttribute("String", "name", "")
-                                .addAttribute("String", "room", "")
+                                .addAttribute("String", "firstName", "")
+                                .addAttribute("String", "lastName", "")
+                                .setSubPathElement("test")
                         )
-                        .addLink("selfLinkOnSecond", Link.SelfLinkOnSecondary("students", "courses"))
-                        .addLink("selfLink", Link.SelfLinkOnPrimary("courses"))
-                )
-        );
+                        .addLink("selfLink", Link.SelfLinkOnPrimary("students"))
+                        .addLink("courses", new Link(InjectLink.Style.ABSOLUTE, "students/${instance.id}/courses", "getCoursesOfStudents", "courses", "true"))
+                        .setPathElement("students")
+                        .addSubResource(new Resource()
+                                .setName("Course")
+                                .addAttribute("String", "name")
+                                .addAttribute("String", "room")
+                                .addQuery(new Query()
+                                        .addAttribute("String", "name", "")
+                                        .addAttribute("String", "room", "")
+                                        .setSubPathElement("")
+                                )
+                                .addLink("selfLinkOnSecond", Link.SelfLinkOnSecondary("students", "courses"))
+                                .addLink("selfLink", Link.SelfLinkOnPrimary("courses"))
+                                .setPathElement("courses")
+                        )
+                );
     }
 
     @Test
@@ -106,6 +111,7 @@ public class MetaModelToDataModelsTest {
         multiMethodApproach.addAll(DataManager.getAllRelationQueries(metaModel));
         multiMethodApproach.addAll(DataManager.getAllStarts(metaModel));
         multiMethodApproach.addAll(DataManager.getAllApplications(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllDatabaseInstallers(metaModel));
 
         assertEquals(singleMethodApproach.size(), multiMethodApproach.size());
 
