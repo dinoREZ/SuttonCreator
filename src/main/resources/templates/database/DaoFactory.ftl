@@ -8,9 +8,9 @@ import ${basePackage}.database.hibernate.${resource.name}DaoAdapter;
 </#if>
 <#list resource.subResources as subResource>
 <#if usesInMemory>
-import ${basePackage}.database.inmemory.${subResource.name}sOf${resource.name}DaoImpl;
+import ${basePackage}.database.inmemory.${resource.name}${subResource.name}DaoImpl;
 <#else>
-import ${basePackage}.database.hibernate.${subResource.name}sOf${resource.name}DaoAdapter;
+import ${basePackage}.database.hibernate.${resource.name}${subResource.name}DaoAdapter;
 </#if>
 </#list>
 </#list>
@@ -30,7 +30,7 @@ public class DaoFactory {
     <#list resources as resource>
     private final ${resource.name}Dao ${resource.name?lower_case}Dao;
     <#list resource.subResources as subResource>
-    private final ${subResource.name}Of${resource.name}Dao ${subResource.name?lower_case}Of${resource.name}Dao;
+    private final ${resource.name}${subResource.name}Dao ${resource.name?lower_case}${subResource.name}Dao;
     </#list>
     </#list>
 
@@ -38,7 +38,7 @@ public class DaoFactory {
         <#list resources as resource>
         this.${resource.name?lower_case}Dao = new ${resource.name}Dao<#if usesInMemory>Impl<#else>Adapter</#if>();
         <#list resource.subResources as subResource>
-        this.${subResource.name?lower_case}sOf${resource.name} = new ${subResource.name}sOf${resource.name}Dao<#if usesInMemory>Impl<#else>Adapter</#if>();
+        this.${resource.name?lower_case}${subResource.name}Dao = new ${resource.name}${subResource.name}Dao<#if usesInMemory>Impl<#else>Adapter</#if>();
         </#list>
         </#list>
     }
@@ -49,8 +49,8 @@ public class DaoFactory {
     }
 
     <#list resource.subResources as subResource>
-    public ${subResource.name}sOf${resource.name}Dao get${subResource.name}sOf${resource.name}Dao() {
-        return ${subResource.name?lower_case}sOf${resource.name}Dao;
+    public ${resource.name}${subResource.name}Dao get${resource.name}${subResource.name}Dao() {
+        return ${resource.name?lower_case}${subResource.name}Dao;
     }
 
     </#list>

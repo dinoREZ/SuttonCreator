@@ -12,9 +12,9 @@ import jakarta.persistence.criteria.Predicate;
 
 import java.util.List;
 
-public class ${secondaryName}sOf${primaryName}ReadAllOperation extends AbstractReadAllRelationsByPrimaryIdOperation<${primaryName}DB, ${secondaryName}DB, ${primaryName}${secondaryName}DB> {
+public class ${primaryName}${secondaryName}ReadAllOperation extends AbstractReadAllRelationsByPrimaryIdOperation<${primaryName}DB, ${secondaryName}DB, ${primaryName}${secondaryName}DB> {
 
-    public ${secondaryName}sOf${primaryName}ReadAllOperation(EntityManagerFactory emf, long primaryId, SearchParameter searchParameter) {
+    public ${primaryName}${secondaryName}ReadAllOperation(EntityManagerFactory emf, long primaryId, SearchParameter searchParameter) {
         super(emf, ${primaryName}${secondaryName}DB.class, primaryId, searchParameter);
     }
 

@@ -1,7 +1,7 @@
 package ${basePackage}.database.hibernate;
 
 import ${basePackage}.api.models.${secondaryName};
-import ${basePackage}.database.${secondaryName}sOf${primaryName}Dao;
+import ${basePackage}.database.${primaryName}${secondaryName}Dao;
 import ${basePackage}.database.hibernate.dao.*;
 import ${basePackage}.database.hibernate.models.${secondaryName}DB;
 import ${basePackage}.database.hibernate.models.${primaryName}DB;
@@ -14,10 +14,10 @@ import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 
 import java.util.stream.Collectors;
 
-public class ${secondaryName}sOf${primaryName}DaoAdapter implements ${secondaryName}sOf${primaryName}Dao {
-    ${secondaryName}sOf${primaryName}sDaoHibernate dao = new ${secondaryName}sOf${primaryName}sDaoHibernateImpl();
+public class ${primaryName}${secondaryName}DaoAdapter implements ${primaryName}${secondaryName}Dao {
+    ${primaryName}${secondaryName}DaoHibernate dao = new ${primaryName}${secondaryName}DaoHibernateImpl();
 
-    public ${secondaryName}sOf${primaryName}DaoAdapter() {
+    public ${primaryName}${secondaryName}DaoAdapter() {
         super();
     }
 

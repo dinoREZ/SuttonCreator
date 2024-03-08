@@ -9,7 +9,7 @@ import de.fhws.fiw.fds.sutton.server.database.hibernate.results.SingleModelHiber
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import jakarta.persistence.EntityManagerFactory;
 
-public class ${secondaryName}sOf${primaryName}sDaoHibernateImpl implements ${secondaryName}sOf${primaryName}sDaoHibernate {
+public class ${primaryName}${secondaryName}DaoHibernateImpl implements ${primaryName}${secondaryName}DaoHibernate {
     private static final EntityManagerFactory emf = IDatabaseConnection.SUTTON_EMF;
 
     <#list queries as query>

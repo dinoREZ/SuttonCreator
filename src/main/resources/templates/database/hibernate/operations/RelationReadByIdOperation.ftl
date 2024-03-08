@@ -6,8 +6,8 @@ import ${basePackage}.database.hibernate.models.${primaryName}DB;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.relation.AbstractReadRelationByIdOperation;
 import jakarta.persistence.EntityManagerFactory;
 
-public class ${secondaryName}Of${primaryName}ByIdOperation extends AbstractReadRelationByIdOperation<${primaryName}DB, ${secondaryName}DB, ${primaryName}${secondaryName}DB> {
-    public ${secondaryName}Of${primaryName}ByIdOperation(EntityManagerFactory emf, long primaryId, long secondaryId) {
+public class ${primaryName}${secondaryName}ReadByIdOperation extends AbstractReadRelationByIdOperation<${primaryName}DB, ${secondaryName}DB, ${primaryName}${secondaryName}DB> {
+    public ${primaryName}${secondaryName}ReadByIdOperation(EntityManagerFactory emf, long primaryId, long secondaryId) {
         super(emf, ${primaryName}${secondaryName}DB.class, primaryId, secondaryId);
     }
 }
