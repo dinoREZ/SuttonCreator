@@ -37,10 +37,9 @@ public class DataManager {
 
         dataModels.add(new DaoFactory(metaModel.getBasePackage(), metaModel.usesInMemory(), metaModel.getResources()));
         dataModels.add(new GetDispatcherState(metaModel.getResources(), metaModel.getBasePackage()));
+        dataModels.add(new DispatcherService(metaModel.getBasePackage()));
         dataModels.add(new Application(metaModel.getResources(), metaModel.getBasePackage()));
         dataModels.add(new Start(metaModel.getBaseContextPath(), metaModel.getBasePackage()));
-
-        dataModels.add(new DispatcherService(metaModel.getBasePackage()));
 
         for (Resource resource : metaModel.getResources()) {
             dataModels.add(new Model(resource.getName(), resource.getAttributes(), resource.getLinks(), metaModel.getBasePackage()));
