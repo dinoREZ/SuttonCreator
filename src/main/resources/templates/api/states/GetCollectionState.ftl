@@ -1,6 +1,6 @@
-package ${basePackage}.server.api.states;
+package ${basePackage}.api.states;
 
-import ${basePackage}.server.api.models.${name};
+import ${basePackage}.api.models.${name};
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
 import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetCollectionState;
 

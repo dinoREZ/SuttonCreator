@@ -1,4 +1,4 @@
-package ${basePackage}.server.database.hibernate.models;
+package ${basePackage}.database.hibernate.models;
 
 import de.fhws.fiw.fds.sutton.server.database.hibernate.models.AbstractDBRelation;
 import jakarta.persistence.Entity;

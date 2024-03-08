@@ -1,8 +1,8 @@
-package ${basePackage}.server.database.inmemory;
+package ${basePackage}.database.inmemory;
 
-import ${basePackage}.server.api.models.${secondaryName};
-import ${basePackage}.server.database.${secondaryName}sOf${primaryName}Dao;
-import ${basePackage}.server.database.DaoFactory;
+import ${basePackage}.api.models.${secondaryName};
+import ${basePackage}.database.${secondaryName}sOf${primaryName}Dao;
+import ${basePackage}.database.DaoFactory;
 import de.fhws.fiw.fds.sutton.server.database.IDatabaseAccessObject;
 import de.fhws.fiw.fds.sutton.server.database.inmemory.AbstractInMemoryRelationStorage;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;

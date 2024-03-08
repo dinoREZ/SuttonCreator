@@ -1,8 +1,8 @@
-package ${basePackage}.server.database.hibernate.operations.coursesOf${primaryName};
+package ${basePackage}.database.hibernate.operations.coursesOf${primaryName};
 
-import ${basePackage}.server.database.hibernate.models.${secondaryName}DB;
-import ${basePackage}.server.database.hibernate.models.${primaryName}${secondaryName}DB;
-import ${basePackage}.server.database.hibernate.models.${primaryName}DB;
+import ${basePackage}.database.hibernate.models.${secondaryName}DB;
+import ${basePackage}.database.hibernate.models.${primaryName}${secondaryName}DB;
+import ${basePackage}.database.hibernate.models.${primaryName}DB;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.relation.AbstractDeleteRelationByIdOperation;
 import jakarta.persistence.EntityManagerFactory;
 

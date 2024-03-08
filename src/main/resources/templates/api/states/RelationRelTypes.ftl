@@ -1,4 +1,4 @@
-package ${basePackage}.server.api.states;
+package ${basePackage}.api.states;
 
 public interface ${primaryName}${secondaryName}RelTypes {
     String CREATE = "create${secondaryName}of${primaryName}";

@@ -1,7 +1,7 @@
-package ${basePackage}.server.api.services;
+package ${basePackage}.api.services;
 
-import ${basePackage}.server.api.rateLimiting.AnyApiKeyRateLimiter;
-import ${basePackage}.server.api.states.dispatcher.GetDispatcher;
+import ${basePackage}.api.rateLimiting.AnyApiKeyRateLimiter;
+import ${basePackage}.api.states.dispatcher.GetDispatcher;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractService;
 
 import javax.ws.rs.GET;

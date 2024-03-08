@@ -1,10 +1,10 @@
-package ${basePackage}.server.database.hibernate;
+package ${basePackage}.database.hibernate;
 
-import ${basePackage}.server.api.models.${name};
-import ${basePackage}.server.database.${name}Dao;
-import ${basePackage}.server.database.hibernate.dao.${name}DaoHibernate;
-import ${basePackage}.server.database.hibernate.dao.${name}DaoHibernateImpl;
-import ${basePackage}.server.database.hibernate.models.${name}DB;
+import ${basePackage}.api.models.${name};
+import ${basePackage}.database.${name}Dao;
+import ${basePackage}.database.hibernate.dao.${name}DaoHibernate;
+import ${basePackage}.database.hibernate.dao.${name}DaoHibernateImpl;
+import ${basePackage}.database.hibernate.models.${name}DB;
 import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelHibernateResult;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.results.SingleModelHibernateResult;

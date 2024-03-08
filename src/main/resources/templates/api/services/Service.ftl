@@ -1,19 +1,19 @@
-package ${basePackage}.server.api.services;
+package ${basePackage}.api.services;
 
-import ${basePackage}.server.api.models.${resource.name};
+import ${basePackage}.api.models.${resource.name};
 <#list resource.subResources as subResource>
-import ${basePackage}.server.api.models.${subResource.name};
+import ${basePackage}.api.models.${subResource.name};
 </#list>
 <#list resource.queries as query>
-import ${basePackage}.server.api.queries.${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query;
+import ${basePackage}.api.queries.${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query;
 </#list>
 <#list resource.subResources as subResource>
 <#list subResource.queries as query>
-import ${basePackage}.server.api.queries.${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query;
+import ${basePackage}.api.queries.${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query;
 </#list>
 </#list>
-import ${basePackage}.server.api.rateLimiting.AnyApiKeyRateLimiter;
-import ${basePackage}.server.api.states.*;
+import ${basePackage}.api.rateLimiting.AnyApiKeyRateLimiter;
+import ${basePackage}.api.states.*;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractService;
 
 import javax.ws.rs.*;

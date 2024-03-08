@@ -7,7 +7,7 @@ public class Config {
 
     public static String RESOURCE_PATH = "src/main/resources";
     public static String TEMPLATE_PATH = RESOURCE_PATH + "/templates/";
-    public static String OUTPUT_PATH = RESOURCE_PATH + "/output/";
+    public static String OUTPUT_PATH = "D:\\Uni\\Projects\\Bachelorarbeit\\SuttonCreatorTesting\\Sutton\\src\\main\\java\\de\\fhws\\fiw\\fds\\implementation\\server";
     public static final MetaModel META_MODEL = new MetaModel()
             .setBasePackage("de.fhws.fiw.fds.implementation")
             .setBaseContextPath("test")

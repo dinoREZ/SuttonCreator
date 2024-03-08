@@ -1,13 +1,13 @@
 package ${basePackage};
 
-import ${basePackage}.server.api.security.NoAuthNeededAuthenticationProvider;
+import ${basePackage}.api.security.NoAuthNeededAuthenticationProvider;
 <#list resources as resource>
-import ${basePackage}.server.api.services.${resource.name}Service;
+import ${basePackage}.api.services.${resource.name}Service;
 <#list resource.subResources as subResource>
-import ${basePackage}.server.api.services.${subResource.name}Service;
+import ${basePackage}.api.services.${subResource.name}Service;
 </#list>
 </#list>
-import ${basePackage}.server.api.services.DispatcherService;
+import ${basePackage}.api.services.DispatcherService;
 import de.fhws.fiw.fds.sutton.server.api.AbstractApplication;
 import de.fhws.fiw.fds.sutton.server.api.security.IAuthenticationProvider;
 import de.fhws.fiw.fds.sutton.server.api.security.SuttonAuthenticationProvider;

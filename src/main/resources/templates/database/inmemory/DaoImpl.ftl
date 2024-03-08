@@ -1,7 +1,7 @@
-package ${basePackage}.server.database.inmemory;
+package ${basePackage}.database.inmemory;
 
-import ${basePackage}.server.api.models.${name};
-import ${basePackage}.server.database.${name}Dao;
+import ${basePackage}.api.models.${name};
+import ${basePackage}.database.${name}Dao;
 import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.inmemory.AbstractInMemoryStorage;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;

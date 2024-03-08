@@ -1,6 +1,6 @@
-package ${basePackage}.server.database.hibernate.operations;
+package ${basePackage}.database.hibernate.operations;
 
-import d${basePackage}.server.database.hibernate.models.${name}DB;
+import d${basePackage}.database.hibernate.models.${name}DB;
 import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.AbstractDatabaseOperation;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelHibernateResult;

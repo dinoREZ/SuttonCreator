@@ -1,4 +1,4 @@
-package ${basePackage}.server.api.models;
+package ${basePackage}.api.models;
 
 import com.owlike.genson.annotation.JsonConverter;
 import de.fhws.fiw.fds.sutton.server.api.converter.JsonServerLinkConverter;

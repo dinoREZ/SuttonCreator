@@ -1,6 +1,6 @@
-package ${basePackage}.server.database.hibernate.operations;
+package ${basePackage}.database.hibernate.operations;
 
-import ${basePackage}.server.database.hibernate.models.${name}DB;
+import ${basePackage}.database.hibernate.models.${name}DB;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.model.AbstractPersistOperation;
 import jakarta.persistence.EntityManagerFactory;
 

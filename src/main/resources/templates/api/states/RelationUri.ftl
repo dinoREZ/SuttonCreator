@@ -1,4 +1,4 @@
-package ${basePackage}.server.api.states.coursesOfStudent;
+package ${basePackage}.api.states.coursesOfStudent;
 
 import de.fhws.fiw.fds.implementation.Start;
 

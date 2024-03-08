@@ -1,6 +1,6 @@
-package ${basePackage}.server.database;
+package ${basePackage}.database;
 
-import ${basePackage}.server.api.models.${name};
+import ${basePackage}.api.models.${name};
 import de.fhws.fiw.fds.sutton.server.database.IDatabaseAccessObject;
 import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;

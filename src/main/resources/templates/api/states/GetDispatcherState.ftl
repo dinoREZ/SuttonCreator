@@ -1,8 +1,8 @@
-package ${basePackage}.server.api.states;
+package ${basePackage}.api.states;
 
 <#list resources as resource>
-import ${basePackage}.server.api.states.${resource.name}RelTypes;
-import ${basePackage}.server.api.states.${resource.name}Uri;
+import ${basePackage}.api.states.${resource.name}RelTypes;
+import ${basePackage}.api.states.${resource.name}Uri;
 </#list>
 import de.fhws.fiw.fds.sutton.server.api.states.get.AbstractGetDispatcherState;
 

@@ -1,16 +1,16 @@
-package ${basePackage}.server.database;
+package ${basePackage}.database;
 
 <#list resources as resource>
 <#if usesInMemory>
-import ${basePackage}.server.database.inmemory.${resource.name}DaoImpl;
+import ${basePackage}.database.inmemory.${resource.name}DaoImpl;
 <#else>
-import ${basePackage}.server.database.hibernate.${resource.name}DaoAdapter;
+import ${basePackage}.database.hibernate.${resource.name}DaoAdapter;
 </#if>
 <#list resource.subResources as subResource>
 <#if usesInMemory>
-import ${basePackage}.server.database.inmemory.${subResource.name}sOf${resource.name}DaoImpl;
+import ${basePackage}.database.inmemory.${subResource.name}sOf${resource.name}DaoImpl;
 <#else>
-import ${basePackage}.server.database.hibernate.${subResource.name}sOf${resource.name}DaoAdapter;
+import ${basePackage}.database.hibernate.${subResource.name}sOf${resource.name}DaoAdapter;
 </#if>
 </#list>
 </#list>

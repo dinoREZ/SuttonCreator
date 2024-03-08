@@ -1,7 +1,7 @@
-package ${basePackage}.server.database.hibernate.dao;
+package ${basePackage}.database.hibernate.dao;
 
-import ${basePackage}.server.database.hibernate.models.${name}DB;
-import ${basePackage}.server.database.hibernate.operations.*;
+import ${basePackage}.database.hibernate.models.${name}DB;
+import ${basePackage}.database.hibernate.operations.*;
 import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.IDatabaseConnection;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelHibernateResult;

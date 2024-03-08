@@ -1,7 +1,7 @@
-package ${basePackage}.server.api.queries;
+package ${basePackage}.api.queries;
 
-import ${basePackage}.server.api.models.${name};
-import ${basePackage}.server.database.DaoFactory;
+import ${basePackage}.api.models.${name};
+import ${basePackage}.database.DaoFactory;
 import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.queries.PagingBehaviorUsingOffsetSize;
 import de.fhws.fiw.fds.sutton.server.database.DatabaseException;
