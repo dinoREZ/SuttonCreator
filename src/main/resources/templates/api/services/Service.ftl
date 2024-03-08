@@ -4,14 +4,7 @@ import ${basePackage}.api.models.${resource.name};
 <#list resource.subResources as subResource>
 import ${basePackage}.api.models.${subResource.name};
 </#list>
-<#list resource.queries as query>
-import ${basePackage}.api.queries.${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query;
-</#list>
-<#list resource.subResources as subResource>
-<#list subResource.queries as query>
-import ${basePackage}.api.queries.${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query;
-</#list>
-</#list>
+import ${basePackage}.api.queries.*;
 import ${basePackage}.api.rateLimiting.AnyApiKeyRateLimiter;
 import ${basePackage}.api.states.*;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractService;
@@ -28,6 +21,7 @@ public class ${resource.name}Service extends AbstractService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll${resource.name}() {
         return new Get${resource.name}CollectionState.Builder()
+                .setQuery(new ${resource.name}ReadAllQuery())
                 .setUriInfo(this.uriInfo)
                 .setRequest(this.request)
                 .setContext(this.context)
@@ -128,6 +122,7 @@ public class ${resource.name}Service extends AbstractService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get${resource.name}${subResource.name}Collection(@PathParam("primaryId") final long primaryId) {
         return new Get${resource.name}${subResource.name}CollectionState.Builder()
+                .setQuery(new ${resource.name}${subResource.name}ReadAllQuery(primaryId))
                 .setParentId(primaryId)
                 .setUriInfo(this.uriInfo)
                 .setRequest(this.request)

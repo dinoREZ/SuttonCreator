@@ -4,7 +4,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.example.dataModels.*;
 import org.example.dataModels.api.models.Model;
+import org.example.dataModels.api.queries.ReadAllQuery;
 import org.example.dataModels.api.queries.RelationQuery;
+import org.example.dataModels.api.queries.RelationReadAllQuery;
 import org.example.dataModels.api.rateLimiting.AnyApiKeyRateLimiter;
 import org.example.dataModels.api.security.NoAuthNeededAuthenticationProvider;
 import org.example.dataModels.api.services.DispatcherService;
@@ -56,6 +58,7 @@ public class DataManager {
             dataModels.add(new Uri(resource.getName(), resource.getPathElement(), metaModel.getBasePackage()));
 
             dataModels.add(new Service(resource, metaModel.getBasePackage()));
+            dataModels.add(new ReadAllQuery(resource.getName(), metaModel.getBasePackage()));
 
             if(metaModel.usesInMemory()) {
                 dataModels.add(new DaoImpl(resource.getName(), resource.getQueries(), metaModel.getBasePackage()));
@@ -88,6 +91,8 @@ public class DataManager {
                 dataModels.add(new PutRelationState(resource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getStates(), metaModel.getBasePackage()));
                 dataModels.add(new RelationRelTypes(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
                 dataModels.add(new RelationUri(resource.getName(), subResource.getName(), resource.getPathElement(), subResource.getPathElement(), metaModel.getBasePackage()));
+
+                dataModels.add(new RelationReadAllQuery(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
 
                 if(metaModel.usesInMemory()) {
                     dataModels.add(new RelationDaoImpl(resource.getName(), subResource.getName(), metaModel.getBasePackage(), subResource.getQueries()));
@@ -657,5 +662,23 @@ public class DataManager {
 
     public static List<AnyApiKeyRateLimiter> getAllAnyApiKeyRateLimiters(MetaModel metaModel) {
         return List.of(new AnyApiKeyRateLimiter(metaModel.getBasePackage()));
+    }
+
+    public static List<ReadAllQuery> getAllReadAllQueries(MetaModel metaModel) {
+        return metaModel.getResources()
+                .stream()
+                .map(resource -> new ReadAllQuery(resource.getName(), metaModel.getBasePackage()))
+                .collect(Collectors.toList());
+    }
+
+    public static List<RelationReadAllQuery> getAllRelationReadAllQueries(MetaModel metaModel) {
+        return metaModel.getResources()
+                .stream()
+                .flatMap(resource -> resource.getSubResources()
+                        .stream()
+                        .map(subResource -> Pair.of(resource.getName(), subResource.getName()))
+                )
+                .map(pair -> new RelationReadAllQuery(pair.getLeft(), pair.getRight(), metaModel.getBasePackage()))
+                .collect(Collectors.toList());
     }
 }

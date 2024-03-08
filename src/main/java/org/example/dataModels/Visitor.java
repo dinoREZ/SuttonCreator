@@ -3,7 +3,9 @@ package org.example.dataModels;
 import org.example.Query;
 import org.example.Resource;
 import org.example.dataModels.api.models.Model;
+import org.example.dataModels.api.queries.ReadAllQuery;
 import org.example.dataModels.api.queries.RelationQuery;
+import org.example.dataModels.api.queries.RelationReadAllQuery;
 import org.example.dataModels.api.rateLimiting.AnyApiKeyRateLimiter;
 import org.example.dataModels.api.security.NoAuthNeededAuthenticationProvider;
 import org.example.dataModels.api.services.DispatcherService;
@@ -89,6 +91,7 @@ public class Visitor implements IVisitor {
         dataModels.add(new Uri(resource.getName(), resource.getPathElement(), basePackage));
 
         dataModels.add(new Service(resource, basePackage));
+        dataModels.add(new ReadAllQuery(resource.getName(), basePackage));
 
         if(usesInMemory) {
             dataModels.add(new DaoImpl(resource.getName(), resource.getQueries(), basePackage));
@@ -133,6 +136,8 @@ public class Visitor implements IVisitor {
         dataModels.add(new PutRelationState(currentResource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getStates(), basePackage));
         dataModels.add(new RelationRelTypes(currentResource.getName(), subResource.getName(), basePackage));
         dataModels.add(new RelationUri(currentResource.getName(), subResource.getName(), currentResource.getPathElement(), subResource.getPathElement(), basePackage));
+
+        dataModels.add(new RelationReadAllQuery(currentResource.getName(), subResource.getName(), basePackage));
 
         if(usesInMemory) {
             dataModels.add(new RelationDaoImpl(currentResource.getName(), subResource.getName(), basePackage, subResource.getQueries()));
