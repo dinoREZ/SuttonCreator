@@ -1,4 +1,4 @@
-package ${basePackage}.database.hibernate.operations.coursesOf${primaryName};
+package ${basePackage}.database.hibernate.operations;
 
 import ${basePackage}.database.hibernate.models.${secondaryName}DB;
 import ${basePackage}.database.hibernate.models.${primaryName}${secondaryName}DB;

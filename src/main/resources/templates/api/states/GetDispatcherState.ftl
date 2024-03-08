@@ -20,9 +20,7 @@ public class GetDispatcherState extends AbstractGetDispatcherState {
     protected void defineTransitionLinks() {
         <#list resources as resource>
         <#list resource.states as state>
-        <#if state.stateType == "GET_ALL">
         addLink(${resource.name}Uri.REL_PATH, ${resource.name}RelTypes.GET_ALL);
-        </#if>
         </#list>
         </#list>
     }

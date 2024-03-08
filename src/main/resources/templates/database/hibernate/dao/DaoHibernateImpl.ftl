@@ -19,7 +19,7 @@ public class ${name}DaoHibernateImpl implements ${name}DaoHibernate {
     <#list queries as query>
     @Override
     public CollectionModelHibernateResult<${name}DB> readBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(<#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
-        return new ${name}QueryOperation(emf, <#list query.attributes as attributeTriple>${attributeTriple.middle}, </#list>searchParameter).start();
+        return new ${name}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(emf, <#list query.attributes as attributeTriple>${attributeTriple.middle}, </#list>searchParameter).start();
     }
     </#list>
 

@@ -1,7 +1,7 @@
 package ${basePackage}.api.services;
 
 import ${basePackage}.api.rateLimiting.AnyApiKeyRateLimiter;
-import ${basePackage}.api.states.dispatcher.GetDispatcher;
+import ${basePackage}.api.states.GetDispatcherState;
 import de.fhws.fiw.fds.sutton.server.api.services.AbstractService;
 
 import javax.ws.rs.GET;
@@ -13,7 +13,7 @@ public class DispatcherService extends AbstractService {
 
     @GET
     public Response getDefault() {
-        return new GetDispatcher.Builder()
+        return new GetDispatcherState.Builder()
                 .setRateLimiter(new AnyApiKeyRateLimiter())
                 .setUriInfo(this.uriInfo)
                 .setRequest(this.request)

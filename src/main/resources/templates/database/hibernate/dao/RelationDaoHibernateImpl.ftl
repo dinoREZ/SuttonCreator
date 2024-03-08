@@ -15,42 +15,42 @@ public class ${primaryName}${secondaryName}DaoHibernateImpl implements ${primary
     <#list queries as query>
     @Override
     public CollectionModelHibernateResult<${secondaryName}DB> readBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
-        return new ${secondaryName}sOf${primaryName}ByQueryOperation(emf, primaryId, <#list query.attributes as attributeTriple>${attributeTriple.middle}, </#list>searchParameter).start();
+        return new  ${primaryName}${secondaryName}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(emf, primaryId, <#list query.attributes as attributeTriple>${attributeTriple.middle}, </#list>searchParameter).start();
     }
 
     </#list>
     @Override
     public NoContentResult create(long primaryId, ${secondaryName}DB secondaryModel) {
-        return new ${secondaryName}sOf${primaryName}sCreateOperation(emf, primaryId, secondaryModel).start();
+        return new ${primaryName}${secondaryName}PersistOperation(emf, primaryId, secondaryModel).start();
     }
 
     @Override
     public NoContentResult update(long primaryId, ${secondaryName}DB secondaryModel) {
-        return new ${secondaryName}Of${primaryName}UpdateOperation(emf, primaryId, secondaryModel).start();
+        return new ${primaryName}${secondaryName}UpdateOperation(emf, primaryId, secondaryModel).start();
     }
 
     @Override
     public NoContentResult deleteRelation(long primaryId, long secondaryId) {
-        return new ${secondaryName}sOf${primaryName}sDeleteOperation(emf, primaryId, secondaryId).start();
+        return new ${primaryName}${secondaryName}DeleteByIdOperation(emf, primaryId, secondaryId).start();
     }
 
     @Override
     public NoContentResult deleteRelationsFromPrimary(long primaryId) {
-        return new ${primaryName}sOf${secondaryName}DeleteByIdOperation(emf, primaryId).start();
+        return new ${primaryName}${secondaryName}DeleteByPrimaryIdOperation(emf, primaryId).start();
     }
 
     @Override
     public NoContentResult deleteRelationsToSecondary(long secondaryId) {
-        return new ${secondaryName}sOf${primaryName}DeleteByIdOperation(emf, secondaryId).start();
+        return new ${primaryName}${secondaryName}DeleteBySecondaryIdOperation(emf, secondaryId).start();
     }
 
     @Override
     public SingleModelHibernateResult<${secondaryName}DB> readById(long primaryId, long secondaryId) {
-        return new ${secondaryName}Of${primaryName}ByIdOperation(emf, primaryId, secondaryId).start();
+        return new ${primaryName}${secondaryName}ReadByIdOperation(emf, primaryId, secondaryId).start();
     }
 
     @Override
     public CollectionModelHibernateResult<${secondaryName}DB> readAll(long primaryId, SearchParameter searchParameter) {
-        return new ${secondaryName}sOf${primaryName}ReadAllOperation(emf, primaryId, searchParameter).start();
+        return new ${primaryName}${secondaryName}ReadAllOperation(emf, primaryId, searchParameter).start();
     }
 }

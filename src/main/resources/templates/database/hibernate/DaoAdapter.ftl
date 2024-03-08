@@ -12,6 +12,8 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 
+import java.util.stream.Collectors;
+
 public class ${name}DaoAdapter implements ${name}Dao {
     private final ${name}DaoHibernate dao = new ${name}DaoHibernateImpl();
 

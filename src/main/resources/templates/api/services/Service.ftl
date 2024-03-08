@@ -142,14 +142,13 @@ public class ${resource.name}Service extends AbstractService {
     </#if>
     <#list subResource.queries as query>
     @GET
-    @Path("${query.subPathElement}")
-    @Path("{primaryId : \\d+}/${subResource.pathElement}")
+    @Path("{primaryId : \\d+}/${subResource.pathElement}/${query.subPathElement}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(@PathParam("primaryId") final long primaryId,
                                        <#list query.attributes as attributeTriple>@DefaultValue("${attributeTriple.right}") @QueryParam("${attributeTriple.middle}") ${attributeTriple.left} ${attributeTriple.middle}<#sep>, </#list>, @DefaultValue("0") @QueryParam("offset") int offset, @DefaultValue("20") @QueryParam("size") int size) {
         return new Get${resource.name}${subResource.name}CollectionState.Builder()
                 .setParentId(primaryId)
-                .setQuery(new ${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query(<#list query.attributes as attributeTriple>${attributeTriple.middle}<#sep>, </#list>, offset, size))
+                .setQuery(new ${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query(primaryId, <#list query.attributes as attributeTriple>${attributeTriple.middle}<#sep>, </#list>, offset, size))
                 .setUriInfo(this.uriInfo)
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)

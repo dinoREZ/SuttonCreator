@@ -23,7 +23,7 @@ public class ${name}DB extends AbstractDBModel {
         return ${attributeName};
     }
 
-    public void set${attributeName?cap_first}() {
+    public void set${attributeName?cap_first}(${class} ${attributeName}) {
         this.${attributeName} = ${attributeName};
     }
 

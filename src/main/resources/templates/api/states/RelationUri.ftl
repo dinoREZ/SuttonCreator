@@ -1,6 +1,6 @@
-package ${basePackage}.api.states.coursesOfStudent;
+package ${basePackage}.api.states;
 
-import de.fhws.fiw.fds.implementation.Start;
+import ${basePackage}.Start;
 
 public interface ${primaryName}${secondaryName}Uri {
     String PATH_ELEMENT = "${primaryPathElement}/{id}/${secondaryPathElement}";
