@@ -77,7 +77,6 @@ public class DataManager {
             }
 
             for (Resource subResource : resource.getSubResources()) {
-                dataModels.add(new Model(subResource.getName(), subResource.getAttributes(), subResource.getLinks(), metaModel.getBasePackage()));
                 dataModels.add(new RelationDao(resource.getName(), subResource.getName(), metaModel.getBasePackage(), subResource.getQueries()));
 
                 dataModels.add(new DeleteRelationState(resource.getName(), subResource.getName(), subResource.getStates(), metaModel.getBasePackage()));
@@ -88,13 +87,10 @@ public class DataManager {
                 dataModels.add(new RelationRelTypes(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
                 dataModels.add(new RelationUri(resource.getName(), subResource.getName(), resource.getPathElement(), subResource.getPathElement(), metaModel.getBasePackage()));
 
-                dataModels.add(new Service(subResource, metaModel.getBasePackage()));
-
                 if(metaModel.usesInMemory()) {
                     dataModels.add(new RelationDaoImpl(resource.getName(), subResource.getName(), metaModel.getBasePackage(), subResource.getQueries()));
                 }
                 else {
-                    dataModels.add(new ModelDB(subResource.getName(), subResource.getAttributes(), metaModel.getBasePackage()));
                     dataModels.add(new RelationDB(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
                     dataModels.add(new RelationDaoHibernate(resource.getName(), subResource.getName(), metaModel.getBasePackage(), subResource.getQueries()));
                     dataModels.add(new RelationDaoHibernateImpl(resource.getName(), subResource.getName(), metaModel.getBasePackage(), subResource.getQueries()));
@@ -126,12 +122,6 @@ public class DataManager {
     public static List<Model> getAllModels(MetaModel metaModel) {
         return metaModel.getResources()
                 .stream()
-                // This flatMap adds all the SubResource of each Resource to the stream
-                .flatMap(resource -> {
-                    List<Resource> subResources = new ArrayList<>(resource.getSubResources());
-                    subResources.add(resource);
-                    return subResources.stream();
-                })
                 .map(resource -> new Model(resource.getName(), resource.getAttributes(), resource.getLinks(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }
@@ -160,12 +150,6 @@ public class DataManager {
         } else {
             return metaModel.getResources()
                     .stream()
-                    // This flatMap adds all the SubResource of each Resource to the stream
-                    .flatMap(resource -> {
-                        List<Resource> subResources = new ArrayList<>(resource.getSubResources());
-                        subResources.add(resource);
-                        return subResources.stream();
-                    })
                     .map(resource -> new ModelDB(resource.getName(), resource.getAttributes(), metaModel.getBasePackage()))
                     .collect(Collectors.toList());
         }
@@ -618,12 +602,6 @@ public class DataManager {
     public static List<Service> getAllServices(MetaModel metaModel) {
         return metaModel.getResources()
                 .stream()
-                // This flatMap adds all the SubResource of each Resource to the stream
-                .flatMap(resource -> {
-                    List<Resource> subResources = new ArrayList<>(resource.getSubResources());
-                    subResources.add(resource);
-                    return subResources.stream();
-                })
                 .map(resource -> new Service(resource, metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }

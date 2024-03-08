@@ -122,7 +122,6 @@ public class Visitor implements IVisitor {
 
     @Override
     public void exitSubResource(Resource subResource) {
-        dataModels.add(new Model(subResource.getName(), subResource.getAttributes(), subResource.getLinks(), basePackage));
         dataModels.add(new RelationDao(currentResource.getName(), subResource.getName(), basePackage, subResource.getQueries()));
 
         dataModels.add(new DeleteRelationState(currentResource.getName(), subResource.getName(), subResource.getStates(), basePackage));
@@ -133,12 +132,9 @@ public class Visitor implements IVisitor {
         dataModels.add(new RelationRelTypes(currentResource.getName(), subResource.getName(), basePackage));
         dataModels.add(new RelationUri(currentResource.getName(), subResource.getName(), currentResource.getPathElement(), subResource.getPathElement(), basePackage));
 
-        dataModels.add(new Service(subResource, basePackage));
-
         if(usesInMemory) {
             dataModels.add(new RelationDaoImpl(currentResource.getName(), subResource.getName(), basePackage, subResource.getQueries()));
         } else {
-            dataModels.add(new ModelDB(subResource.getName(), subResource.getAttributes(), basePackage));
             dataModels.add(new RelationDB(currentResource.getName(), subResource.getName(), basePackage));
             dataModels.add(new RelationDaoHibernate(currentResource.getName(), subResource.getName(), basePackage, subResource.getQueries()));
             dataModels.add(new RelationDaoHibernateImpl(currentResource.getName(), subResource.getName(), basePackage, subResource.getQueries()));

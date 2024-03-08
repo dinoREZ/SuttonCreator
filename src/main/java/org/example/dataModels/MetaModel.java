@@ -4,29 +4,37 @@ import org.example.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MetaModel {
-    private final List<Resource> resources;
+    private final List<Resource> primaryResources;
     private String basePackage;
     private String baseContextPath;
     private boolean usesInMemory;
 
     public MetaModel() {
-        resources = new ArrayList<>();
+        primaryResources = new ArrayList<>();
     }
 
     public void accept(IVisitor visitor) {
         visitor.enterMetaModel(this);
-        this.resources.forEach(r -> r.accept(visitor));
+        this.getResources().forEach(r -> r.accept(visitor));
         visitor.exitMetaModel(this);
     }
 
     public List<Resource> getResources() {
-        return resources;
+        return primaryResources.stream()
+                // This flatMap adds all the SubResource of each Resource to the stream
+                .flatMap(resource -> {
+                    List<Resource> subResources = new ArrayList<>(resource.getSubResources());
+                    subResources.add(resource);
+                    return subResources.stream();
+                })
+                .collect(Collectors.toList());
     }
 
     public MetaModel addResource(Resource resource) {
-        resources.add(resource);
+        primaryResources.add(resource);
         return this;
     }
 
