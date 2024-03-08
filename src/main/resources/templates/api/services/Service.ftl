@@ -34,8 +34,8 @@ public class ${resource.name}Service extends AbstractService {
 
     </#if>
     <#list resource.queries as query>
-    @GET
-    @Path("${query.subPathElement}")
+    @GET<#if query.subPathElement != "">
+    @Path("${query.subPathElement}")</#if>
     @Produces(MediaType.APPLICATION_JSON)
     public Response get${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(<#list query.attributes as attributeTriple>@DefaultValue("${attributeTriple.right}") @QueryParam("${attributeTriple.middle}") ${attributeTriple.left} ${attributeTriple.middle}<#sep>, </#list>, @DefaultValue("0") @QueryParam("offset") int offset, @DefaultValue("20") @QueryParam("size") int size) {
         ${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query query = new ${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query(<#list query.attributes as attributeTriple>${attributeTriple.middle}<#sep>, </#list>, offset, size);
@@ -136,8 +136,12 @@ public class ${resource.name}Service extends AbstractService {
 
     </#if>
     <#list subResource.queries as query>
-    @GET
+    @GET<#if query.subPathElement != "">
     @Path("{primaryId : \\d+}/${subResource.pathElement}/${query.subPathElement}")
+    <#else>
+
+    @Path("{primaryId : \\d+}/${subResource.pathElement}")
+    </#if>
     @Produces(MediaType.APPLICATION_JSON)
     public Response get${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(@PathParam("primaryId") final long primaryId,
                                        <#list query.attributes as attributeTriple>@DefaultValue("${attributeTriple.right}") @QueryParam("${attributeTriple.middle}") ${attributeTriple.left} ${attributeTriple.middle}<#sep>, </#list>, @DefaultValue("0") @QueryParam("offset") int offset, @DefaultValue("20") @QueryParam("size") int size) {

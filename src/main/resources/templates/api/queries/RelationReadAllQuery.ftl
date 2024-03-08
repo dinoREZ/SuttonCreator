@@ -9,7 +9,7 @@ import ${basePackage}.database.DaoFactory;
 
 public class ${primaryName}${secondaryName}ReadAllQuery extends AbstractRelationQuery<${secondaryName}> {
 
-    protected ${primaryName}${secondaryName}ReadAllQuery(long primaryId) {
+    public ${primaryName}${secondaryName}ReadAllQuery(long primaryId) {
         super(primaryId);
     }
 
