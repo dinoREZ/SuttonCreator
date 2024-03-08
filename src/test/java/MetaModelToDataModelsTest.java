@@ -113,6 +113,7 @@ public class MetaModelToDataModelsTest {
         multiMethodApproach.addAll(DataManager.getAllApplications(metaModel));
         multiMethodApproach.addAll(DataManager.getAllDatabaseInstallers(metaModel));
         multiMethodApproach.addAll(DataManager.getAllNoAuthNeededAuthenticationProviders(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllAnyApiKeyRateLimiters(metaModel));
 
         assertEquals(singleMethodApproach.size(), multiMethodApproach.size());
 

@@ -5,6 +5,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.example.dataModels.*;
 import org.example.dataModels.api.models.Model;
 import org.example.dataModels.api.queries.RelationQuery;
+import org.example.dataModels.api.rateLimiting.AnyApiKeyRateLimiter;
 import org.example.dataModels.api.security.NoAuthNeededAuthenticationProvider;
 import org.example.dataModels.api.services.DispatcherService;
 import org.example.dataModels.api.services.Service;
@@ -40,6 +41,7 @@ public class DataManager {
         dataModels.add(new Start(metaModel.getBaseContextPath(), metaModel.getBasePackage()));
         dataModels.add(new DatabaseInstaller(metaModel.getBasePackage()));
         dataModels.add(new NoAuthNeededAuthenticationProvider(metaModel.getBasePackage()));
+        dataModels.add(new AnyApiKeyRateLimiter(metaModel.getBasePackage()));
 
         for (Resource resource : metaModel.getResources()) {
             dataModels.add(new Model(resource.getName(), resource.getAttributes(), resource.getLinks(), metaModel.getBasePackage()));
@@ -651,5 +653,9 @@ public class DataManager {
 
     public static List<NoAuthNeededAuthenticationProvider> getAllNoAuthNeededAuthenticationProviders(MetaModel metaModel) {
         return List.of(new NoAuthNeededAuthenticationProvider(metaModel.getBasePackage()));
+    }
+
+    public static List<AnyApiKeyRateLimiter> getAllAnyApiKeyRateLimiters(MetaModel metaModel) {
+        return List.of(new AnyApiKeyRateLimiter(metaModel.getBasePackage()));
     }
 }
