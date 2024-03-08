@@ -15,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ${primaryName}${secondaryName}ByQueryOperation extends AbstractDatabaseOperation<${secondaryName}DB, CollectionModelHibernateResult<${secondaryName}DB>> {
+public class ${primaryName}${secondaryName}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation extends AbstractDatabaseOperation<${secondaryName}DB, CollectionModelHibernateResult<${secondaryName}DB>> {
     private final Class<${primaryName}${secondaryName}DB> classOfRelation = ${primaryName}${secondaryName}DB.class;
     private final long primaryId;
     <#list query.attributes as attributeTriple>
@@ -23,7 +23,7 @@ public class ${primaryName}${secondaryName}ByQueryOperation extends AbstractData
     </#list>
     private final SearchParameter searchParameter;
 
-    public ${primaryName}${secondaryName}ByQueryOperation(EntityManagerFactory emf, long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
+    public ${primaryName}${secondaryName}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(EntityManagerFactory emf, long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
         super(emf);
         this.primaryId = primaryId;
         <#list query.attributes as attributeTriple>

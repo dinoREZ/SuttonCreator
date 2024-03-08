@@ -1,6 +1,6 @@
 package ${basePackage}.database.hibernate.operations;
 
-import d${basePackage}.database.hibernate.models.${name}DB;
+import ${basePackage}.database.hibernate.models.${name}DB;
 import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.AbstractDatabaseOperation;
 import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelHibernateResult;
@@ -11,14 +11,14 @@ import jakarta.persistence.criteria.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class ${name}ByQueryOperation extends AbstractDatabaseOperation<${name}DB, CollectionModelHibernateResult<${name}DB>> {
+public class ${name}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation extends AbstractDatabaseOperation<${name}DB, CollectionModelHibernateResult<${name}DB>> {
 
     <#list query.attributes as attributeTriple>
     private ${attributeTriple.left} ${attributeTriple.middle};
     </#list>
     private SearchParameter searchParameter;
 
-    public ${name}ByQueryOperation(EntityManagerFactory emf, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
+    public ${name}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(EntityManagerFactory emf, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
         super(emf);
         <#list query.attributes as attributeTriple>
         this.${attributeTriple.middle} = ${attributeTriple.middle};
