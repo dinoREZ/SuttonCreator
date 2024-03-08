@@ -39,9 +39,6 @@ public class Application extends AbstractApplication {
 
         <#list resources as resource>
         returnValue.add(${resource.name}Service.class);
-        <#list resource.subResources as subResource>
-        returnValue.add(${subResource.name}Service.class);
-        </#list>
         </#list>
         returnValue.add(DispatcherService.class);
 
