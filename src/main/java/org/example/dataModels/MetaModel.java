@@ -34,8 +34,9 @@ public class MetaModel {
         return basePackage;
     }
 
-    public void setBasePackage(String basePackage) {
+    public MetaModel setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+        return this;
     }
 
     public String getBaseContextPath() {

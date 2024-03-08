@@ -5,76 +5,57 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
 import org.example.dataModels.DataModel;
-import org.example.dataModels.MetaModel;
-import org.example.dataModels.api.states.*;
-import org.glassfish.jersey.linking.InjectLink;
 
-import javax.ws.rs.core.CacheControl;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
-import static org.example.Config.RESOURCE_PATH;
+import static org.example.Config.*;
 
 public class Main {
 
     public static void main(String[] args) throws IOException, TemplateException {
-        MetaModel metaModel = new MetaModel();
-        metaModel.setBasePackage("de.fhws.fiw.fds.implementation");
-        metaModel.setBaseContextPath("test");
-        metaModel.addResource(new Resource()
-                .setName("Student")
-                .addAttribute("String" , "firstName")
-                .addAttribute("String", "lastName")
-                .addQuery(new Query()
-                        .addAttribute("String", "firstName", "")
-                        .addAttribute("String", "lastName", "")
-                        .setSubPathElement("test")
-                )
-                .addLink("selfLink", Link.SelfLinkOnPrimary("students"))
-                .addLink("courses", new Link(InjectLink.Style.ABSOLUTE, "students/${instance.id}/courses", "getCoursesOfStudents", "courses", "true"))
-                .setPathElement("students")
-                .addSubResource(new Resource()
-                        .setName("Course")
-                        .addAttribute("String", "name")
-                        .addAttribute("String", "room")
-                        .addQuery(new Query()
-                                .addAttribute("String", "name", "")
-                                .addAttribute("String", "room", "")
-                                .setSubPathElement("")
-                        )
-                        .addLink("selfLinkOnSecond", Link.SelfLinkOnSecondary("students", "courses"))
-                        .addLink("selfLink", Link.SelfLinkOnPrimary("courses"))
-                        .setPathElement("courses")
-                )
-        );
 
-        List<DataModel> dataModels = DataManager.getAllDataModels(metaModel);
+        List<DataModel> dataModels = getDataModels();
 
-        //dataModels = List.of(new GetDispatcherState(List.of(new Resource().setName("First").addState(new State().setStateType(StateType.GET_ALL)), new Resource().setName("Second").addState(new State().setStateType(StateType.GET_ALL))), "org.example"));
+        cleanOutputDirectory();
 
-        try {
-            FileUtils.cleanDirectory(new File(RESOURCE_PATH + "/output"));
-        }
-        catch(IllegalArgumentException ignored) {} // Don't care if the directory doesn't exist yet, we create it later anyway
+        generateOutput(dataModels);
+    }
 
-        Configuration cfg = new Configuration(Configuration.VERSION_2_3_31);
-        cfg.setDirectoryForTemplateLoading(new File(RESOURCE_PATH + "/templates/"));
-        cfg.setDefaultEncoding("UTF-8");
-        cfg.setLogTemplateExceptions(false);
+    private static void generateOutput(List<DataModel> dataModels) throws IOException, TemplateException {
+        Configuration freemarkerConfig = new Configuration(Configuration.VERSION_2_3_31);
+        freemarkerConfig.setDirectoryForTemplateLoading(new File(RESOURCE_PATH + "/templates/"));
+        freemarkerConfig.setDefaultEncoding("UTF-8");
+        freemarkerConfig.setLogTemplateExceptions(false);
 
         for (DataModel dataModel : dataModels) {
             String basePath = dataModel.getPath();
             String templatePath = basePath + "/" + dataModel.getTemplateName();
-            String outputDirectory = RESOURCE_PATH + "/output" + basePath;
-            String outputPath = outputDirectory + "/" + dataModel.getOutputName();
+            String outputDirectory = OUTPUT_PATH + basePath;
+            String fullOutputPath = outputDirectory + "/" + dataModel.getOutputName();
 
-            Template template = cfg.getTemplate(templatePath);
+            Template template = freemarkerConfig.getTemplate(templatePath);
             File directory = new File(outputDirectory);
-            directory.mkdirs();
-            template.process(dataModel, new FileWriter(outputPath));
+            if(directory.exists() || directory.mkdirs()) {
+                template.process(dataModel, new FileWriter(fullOutputPath));
+            }
+            else {
+                throw new RuntimeException("Problem while creating directory " + outputDirectory);
+            }
+
         }
+    }
+
+    private static List<DataModel> getDataModels() {
+        return DataManager.getAllDataModels(META_MODEL);
+    }
+
+    private static void cleanOutputDirectory() throws IOException {
+        try {
+            FileUtils.cleanDirectory(new File(OUTPUT_PATH));
+        }
+        catch(IllegalArgumentException ignored) {} // Don't care if the directory doesn't exist yet, we create it later anyway
     }
 }
