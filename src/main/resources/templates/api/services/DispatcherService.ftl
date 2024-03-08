@@ -14,7 +14,7 @@ public class DispatcherService extends AbstractService {
     @GET
     public Response getDefault() {
         return new GetDispatcherState.Builder()
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setUriInfo(this.uriInfo)
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)

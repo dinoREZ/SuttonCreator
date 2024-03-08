@@ -32,7 +32,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setContext(this.context)
                 .setHttpServletRequest(this.httpServletRequest)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -51,7 +51,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setContext(this.context)
                 .setHttpServletRequest(this.httpServletRequest)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -68,7 +68,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setContext(this.context)
                 .setHttpServletRequest(this.httpServletRequest)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -83,7 +83,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setContext(this.context)
                 .setHttpServletRequest(this.httpServletRequest)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -100,7 +100,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setContext(this.context)
                 .setHttpServletRequest(this.httpServletRequest)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -115,7 +115,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setContext(this.context)
                 .setHttpServletRequest(this.httpServletRequest)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -133,7 +133,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)
                 .setContext(this.context)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -153,7 +153,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)
                 .setContext(this.context)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -172,7 +172,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)
                 .setContext(this.context)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -189,7 +189,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)
                 .setContext(this.context)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -208,7 +208,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)
                 .setContext(this.context)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();
@@ -225,7 +225,7 @@ public class ${resource.name}Service extends AbstractService {
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)
                 .setContext(this.context)
-                .setRateLimiter(new AnyApiKeyRateLimiter())
+                .setRateLimiter(AnyApiKeyRateLimiter.anyApiKeyRateLimiter)
                 .setAuthProvider(this.authProvider)
                 .build()
                 .execute();

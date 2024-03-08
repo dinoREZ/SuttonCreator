@@ -4,8 +4,10 @@ import de.fhws.fiw.fds.sutton.server.api.rateLimiting.RateLimiter;
 
 public class AnyApiKeyRateLimiter extends RateLimiter {
 
+    public static final AnyApiKeyRateLimiter anyApiKeyRateLimiter = new AnyApiKeyRateLimiter();
+
     public AnyApiKeyRateLimiter() {
-        super(0);
+        super(5);
     }
 
     @Override
