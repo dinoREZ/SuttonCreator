@@ -4,6 +4,7 @@ import org.example.Query;
 import org.example.Resource;
 import org.example.dataModels.api.models.Model;
 import org.example.dataModels.api.queries.RelationQuery;
+import org.example.dataModels.api.security.NoAuthNeededAuthenticationProvider;
 import org.example.dataModels.api.services.DispatcherService;
 import org.example.dataModels.api.services.Service;
 import org.example.dataModels.api.states.*;
@@ -64,6 +65,7 @@ public class Visitor implements IVisitor {
         dataModels.add(new Start(baseContextPath, basePackage));
         dataModels.add(new Application(resources, basePackage));
         dataModels.add(new DatabaseInstaller(basePackage));
+        dataModels.add(new NoAuthNeededAuthenticationProvider(basePackage));
     }
 
     @Override
