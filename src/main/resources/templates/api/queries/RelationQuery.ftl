@@ -8,12 +8,12 @@ import de.fhws.fiw.fds.sutton.server.database.DatabaseException;
 import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 
-public class ${primaryName}${secondaryName}Query extends AbstractRelationQuery<${secondaryName}> {
+public class ${primaryName}${secondaryName}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query extends AbstractRelationQuery<${secondaryName}> {
     <#list query.attributes as attributeTriple>
     private ${attributeTriple.left} ${attributeTriple.middle};
     </#list>
 
-    public ${primaryName}${secondaryName}Query(long primaryId,  <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>int offset, int size) {
+    public ${primaryName}${secondaryName}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query(long primaryId,  <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>int offset, int size) {
         super(primaryId);
         <#list query.attributes as attributeTriple>
         this.${attributeTriple.middle} = ${attributeTriple.middle};
