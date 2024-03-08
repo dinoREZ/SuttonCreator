@@ -8,6 +8,7 @@ import java.util.List;
 public class MetaModel {
     private final List<Resource> resources;
     private String basePackage;
+    private String baseContextPath;
     private boolean usesInMemory;
 
     public MetaModel() {
@@ -35,6 +36,15 @@ public class MetaModel {
 
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
+    }
+
+    public String getBaseContextPath() {
+        return baseContextPath;
+    }
+
+    public MetaModel setBaseContextPath(String baseContextPath) {
+        this.baseContextPath = baseContextPath;
+        return this;
     }
 
     public boolean usesInMemory() {

@@ -104,6 +104,8 @@ public class MetaModelToDataModelsTest {
         multiMethodApproach.addAll(DataManager.getAllDispatcherServices(metaModel));
         multiMethodApproach.addAll(DataManager.getAllQueries(metaModel));
         multiMethodApproach.addAll(DataManager.getAllRelationQueries(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllStarts(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllApplications(metaModel));
 
         assertEquals(singleMethodApproach.size(), multiMethodApproach.size());
 

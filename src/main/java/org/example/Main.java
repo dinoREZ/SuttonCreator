@@ -23,6 +23,7 @@ public class Main {
     public static void main(String[] args) throws IOException, TemplateException {
         MetaModel metaModel = new MetaModel();
         metaModel.setBasePackage("de.fhws.fiw.fds.implementation");
+        metaModel.setBaseContextPath("test");
         metaModel.addResource(new Resource()
                 .setName("Student")
                 .addAttribute("String" , "firstName")

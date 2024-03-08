@@ -32,6 +32,7 @@ public class Visitor implements IVisitor {
     private final List<DataModel> dataModels;
 
     private String basePackage;
+    private String baseContextPath;
     private boolean usesInMemory;
     private Resource currentResource;
     private String subResourceName;
@@ -50,6 +51,7 @@ public class Visitor implements IVisitor {
     @Override
     public void enterMetaModel(MetaModel metaModel) {
         this.basePackage = metaModel.getBasePackage();
+        this.baseContextPath = metaModel.getBaseContextPath();
         this.usesInMemory = metaModel.usesInMemory();
         this.resources = metaModel.getResources();
     }
@@ -59,6 +61,8 @@ public class Visitor implements IVisitor {
         dataModels.add(new DaoFactory(basePackage, usesInMemory, resources));
         dataModels.add(new GetDispatcherState(resources, basePackage));
         dataModels.add(new DispatcherService(basePackage));
+        dataModels.add(new Start(baseContextPath, basePackage));
+        dataModels.add(new Application(resources, basePackage));
     }
 
     @Override

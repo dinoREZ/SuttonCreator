@@ -2,8 +2,10 @@ package org.example;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
+import org.example.dataModels.Application;
 import org.example.dataModels.DataModel;
 import org.example.dataModels.MetaModel;
+import org.example.dataModels.Start;
 import org.example.dataModels.api.models.Model;
 import org.example.dataModels.api.queries.RelationQuery;
 import org.example.dataModels.api.services.DispatcherService;
@@ -35,6 +37,8 @@ public class DataManager {
 
         dataModels.add(new DaoFactory(metaModel.getBasePackage(), metaModel.usesInMemory(), metaModel.getResources()));
         dataModels.add(new GetDispatcherState(metaModel.getResources(), metaModel.getBasePackage()));
+        dataModels.add(new Application(metaModel.getResources(), metaModel.getBasePackage()));
+        dataModels.add(new Start(metaModel.getBaseContextPath(), metaModel.getBasePackage()));
 
         dataModels.add(new DispatcherService(metaModel.getBasePackage()));
 
@@ -654,5 +658,13 @@ public class DataManager {
                 )
                 .map(triple -> new RelationQuery(triple.getLeft(), triple.getMiddle(), triple.getRight(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
+    }
+
+    public static List<Application> getAllApplications(MetaModel metaModel) {
+        return List.of(new Application(metaModel.getResources(), metaModel.getBasePackage()));
+    }
+
+    public static List<Start> getAllStarts(MetaModel metaModel) {
+        return List.of(new Start(metaModel.getBaseContextPath(), metaModel.getBasePackage()));
     }
 }

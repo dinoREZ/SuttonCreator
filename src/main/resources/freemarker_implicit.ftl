@@ -1,5 +1,6 @@
 [#ftl]
 [#-- @implicitly included --]
+[#-- @ftlvariable name="baseContextPath" type="java.lang.String" --]
 [#-- @ftlvariable name="query" type="org.example.Query" --]
 [#-- @ftlvariable name="resource" type="org.example.Resource" --]
 [#-- @ftlvariable name="secondaryPathElement" type="java.lang.String" --]
