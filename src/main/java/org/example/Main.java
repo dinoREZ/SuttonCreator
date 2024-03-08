@@ -19,21 +19,22 @@ public class Main {
 
         List<DataModel> dataModels = getDataModels();
 
-        cleanOutputDirectory();
-
         generateOutput(dataModels);
     }
 
     private static void generateOutput(List<DataModel> dataModels) throws IOException, TemplateException {
         Configuration freemarkerConfig = new Configuration(Configuration.VERSION_2_3_31);
-        freemarkerConfig.setDirectoryForTemplateLoading(new File(RESOURCE_PATH + "/templates/"));
+        freemarkerConfig.setDirectoryForTemplateLoading(new File(TEMPLATE_PATH));
         freemarkerConfig.setDefaultEncoding("UTF-8");
         freemarkerConfig.setLogTemplateExceptions(false);
+
+        String basePackagePath = createBasePackageDirectory();
+        FileUtils.cleanDirectory(new File(basePackagePath));
 
         for (DataModel dataModel : dataModels) {
             String basePath = dataModel.getPath();
             String templatePath = basePath + "/" + dataModel.getTemplateName();
-            String outputDirectory = OUTPUT_PATH + basePath;
+            String outputDirectory = basePackagePath + basePath;
             String fullOutputPath = outputDirectory + "/" + dataModel.getOutputName();
 
             Template template = freemarkerConfig.getTemplate(templatePath);
@@ -45,6 +46,16 @@ public class Main {
                 throw new RuntimeException("Problem while creating directory " + outputDirectory);
             }
 
+        }
+    }
+
+    private static String createBasePackageDirectory() {
+        String basePackagePath = OUTPUT_PATH + "/" + META_MODEL.getBasePackage().replace('.', '/');
+        File basePackageDirectory = new File(basePackagePath);
+        if(basePackageDirectory.exists() || basePackageDirectory.mkdirs()) {
+            return basePackagePath;
+        } else {
+            throw new RuntimeException("Problem while creating directory " + basePackagePath);
         }
     }
 
