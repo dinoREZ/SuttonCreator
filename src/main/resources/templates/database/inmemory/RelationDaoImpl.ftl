@@ -14,12 +14,12 @@ public class ${primaryName}${secondaryName}DaoImpl extends AbstractInMemoryRelat
     @Override
     public CollectionModelResult<${secondaryName}> readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(long primaryId, <#list query.queryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
         return readByPredicate(primaryId,
-                    ${secondaryName?lower_case} -> (
-                        <#list query.queryParameters as queryParameter>
-                        ${secondaryName?lower_case}.get${queryParameter.name?cap_first}().toLowerCase().contains(${queryParameter.name}.toLowerCase())<#sep> &&
-                        </#list>
+                ${secondaryName?lower_case} -> (
+                    <#list query.queryParameters as queryParameter>
+                    <#if queryParameter.comparisonType == "likeIgnoreCase">${secondaryName?lower_case}.get${queryParameter.name?cap_first}().toLowerCase().contains(<#if queryParameter.pathParameter>${queryParameter.name}<#else>${queryParameter.defaultValue}</#if>.toLowerCase())</#if><#if queryParameter.comparisonType == "like">${secondaryName?lower_case}.get${queryParameter.name?cap_first}().contains(<#if queryParameter.pathParameter>${queryParameter.name}<#else>${queryParameter.defaultValue}</#if>)</#if><#if queryParameter.comparisonType == "equal">java.util.Objects.equals(${secondaryName?lower_case}.get${queryParameter.name?cap_first}(), <#if queryParameter.pathParameter>${queryParameter.name}<#else>${queryParameter.defaultValue}</#if>)</#if><#if queryParameter.comparisonType == "greaterThan">${secondaryName?lower_case}.get${queryParameter.name?cap_first}() > <#if queryParameter.pathParameter>${queryParameter.name}<#else>${queryParameter.defaultValue}</#if></#if><#if queryParameter.comparisonType == "greaterThanOrEqualTo">${secondaryName?lower_case}.get${queryParameter.name?cap_first}() >= <#if queryParameter.pathParameter>${queryParameter.name}<#else>${queryParameter.defaultValue}</#if></#if><#if queryParameter.comparisonType == "lessThan">${secondaryName?lower_case}.get${queryParameter.name?cap_first}() < <#if queryParameter.pathParameter>${queryParameter.name}<#else>${queryParameter.defaultValue}</#if></#if><#if queryParameter.comparisonType == "lessThanOrEqualTo">${secondaryName?lower_case}.get${queryParameter.name?cap_first}() <= <#if queryParameter.pathParameter>${queryParameter.name}<#else>${queryParameter.defaultValue}</#if></#if><#sep> &&
+                    </#list>
 
-                    );
+                ));
     }
     </#list>
 
