@@ -37,8 +37,8 @@ public class ${resource.name}Service extends AbstractService {
     @GET<#if query.subPathElement != "">
     @Path("${query.subPathElement}")</#if>
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(<#list query.attributes as attributeTriple>@DefaultValue("${attributeTriple.right}") @QueryParam("${attributeTriple.middle}") ${attributeTriple.left} ${attributeTriple.middle}<#sep>, </#list>, @DefaultValue("0") @QueryParam("offset") int offset, @DefaultValue("20") @QueryParam("size") int size) {
-        ${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query query = new ${resource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query(<#list query.attributes as attributeTriple>${attributeTriple.middle}<#sep>, </#list>, offset, size);
+    public Response get${resource.name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(<#list query.queryParameters as queryParameter>@DefaultValue("${queryParameter.defaultValue}") @QueryParam("${queryParameter.name}") ${queryParameter.type} ${queryParameter.name}<#sep>, </#list>, @DefaultValue("0") @QueryParam("offset") int offset, @DefaultValue("20") @QueryParam("size") int size) {
+        ${resource.name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query query = new ${resource.name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(<#list query.queryParameters as queryParameter>${queryParameter.name}<#sep>, </#list>, offset, size);
         return new Get${resource.name}CollectionState.Builder()
                 .setQuery(query)
                 .setUriInfo(this.uriInfo)
@@ -143,11 +143,11 @@ public class ${resource.name}Service extends AbstractService {
     @Path("{primaryId : \\d+}/${subResource.pathElement}")
     </#if>
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(@PathParam("primaryId") final long primaryId,
-                                       <#list query.attributes as attributeTriple>@DefaultValue("${attributeTriple.right}") @QueryParam("${attributeTriple.middle}") ${attributeTriple.left} ${attributeTriple.middle}<#sep>, </#list>, @DefaultValue("0") @QueryParam("offset") int offset, @DefaultValue("20") @QueryParam("size") int size) {
+    public Response get${resource.name}${subResource.name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(@PathParam("primaryId") final long primaryId,
+                                       <#list query.queryParameters as queryParameter>@DefaultValue("${queryParameter.defaultValue}") @QueryParam("${queryParameter.name}") ${queryParameter.type} ${queryParameter.name}<#sep>, </#list>, @DefaultValue("0") @QueryParam("offset") int offset, @DefaultValue("20") @QueryParam("size") int size) {
         return new Get${resource.name}${subResource.name}CollectionState.Builder()
                 .setParentId(primaryId)
-                .setQuery(new ${resource.name}${subResource.name}By<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Query(primaryId, <#list query.attributes as attributeTriple>${attributeTriple.middle}<#sep>, </#list>, offset, size))
+                .setQuery(new ${resource.name}${subResource.name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(primaryId, <#list query.queryParameters as queryParameter>${queryParameter.name}<#sep>, </#list>, offset, size))
                 .setUriInfo(this.uriInfo)
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)

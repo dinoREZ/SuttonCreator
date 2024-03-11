@@ -10,25 +10,25 @@ import jakarta.persistence.criteria.Predicate;
 
 import java.util.List;
 
-public class ${name}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation extends AbstractReadAllOperation<${name}DB> {
+public class ${name}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation extends AbstractReadAllOperation<${name}DB> {
 
-    <#list query.attributes as attributeTriple>
-    private final ${attributeTriple.left} ${attributeTriple.middle};
+    <#list query.queryParameters as queryParameter>
+    private final ${queryParameter.type} ${queryParameter.name};
     </#list>
 
-    public ${name}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(EntityManagerFactory emf,<#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
+    public ${name}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation(EntityManagerFactory emf,<#list query.queryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
         super(emf, ${name}DB.class, searchParameter);
-        <#list query.attributes as attributeTriple>
-        this.${attributeTriple.middle} = ${attributeTriple.middle};
+        <#list query.queryParameters as queryParameter>
+        this.${queryParameter.name} = ${queryParameter.name};
         </#list>
     }
 
 
     @Override
     public List<Predicate> getAdditionalPredicates(CriteriaBuilder cb, From from) {
-        <#list query.attributes as attributeTriple>
-        final Predicate match${attributeTriple.middle?cap_first} =  cb.like(from.get("${attributeTriple.middle}"), "%" + this.${attributeTriple.middle} + "%");
+        <#list query.queryParameters as queryParameter>
+        final Predicate match${queryParameter.name?cap_first} =  cb.like(from.get("${queryParameter.name}"), "%" + this.${queryParameter.name} + "%");
         </#list>
-        return List.of(<#list query.attributes as attributeTriple>match${attributeTriple.middle?cap_first}<#sep>, </#list>);
+        return List.of(<#list query.queryParameters as queryParameter>match${queryParameter.name?cap_first}<#sep>, </#list>);
     }
 }

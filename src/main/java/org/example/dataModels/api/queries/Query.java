@@ -2,6 +2,7 @@ package org.example.dataModels.api.queries;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.example.QueryParameter;
 import org.example.dataModels.DataModel;
 
 import java.util.Objects;
@@ -33,7 +34,7 @@ public class Query implements DataModel {
 
     @Override
     public String getOutputName() {
-        return name + "By" + query.getAttributes().stream().map(Triple::getMiddle).map(StringUtils::capitalize).collect(Collectors.joining()) + "Query.java";
+        return name + "By" + query.getQueryParameters().stream().map(QueryParameter::getName).map(StringUtils::capitalize).collect(Collectors.joining()) + "Query.java";
     }
 
     @Override

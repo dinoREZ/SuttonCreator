@@ -14,8 +14,8 @@ public class ${primaryName}${secondaryName}DaoHibernateImpl implements ${primary
 
     <#list queries as query>
     @Override
-    public CollectionModelHibernateResult<${secondaryName}DB> readBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>(long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
-        return new  ${primaryName}${secondaryName}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(emf, primaryId, <#list query.attributes as attributeTriple>${attributeTriple.middle}, </#list>searchParameter).start();
+    public CollectionModelHibernateResult<${secondaryName}DB> readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(long primaryId, <#list query.queryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
+        return new  ${primaryName}${secondaryName}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation(emf, primaryId, <#list query.queryParameters as queryParameter>${queryParameter.name}, </#list>searchParameter).start();
     }
 
     </#list>

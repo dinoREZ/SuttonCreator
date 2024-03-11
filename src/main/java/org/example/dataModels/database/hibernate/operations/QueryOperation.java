@@ -3,6 +3,7 @@ package org.example.dataModels.database.hibernate.operations;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.example.Query;
+import org.example.QueryParameter;
 import org.example.dataModels.DataModel;
 
 import java.util.Objects;
@@ -51,9 +52,9 @@ public class QueryOperation implements DataModel {
     public String getOutputName() {
         return this.getName() + "QueryBy" +
                 this.getQuery()
-                        .getAttributes()
+                        .getQueryParameters()
                         .stream()
-                        .map(Triple::getMiddle)
+                        .map(QueryParameter::getName)
                         .map(StringUtils::capitalize)
                         .collect(Collectors.joining())
                 + "Operation.java";

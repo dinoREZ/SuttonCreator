@@ -1,17 +1,18 @@
 package org.example;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.example.dataModels.IVisitor;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Query {
 
     String subPathElement;
-    List<Triple<String, String, String>> attributes; // type, name, defaultValue
+    List<QueryParameter> queryParameters;
 
     public Query() {
-        attributes = new ArrayList<>();
+        queryParameters = new ArrayList<>();
     }
 
     public void accept(IVisitor visitor) {
@@ -33,12 +34,24 @@ public class Query {
         return this;
     }
 
-    public List<Triple<String, String, String>> getAttributes() {
-        return attributes;
+    public List<QueryParameter> getPathQueryParameters() {
+        return queryParameters.stream()
+                .filter(QueryParameter::isPathParameter)
+                .collect(Collectors.toList());
     }
 
-    public Query addAttribute(String type, String name, String defaultValue) {
-        attributes.add(Triple.of(type, name, defaultValue));
+    public List<QueryParameter> getNotPathQueryParameters() {
+        return queryParameters.stream()
+                .filter(Predicate.not(QueryParameter::isPathParameter))
+                .collect(Collectors.toList());
+    }
+
+    public List<QueryParameter> getQueryParameters() {
+        return queryParameters;
+    }
+
+    public Query addQueryParameter(QueryParameter queryParameter) {
+        queryParameters.add(queryParameter);
         return this;
     }
 
@@ -47,11 +60,11 @@ public class Query {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Query query = (Query) o;
-        return Objects.equals(attributes, query.attributes);
+        return Objects.equals(subPathElement, query.subPathElement) && Objects.equals(queryParameters, query.queryParameters);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(attributes);
+        return Objects.hash(subPathElement, queryParameters);
     }
 }

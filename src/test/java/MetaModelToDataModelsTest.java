@@ -1,56 +1,22 @@
-import org.example.*;
+import org.example.DataManager;
 import org.example.dataModels.DataModel;
-import org.example.dataModels.MetaModel;
 import org.example.dataModels.Visitor;
-import org.glassfish.jersey.linking.InjectLink;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.example.Config.META_MODEL;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MetaModelToDataModelsTest {
-    static MetaModel metaModel;
-
-    @BeforeAll
-    static void createMetaModel() {
-        metaModel = new MetaModel()
-                .setBasePackage("implementationNew")
-                .setBaseContextPath("test")
-                .addResource(new Resource()
-                        .setName("Student")
-                        .addAttribute("String" , "firstName")
-                        .addAttribute("String", "lastName")
-                        .addQuery(new Query()
-                                .addAttribute("String", "firstName", "")
-                                .addAttribute("String", "lastName", "")
-                                .setSubPathElement("test")
-                        )
-                        .addLink("selfLink", Link.SelfLinkOnPrimary("students"))
-                        .addLink("courses", new Link(InjectLink.Style.ABSOLUTE, "students/${instance.id}/courses", "getCoursesOfStudents", "courses", "true"))
-                        .setPathElement("students")
-                        .addSubResource(new Resource()
-                                .setName("Course")
-                                .addAttribute("String", "name")
-                                .addAttribute("String", "room")
-                                .addQuery(new Query()
-                                        .addAttribute("String", "name", "")
-                                        .addAttribute("String", "room", "")
-                                        .setSubPathElement("")
-                                )
-                                .addLink("selfLinkOnSecond", Link.SelfLinkOnSecondary("students", "courses"))
-                                .addLink("selfLink", Link.SelfLinkOnPrimary("courses"))
-                                .setPathElement("courses")
-                        )
-                );
-    }
 
     @Test
     void compareSingleMethodAndVisitorApproach() {
-        List<DataModel> singleMethodApproach = DataManager.getAllDataModels(metaModel);
+        List<DataModel> singleMethodApproach = DataManager.getAllDataModels(META_MODEL);
         Visitor visitor = new Visitor();
-        metaModel.accept(visitor);
+        META_MODEL.accept(visitor);
         List<DataModel> visitorApproach = visitor.getDataModels();
 
         assertEquals(singleMethodApproach.size(), visitorApproach.size());
@@ -60,62 +26,62 @@ public class MetaModelToDataModelsTest {
 
     @Test
     void compareSingleMethodAndMultiMethodApproach() {
-        List<DataModel> singleMethodApproach = DataManager.getAllDataModels(metaModel);
+        List<DataModel> singleMethodApproach = DataManager.getAllDataModels(META_MODEL);
         List<DataModel> multiMethodApproach = new ArrayList<>();
-        multiMethodApproach.addAll(DataManager.getAllDaoFactories(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllModels(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDaos(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDaoImpls(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllModelDBs(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDaoHibernates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDaoHibernateImpls(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDaoAdapters(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDeleteByIdOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllPersistOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllReadAllOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllReadByIdOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllUpdateOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllQueryOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationDaos(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationDaoImpls(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationDBs(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationDaoHibernate(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationDaoHibernateImpl(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationDaoAdapter(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationDeleteByIdOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationDeleteByPrimaryIdOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationDeleteBySecondaryIdOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationPersistOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationReadAllOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationReadByIdOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationUpdateOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationQueryOperations(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDeleteStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllGetCollectionStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllGetStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllPostStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllPutStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelTypes(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllUris(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDeleteRelationStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllGetRelationCollectionStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllGetRelationStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllPostRelationStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllPutRelationStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationRelTypes(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationUris(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDispatcherStates(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllServices(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDispatcherServices(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllQueries(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationQueries(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllStarts(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllApplications(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllDatabaseInstallers(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllNoAuthNeededAuthenticationProviders(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllAnyApiKeyRateLimiters(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllReadAllQueries(metaModel));
-        multiMethodApproach.addAll(DataManager.getAllRelationReadAllQueries(metaModel));
+        multiMethodApproach.addAll(DataManager.getAllDaoFactories(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllModels(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDaos(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDaoImpls(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllModelDBs(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDaoHibernates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDaoHibernateImpls(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDaoAdapters(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDeleteByIdOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllPersistOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllReadAllOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllReadByIdOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllUpdateOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllQueryOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationDaos(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationDaoImpls(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationDBs(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationDaoHibernate(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationDaoHibernateImpl(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationDaoAdapter(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationDeleteByIdOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationDeleteByPrimaryIdOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationDeleteBySecondaryIdOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationPersistOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationReadAllOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationReadByIdOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationUpdateOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationQueryOperations(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDeleteStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllGetCollectionStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllGetStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllPostStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllPutStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelTypes(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllUris(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDeleteRelationStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllGetRelationCollectionStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllGetRelationStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllPostRelationStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllPutRelationStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationRelTypes(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationUris(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDispatcherStates(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllServices(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDispatcherServices(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllQueries(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationQueries(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllStarts(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllApplications(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllDatabaseInstallers(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllNoAuthNeededAuthenticationProviders(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllAnyApiKeyRateLimiters(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllReadAllQueries(META_MODEL));
+        multiMethodApproach.addAll(DataManager.getAllRelationReadAllQueries(META_MODEL));
 
         assertEquals(singleMethodApproach.size(), multiMethodApproach.size());
 
