@@ -9,12 +9,19 @@ import ${basePackage}.database.DaoFactory;
 
 public class ${primaryName}${secondaryName}ReadAllQuery extends AbstractRelationQuery<${secondaryName}> {
 
-    public ${primaryName}${secondaryName}ReadAllQuery(long primaryId) {
+    private boolean showAll;
+
+    public ${primaryName}${secondaryName}ReadAllQuery(long primaryId, boolean showAll) {
         super(primaryId);
+        this.showAll = showAll;
     }
 
     @Override
     protected CollectionModelResult<${secondaryName}> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
-        return DaoFactory.getInstance().get${primaryName}${secondaryName}Dao().readAll(this.primaryId, searchParameter);
+        if(showAll) {
+            return DaoFactory.getInstance().get${secondaryName}Dao().readAll(searchParameter);
+        } else {
+            return DaoFactory.getInstance().get${primaryName}${secondaryName}Dao().readAll(this.primaryId, searchParameter);
+        }
     }
 }

@@ -120,9 +120,9 @@ public class ${resource.name}Service extends AbstractService {
     @GET
     @Path("{primaryId : \\d+}/${subResource.pathElement}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get${resource.name}${subResource.name}Collection(@PathParam("primaryId") final long primaryId, @DefaultValue("${resource.getDefaultSorting()}") @QueryParam("orderBy") String orderBy<#if resource.usePaging>, @DefaultValue("${resource.defaultPagingOffset}") @QueryParam("offset") int offset, @DefaultValue("${resource.defaultPagingSize}") @QueryParam("size") int size</#if>) {
+    public Response get${resource.name}${subResource.name}Collection(@PathParam("primaryId") final long primaryId, @DefaultValue("false") @QueryParam("showAll") boolean showAll, @DefaultValue("${resource.getDefaultSorting()}") @QueryParam("orderBy") String orderBy<#if resource.usePaging>, @DefaultValue("${resource.defaultPagingOffset}") @QueryParam("offset") int offset, @DefaultValue("${resource.defaultPagingSize}") @QueryParam("size") int size</#if>) {
         return new Get${resource.name}${subResource.name}CollectionState.Builder()
-                .setQuery(new ${resource.name}${subResource.name}ReadAllQuery(primaryId).setOrderByAttributes(orderBy)<#if resource.usePaging>.setPagingBehavior(new PagingBehaviorUsingOffsetSize<${resource.name}>(offset, size))</#if>)
+                .setQuery(new ${resource.name}${subResource.name}ReadAllQuery(primaryId, showAll).setOrderByAttributes(orderBy)<#if resource.usePaging>.setPagingBehavior(new PagingBehaviorUsingOffsetSize<${resource.name}>(offset, size))</#if>)
                 .setParentId(primaryId)
                 .setUriInfo(this.uriInfo)
                 .setRequest(this.request)
@@ -143,11 +143,11 @@ public class ${resource.name}Service extends AbstractService {
     @Path("{primaryId : \\d+}/${subResource.pathElement}")
     </#if>
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get${resource.name}${subResource.name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(@PathParam("primaryId") final long primaryId,
+    public Response get${resource.name}${subResource.name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(@PathParam("primaryId") final long primaryId, @DefaultValue("false") @QueryParam("showAll") boolean showAll,
                                        <#list query.pathQueryParameters as queryParameter>@DefaultValue(${queryParameter.defaultValue}) @QueryParam("${queryParameter.name}") ${queryParameter.type} ${queryParameter.name}, </#list>@DefaultValue("${resource.getDefaultSorting()}") @QueryParam("orderBy") String orderBy<#if resource.usePaging>, @DefaultValue("${resource.defaultPagingOffset}") @QueryParam("offset") int offset, @DefaultValue("${resource.defaultPagingSize}") @QueryParam("size") int size</#if>) {
         return new Get${resource.name}${subResource.name}CollectionState.Builder()
                 .setParentId(primaryId)
-                .setQuery(new ${resource.name}${subResource.name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(primaryId, <#list query.pathQueryParameters as queryParameter>${queryParameter.name}<#sep>, </#list>).setOrderByAttributes(orderBy)<#if resource.usePaging>.setPagingBehavior(new PagingBehaviorUsingOffsetSize<${resource.name}>(offset, size))</#if>)
+                .setQuery(new ${resource.name}${subResource.name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(primaryId, showAll, <#list query.pathQueryParameters as queryParameter>${queryParameter.name}<#sep>, </#list>).setOrderByAttributes(orderBy)<#if resource.usePaging>.setPagingBehavior(new PagingBehaviorUsingOffsetSize<${resource.name}>(offset, size))</#if>)
                 .setUriInfo(this.uriInfo)
                 .setRequest(this.request)
                 .setHttpServletRequest(this.httpServletRequest)

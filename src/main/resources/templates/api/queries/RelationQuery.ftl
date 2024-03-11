@@ -12,16 +12,22 @@ public class ${primaryName}${secondaryName}By<#list query.queryParameters as que
     <#list query.pathQueryParameters as queryParameter>
     private ${queryParameter.type} ${queryParameter.name};
     </#list>
+    private boolean showAll;
 
-    public ${primaryName}${secondaryName}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(long primaryId,  <#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}<#sep>, </#list>) {
+    public ${primaryName}${secondaryName}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(long primaryId, boolean showAll, <#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}<#sep>, </#list>) {
         super(primaryId);
         <#list query.pathQueryParameters as queryParameter>
         this.${queryParameter.name} = ${queryParameter.name};
         </#list>
+        this.showAll = showAll;
     }
 
     @Override
     protected CollectionModelResult<${secondaryName}> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
-        return DaoFactory.getInstance().get${primaryName}${secondaryName}Dao().readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(this.primaryId, <#list query.pathQueryParameters as queryParameter>${queryParameter.name}, </#list>searchParameter);
+        if(showAll) {
+            return DaoFactory.getInstance().get${secondaryName}Dao().readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(<#list query.pathQueryParameters as queryParameter>${queryParameter.name}, </#list>searchParameter);
+        } else {
+            return DaoFactory.getInstance().get${primaryName}${secondaryName}Dao().readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(this.primaryId, <#list query.pathQueryParameters as queryParameter>${queryParameter.name}, </#list>searchParameter);
+        }
     }
 }
