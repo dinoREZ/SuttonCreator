@@ -1,76 +1,34 @@
 package ${basePackage}.database.hibernate.operations;
 
-import ${basePackage}.database.hibernate.models.${name}DB;
+import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.model.AbstractReadAllOperation;
 import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
-import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.AbstractDatabaseOperation;
-import de.fhws.fiw.fds.sutton.server.database.hibernate.results.CollectionModelHibernateResult;
+import ${basePackage}.database.hibernate.models.${name}DB;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.From;
+import jakarta.persistence.criteria.Predicate;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class ${name}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation extends AbstractDatabaseOperation<${name}DB, CollectionModelHibernateResult<${name}DB>> {
+public class ${name}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation extends AbstractReadAllOperation<${name}DB> {
 
     <#list query.attributes as attributeTriple>
-    private ${attributeTriple.left} ${attributeTriple.middle};
+    private final ${attributeTriple.left} ${attributeTriple.middle};
     </#list>
-    private SearchParameter searchParameter;
 
-    public ${name}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(EntityManagerFactory emf, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
-        super(emf);
+    public ${name}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(EntityManagerFactory emf,<#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
+        super(emf, ${name}DB.class, searchParameter);
         <#list query.attributes as attributeTriple>
         this.${attributeTriple.middle} = ${attributeTriple.middle};
         </#list>
-        this.searchParameter = searchParameter;
     }
 
-    private Predicate formulateConditions(CriteriaBuilder criteriaBuilder, Root<${name}DB> root) {
+
+    @Override
+    public List<Predicate> getAdditionalPredicates(CriteriaBuilder cb, From from) {
         <#list query.attributes as attributeTriple>
-        final Predicate match${attributeTriple.middle?cap_first} =  criteriaBuilder.like(root.get("${attributeTriple.middle}"), "%" + this.${attributeTriple.middle} + "%");
+        final Predicate match${attributeTriple.middle?cap_first} =  cb.like(from.get("${attributeTriple.middle}"), "%" + this.${attributeTriple.middle} + "%");
         </#list>
-
-        return criteriaBuilder.and(<#list query.attributes as attributeTriple>match${attributeTriple.middle?cap_first}<#sep>, </#list>);
-    }
-
-    @Override
-    protected CollectionModelHibernateResult<${name}DB> run() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        CollectionModelHibernateResult<${name}DB> returnValue = new CollectionModelHibernateResult<>(readResult());
-        returnValue.setTotalNumberOfResult(getTotalResultCount());
-
-        return returnValue;
-    }
-
-    private List<${name}DB> readResult() {
-        final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<${name}DB> criteriaQuery = criteriaBuilder.createQuery(${name}DB.class);
-        final Root<${name}DB> root = criteriaQuery.from(${name}DB.class);
-
-        criteriaQuery = criteriaQuery.select(root).where(formulateConditions(criteriaBuilder, root));
-
-        return em.createQuery(criteriaQuery)
-                .setFirstResult(searchParameter.getOffset())
-                .setMaxResults(searchParameter.getSize())
-                .getResultList();
-    }
-
-    private int getTotalResultCount() {
-        final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        final CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
-        final Root<${name}DB> root = countQuery.from(${name}DB.class);
-
-        countQuery.select(criteriaBuilder.count(root)).where(formulateConditions(criteriaBuilder, root));
-        return em
-                .createQuery(countQuery)
-                .getSingleResult()
-                .intValue();
-    }
-
-    @Override
-    protected CollectionModelHibernateResult<${name}DB> errorResult() {
-        final CollectionModelHibernateResult<${name}DB> returnValue = new CollectionModelHibernateResult<>();
-        returnValue.setError();
-        return returnValue;
+        return List.of(<#list query.attributes as attributeTriple>match${attributeTriple.middle?cap_first}<#sep>, </#list>);
     }
 }

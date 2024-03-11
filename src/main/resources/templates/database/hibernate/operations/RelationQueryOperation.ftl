@@ -1,5 +1,6 @@
 package ${basePackage}.database.hibernate.operations;
 
+import de.fhws.fiw.fds.sutton.server.database.hibernate.operations.relation.AbstractReadAllRelationsByPrimaryIdOperation;
 import ${basePackage}.database.hibernate.models.${secondaryName}DB;
 import ${basePackage}.database.hibernate.models.${primaryName}${secondaryName}DB;
 import ${basePackage}.database.hibernate.models.${primaryName}DB;
@@ -15,74 +16,22 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ${primaryName}${secondaryName}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation extends AbstractDatabaseOperation<${secondaryName}DB, CollectionModelHibernateResult<${secondaryName}DB>> {
-    private final Class<${primaryName}${secondaryName}DB> classOfRelation = ${primaryName}${secondaryName}DB.class;
-    private final long primaryId;
-    <#list query.attributes as attributeTriple>
-    private ${attributeTriple.left} ${attributeTriple.middle};
-    </#list>
-    private final SearchParameter searchParameter;
+public class ${primaryName}${secondaryName}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation extends AbstractReadAllRelationsByPrimaryIdOperation<${primaryName}DB, ${secondaryName}DB, ${primaryName}${secondaryName}DB> {
+    private String name;
+    private String room;
 
     public ${primaryName}${secondaryName}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(EntityManagerFactory emf, long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
-        super(emf);
-        this.primaryId = primaryId;
-        <#list query.attributes as attributeTriple>
-        this.${attributeTriple.middle} = ${attributeTriple.middle};
-        </#list>
+        super(emf, ${primaryName}${secondaryName}DB.class, primaryId, searchParameter);
+        this.name = name;
+        this.room = room;
         this.searchParameter = searchParameter;
     }
 
     @Override
-    protected CollectionModelHibernateResult<${secondaryName}DB> run() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        CollectionModelHibernateResult<${secondaryName}DB> returnValue = new CollectionModelHibernateResult<>(readResults());
-        returnValue.setTotalNumberOfResult(getTotalNumberOfResults());
-        return returnValue;
-    }
-
-    @Override
-    protected CollectionModelHibernateResult<${secondaryName}DB> errorResult() {
-        final CollectionModelHibernateResult<${secondaryName}DB> returnValue = new CollectionModelHibernateResult<>();
-        returnValue.setError();
-        return returnValue;
-    }
-
-    private List<${secondaryName}DB> readResults() {
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<${primaryName}${secondaryName}DB> find = criteriaBuilder.createQuery(${primaryName}${secondaryName}DB.class);
-        Root<${primaryName}${secondaryName}DB> root = find.from(${primaryName}${secondaryName}DB.class);
-        Join<${primaryName}${secondaryName}DB, ${secondaryName}DB> join = root.join(SuttonColumnConstants.SECONDARY_MODEL);
-
-        find.where(formulateConditions(criteriaBuilder, root, join));
-
-        return this.em
-                .createQuery(find)
-                .setMaxResults(searchParameter.getSize())
-                .setFirstResult(searchParameter.getOffset())
-                .getResultList()
-                .stream()
-                .map(AbstractDBRelation::getSecondaryModel)
-                .collect(Collectors.toList());
-    }
-
-    private int getTotalNumberOfResults() {
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Long> find = criteriaBuilder.createQuery(Long.class);
-        Root<${primaryName}${secondaryName}DB> root = find.from(${primaryName}${secondaryName}DB.class);
-        Join<${primaryName}${secondaryName}DB, ${secondaryName}DB> join = root.join(SuttonColumnConstants.SECONDARY_MODEL);
-
-        find.select(criteriaBuilder.count(root)).where(formulateConditions(criteriaBuilder, root, join));
-
-        return this.em
-                .createQuery(find)
-                .getSingleResult().intValue();
-    }
-
-    private Predicate formulateConditions(CriteriaBuilder criteriaBuilder, Root<${primaryName}${secondaryName}DB> root, Join<${primaryName}${secondaryName}DB, ${secondaryName}DB> join) {
+    public List<Predicate> getAdditionalPredicates(CriteriaBuilder cb, From from) {
         <#list query.attributes as attributeTriple>
-        Predicate match${attributeTriple.middle?cap_first} =  criteriaBuilder.like(join.get("${attributeTriple.middle}"), "%" + this.${attributeTriple.middle} + "%");
+        final Predicate match${attributeTriple.middle?cap_first} =  cb.like(from.get("${attributeTriple.middle}"), "%" + this.${attributeTriple.middle} + "%");
         </#list>
-        Predicate primaryIdEquals = criteriaBuilder.equal(root.get(SuttonColumnConstants.DB_RELATION_ID).get(SuttonColumnConstants.PRIMARY_ID), this.primaryId);
-
-        return criteriaBuilder.and(primaryIdEquals, <#list query.attributes as attributeTriple>match${attributeTriple.middle?cap_first}<#sep>, </#list>);
+        return List.of(<#list query.attributes as attributeTriple>match${attributeTriple.middle?cap_first}<#sep>, </#list>);
     }
 }
