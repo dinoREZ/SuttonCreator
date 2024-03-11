@@ -60,7 +60,8 @@ public class MetaModel {
         return usesInMemory;
     }
 
-    public void setUsesInMemory(boolean usesInMemory) {
+    public MetaModel setUsesInMemory(boolean usesInMemory) {
         this.usesInMemory = usesInMemory;
+        return this;
     }
 }

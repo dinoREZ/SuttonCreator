@@ -74,11 +74,13 @@ public class DataManager {
                 dataModels.add(new ReadAllOperation(resource.getName(), metaModel.getBasePackage()));
                 dataModels.add(new ReadByIdOperation(resource.getName(), metaModel.getBasePackage()));
                 dataModels.add(new UpdateOperation(resource.getName(), metaModel.getBasePackage()));
+            }
 
-                for (Query query : resource.getQueries()) {
+            for (Query query : resource.getQueries()) {
+                if(!metaModel.usesInMemory()) {
                     dataModels.add(new QueryOperation(resource.getName(), query, metaModel.getBasePackage()));
-                    dataModels.add(new org.example.dataModels.api.queries.Query(resource.getName(), query, metaModel.getBasePackage()));
                 }
+                dataModels.add(new org.example.dataModels.api.queries.Query(resource.getName(), query, metaModel.getBasePackage()));
             }
 
             for (Resource subResource : resource.getSubResources()) {
@@ -110,11 +112,13 @@ public class DataManager {
                     dataModels.add(new RelationReadAllOperation(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
                     dataModels.add(new RelationReadByIdOperation(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
                     dataModels.add(new RelationUpdateOperation(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
+                }
 
-                    for (Query query : subResource.getQueries()) {
+                for (Query query : subResource.getQueries()) {
+                    if(!metaModel.usesInMemory()) {
                         dataModels.add(new RelationQueryOperation(resource.getName(), subResource.getName(), metaModel.getBasePackage(), query));
-                        dataModels.add(new RelationQuery(resource.getName(), subResource.getName(), query, metaModel.getBasePackage()));
                     }
+                    dataModels.add(new RelationQuery(resource.getName(), subResource.getName(), query, metaModel.getBasePackage()));
                 }
             }
         }

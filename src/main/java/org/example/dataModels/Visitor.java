@@ -116,7 +116,9 @@ public class Visitor implements IVisitor {
 
     @Override
     public void exitQuery(Query query) {
-        dataModels.add(new QueryOperation(currentResource.getName(), query, basePackage));
+        if(!usesInMemory) {
+            dataModels.add(new QueryOperation(currentResource.getName(), query, basePackage));
+        }
         dataModels.add(new org.example.dataModels.api.queries.Query(currentResource.getName(), query, basePackage));
     }
 
@@ -164,7 +166,9 @@ public class Visitor implements IVisitor {
 
     @Override
     public void exitSubQuery(Query subQuery) {
-        dataModels.add(new RelationQueryOperation(currentResource.getName(), subResourceName, basePackage, subQuery));
+        if(!usesInMemory) {
+            dataModels.add(new RelationQueryOperation(currentResource.getName(), subResourceName, basePackage, subQuery));
+        }
         dataModels.add(new RelationQuery(currentResource.getName(), subResourceName, subQuery, basePackage));
     }
 
