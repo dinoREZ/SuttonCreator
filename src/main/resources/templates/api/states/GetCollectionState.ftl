@@ -28,11 +28,7 @@ public class Get${name}CollectionState extends AbstractGetCollectionState<${name
 
     @Override
     protected void defineTransitionLinks() {
-        <#list states as state>
-        <#if state.stateType == "POST">
         addLink(${name}Uri.REL_PATH, ${name}RelTypes.CREATE);
-        </#if>
-        </#list>
     }
 
     @Override

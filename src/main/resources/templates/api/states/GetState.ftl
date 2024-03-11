@@ -34,14 +34,8 @@ public class Get${name}State extends AbstractGetState<${name}> {
 
     @Override
     protected void defineTransitionLinks() {
-        <#list states as state>
-        <#if state.stateType == "PUT">
         addLink(${name}Uri.REL_PATH_ID, ${name}RelTypes.UPDATE, this.requestedId);
-        </#if>
-        <#if state.stateType == "DELETE">
         addLink(${name}Uri.REL_PATH_ID, ${name}RelTypes.DELETE, this.requestedId);
-        </#if>
-        </#list>
     }
 
     <#if useEtags>

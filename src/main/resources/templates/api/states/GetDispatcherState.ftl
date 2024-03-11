@@ -19,9 +19,7 @@ public class GetDispatcherState extends AbstractGetDispatcherState {
     @Override
     protected void defineTransitionLinks() {
         <#list resources as resource>
-        <#list resource.states as state>
         addLink(${resource.name}Uri.REL_PATH, ${resource.name}RelTypes.GET_ALL);
-        </#list>
         </#list>
     }
 

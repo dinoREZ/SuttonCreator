@@ -7,7 +7,6 @@
 [#-- @ftlvariable name="primaryPathElement" type="java.lang.String" --]
 [#-- @ftlvariable name="pathElement" type="java.lang.String" --]
 [#-- @ftlvariable name="useEtags" type="boolean" --]
-[#-- @ftlvariable name="states" type="java.util.List<org.example.State>" --]
 [#-- @ftlvariable name="cacheControl" type="javax.ws.rs.core.CacheControl" --]
 [#-- @ftlvariable name="queries" type="java.util.List<org.example.Query>" --]
 [#-- @ftlvariable name="usesInMemory" type="boolean" --]

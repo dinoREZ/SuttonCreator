@@ -21,14 +21,12 @@ public class Resource {
     private final Map<String, Link> links;
     private final List<Query> queries;
     private final List<Resource> subResources;
-    private final List<State> states;
 
     public Resource() {
         attributes = new HashMap<>();
         links = new HashMap<>();
         queries = new ArrayList<>();
         subResources = new ArrayList<>();
-        states = new ArrayList<>();
     }
 
     public void accept(IVisitor visitor) {
@@ -154,15 +152,6 @@ public class Resource {
 
     public Resource addSubResource(Resource subResource) {
         subResources.add(subResource);
-        return this;
-    }
-
-    public List<State> getStates() {
-        return states;
-    }
-
-    public Resource addState(State state) {
-        states.add(state);
         return this;
     }
 }

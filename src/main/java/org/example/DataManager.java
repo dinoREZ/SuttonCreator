@@ -49,11 +49,11 @@ public class DataManager {
             dataModels.add(new Model(resource.getName(), resource.getAttributes(), resource.getLinks(), metaModel.getBasePackage()));
             dataModels.add(new Dao(resource.getName(), resource.getQueries(), metaModel.getBasePackage()));
 
-            dataModels.add(new DeleteState(resource.getName(), resource.getStates(), metaModel.getResources(), metaModel.getBasePackage()));
-            dataModels.add(new GetCollectionState(resource.getName(), resource.getStates(), metaModel.getBasePackage()));
-            dataModels.add(new GetState(resource.getName(), resource.isUseEtags(), resource.getCacheControl(), resource.getStates(), metaModel.getBasePackage()));
+            dataModels.add(new DeleteState(resource.getName(), metaModel.getResources(), metaModel.getBasePackage()));
+            dataModels.add(new GetCollectionState(resource.getName(), metaModel.getBasePackage()));
+            dataModels.add(new GetState(resource.getName(), resource.isUseEtags(), resource.getCacheControl(), metaModel.getBasePackage()));
             dataModels.add(new PostState(resource.getName(), metaModel.getBasePackage()));
-            dataModels.add(new PutState(resource.getName(), resource.isUseEtags(), resource.getStates(), metaModel.getBasePackage()));
+            dataModels.add(new PutState(resource.getName(), resource.isUseEtags(), metaModel.getBasePackage()));
             dataModels.add(new RelTypes(resource.getName(), metaModel.getBasePackage()));
             dataModels.add(new Uri(resource.getName(), resource.getPathElement(), metaModel.getBasePackage()));
 
@@ -86,11 +86,11 @@ public class DataManager {
             for (Resource subResource : resource.getSubResources()) {
                 dataModels.add(new RelationDao(resource.getName(), subResource.getName(), metaModel.getBasePackage(), subResource.getQueries()));
 
-                dataModels.add(new DeleteRelationState(resource.getName(), subResource.getName(), subResource.getStates(), metaModel.getBasePackage()));
-                dataModels.add(new GetRelationCollectionState(resource.getName(), subResource.getName(), subResource.getStates(), metaModel.getBasePackage()));
-                dataModels.add(new GetRelationState(resource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getCacheControl(), subResource.getStates(), metaModel.getBasePackage()));
+                dataModels.add(new DeleteRelationState(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
+                dataModels.add(new GetRelationCollectionState(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
+                dataModels.add(new GetRelationState(resource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getCacheControl(), metaModel.getBasePackage()));
                 dataModels.add(new PostRelationState(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
-                dataModels.add(new PutRelationState(resource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getStates(), metaModel.getBasePackage()));
+                dataModels.add(new PutRelationState(resource.getName(), subResource.getName(), subResource.isUseEtags(), metaModel.getBasePackage()));
                 dataModels.add(new RelationRelTypes(resource.getName(), subResource.getName(), metaModel.getBasePackage()));
                 dataModels.add(new RelationUri(resource.getName(), subResource.getName(), resource.getPathElement(), subResource.getPathElement(), metaModel.getBasePackage()));
 
@@ -483,14 +483,14 @@ public class DataManager {
     public static List<DeleteState> getAllDeleteStates(MetaModel metaModel) {
         return metaModel.getResources()
                 .stream()
-                .map(resource -> new DeleteState(resource.getName(), resource.getStates(), metaModel.getResources(), metaModel.getBasePackage()))
+                .map(resource -> new DeleteState(resource.getName(), metaModel.getResources(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }
 
     public static List<GetCollectionState> getAllGetCollectionStates(MetaModel metaModel) {
         return metaModel.getResources()
                 .stream()
-                .map(resource -> new GetCollectionState(resource.getName(), resource.getStates(), metaModel.getBasePackage()))
+                .map(resource -> new GetCollectionState(resource.getName(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }
 
@@ -501,7 +501,7 @@ public class DataManager {
     public static List<GetState> getAllGetStates(MetaModel metaModel) {
         return metaModel.getResources()
                 .stream()
-                .map(resource -> new GetState(resource.getName(), resource.isUseEtags(), resource.getCacheControl(), resource.getStates(), metaModel.getBasePackage()))
+                .map(resource -> new GetState(resource.getName(), resource.isUseEtags(), resource.getCacheControl(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }
 
@@ -515,7 +515,7 @@ public class DataManager {
     public static List<PutState> getAllPutStates(MetaModel metaModel) {
         return metaModel.getResources()
                 .stream()
-                .map(resource -> new PutState(resource.getName(), resource.isUseEtags(), resource.getStates(), metaModel.getBasePackage()))
+                .map(resource -> new PutState(resource.getName(), resource.isUseEtags(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }
 
@@ -540,7 +540,7 @@ public class DataManager {
                         .stream()
                         .map(subResource -> Pair.of(resource, subResource))
                 )
-                .map(pair -> new DeleteRelationState(pair.getLeft().getName(), pair.getRight().getName(), pair.getRight().getStates(), metaModel.getBasePackage()))
+                .map(pair -> new DeleteRelationState(pair.getLeft().getName(), pair.getRight().getName(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }
 
@@ -551,7 +551,7 @@ public class DataManager {
                         .stream()
                         .map(subResource -> Pair.of(resource, subResource))
                 )
-                .map(pair -> new GetRelationCollectionState(pair.getLeft().getName(), pair.getRight().getName(), pair.getRight().getStates(), metaModel.getBasePackage()))
+                .map(pair -> new GetRelationCollectionState(pair.getLeft().getName(), pair.getRight().getName(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }
 
@@ -562,7 +562,7 @@ public class DataManager {
                         .stream()
                         .map(subResource -> Pair.of(resource, subResource))
                 )
-                .map(pair -> new GetRelationState(pair.getLeft().getName(), pair.getRight().getName(), pair.getRight().isUseEtags(), pair.getRight().getCacheControl(), pair.getRight().getStates(), metaModel.getBasePackage()))
+                .map(pair -> new GetRelationState(pair.getLeft().getName(), pair.getRight().getName(), pair.getRight().isUseEtags(), pair.getRight().getCacheControl(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }
 
@@ -584,7 +584,7 @@ public class DataManager {
                         .stream()
                         .map(subResource -> Pair.of(resource, subResource))
                 )
-                .map(pair -> new PutRelationState(pair.getLeft().getName(), pair.getRight().getName(), pair.getRight().isUseEtags(), pair.getRight().getStates(), metaModel.getBasePackage()))
+                .map(pair -> new PutRelationState(pair.getLeft().getName(), pair.getRight().getName(), pair.getRight().isUseEtags(), metaModel.getBasePackage()))
                 .collect(Collectors.toList());
     }
 

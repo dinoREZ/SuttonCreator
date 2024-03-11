@@ -36,11 +36,7 @@ public class Put${name}State extends AbstractPutState<${name}> {
 
     @Override
     protected void defineTransitionLinks() {
-        <#list states as state>
-        <#if state.stateType == "GET">
         addLink(${name}Uri.REL_PATH_ID, ${name}RelTypes.GET, requestedId);
-        </#if>
-        </#list>
     }
 
     <#if useEtags>

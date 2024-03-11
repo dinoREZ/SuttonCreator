@@ -1,10 +1,8 @@
 package org.example.dataModels.api.states;
 
-import org.example.State;
 import org.example.dataModels.DataModel;
 
 import javax.ws.rs.core.CacheControl;
-import java.util.List;
 import java.util.Objects;
 
 public class GetRelationState implements DataModel {
@@ -13,15 +11,13 @@ public class GetRelationState implements DataModel {
     String secondaryName;
     boolean useEtags;
     CacheControl cacheControl;
-    List<State> states;
     String basePackage;
 
-    public GetRelationState(String primaryName, String secondaryName, boolean useEtags, CacheControl cacheControl, List<State> states, String basePackage) {
+    public GetRelationState(String primaryName, String secondaryName, boolean useEtags, CacheControl cacheControl, String basePackage) {
         this.primaryName = primaryName;
         this.secondaryName = secondaryName;
         this.useEtags = useEtags;
         this.cacheControl = cacheControl;
-        this.states = states;
         this.basePackage = basePackage;
     }
 
@@ -41,10 +37,6 @@ public class GetRelationState implements DataModel {
         return cacheControl;
     }
 
-    public List<State> getStates() {
-        return states;
-    }
-
     public String getBasePackage() {
         return basePackage;
     }
@@ -59,11 +51,11 @@ public class GetRelationState implements DataModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GetRelationState that = (GetRelationState) o;
-        return useEtags == that.useEtags && Objects.equals(primaryName, that.primaryName) && Objects.equals(secondaryName, that.secondaryName) && Objects.equals(cacheControl, that.cacheControl) && Objects.equals(states, that.states) && Objects.equals(basePackage, that.basePackage);
+        return useEtags == that.useEtags && Objects.equals(primaryName, that.primaryName) && Objects.equals(secondaryName, that.secondaryName) && Objects.equals(cacheControl, that.cacheControl) && Objects.equals(basePackage, that.basePackage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(primaryName, secondaryName, useEtags, cacheControl, states, basePackage);
+        return Objects.hash(primaryName, secondaryName, useEtags, cacheControl, basePackage);
     }
 }

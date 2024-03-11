@@ -82,11 +82,11 @@ public class Visitor implements IVisitor {
         dataModels.add(new Model(resource.getName(), resource.getAttributes(), resource.getLinks(), basePackage));
         dataModels.add(new Dao(resource.getName(), resource.getQueries(), basePackage));
 
-        dataModels.add(new DeleteState(resource.getName(), resource.getStates(), resources, basePackage));
-        dataModels.add(new GetCollectionState(resource.getName(), resource.getStates(), basePackage));
-        dataModels.add(new GetState(resource.getName(), resource.isUseEtags(), resource.getCacheControl(), resource.getStates(), basePackage));
+        dataModels.add(new DeleteState(resource.getName(), resources, basePackage));
+        dataModels.add(new GetCollectionState(resource.getName(), basePackage));
+        dataModels.add(new GetState(resource.getName(), resource.isUseEtags(), resource.getCacheControl(), basePackage));
         dataModels.add(new PostState(resource.getName(), basePackage));
-        dataModels.add(new PutState(resource.getName(), resource.isUseEtags(), resource.getStates(), basePackage));
+        dataModels.add(new PutState(resource.getName(), resource.isUseEtags(), basePackage));
         dataModels.add(new RelTypes(resource.getName(), basePackage));
         dataModels.add(new Uri(resource.getName(), resource.getPathElement(), basePackage));
 
@@ -131,11 +131,11 @@ public class Visitor implements IVisitor {
     public void exitSubResource(Resource subResource) {
         dataModels.add(new RelationDao(currentResource.getName(), subResource.getName(), basePackage, subResource.getQueries()));
 
-        dataModels.add(new DeleteRelationState(currentResource.getName(), subResource.getName(), subResource.getStates(), basePackage));
-        dataModels.add(new GetRelationCollectionState(currentResource.getName(), subResource.getName(), subResource.getStates(), basePackage));
-        dataModels.add(new GetRelationState(currentResource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getCacheControl(), subResource.getStates(), basePackage));
+        dataModels.add(new DeleteRelationState(currentResource.getName(), subResource.getName(), basePackage));
+        dataModels.add(new GetRelationCollectionState(currentResource.getName(), subResource.getName(), basePackage));
+        dataModels.add(new GetRelationState(currentResource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getCacheControl(), basePackage));
         dataModels.add(new PostRelationState(currentResource.getName(), subResource.getName(), basePackage));
-        dataModels.add(new PutRelationState(currentResource.getName(), subResource.getName(), subResource.isUseEtags(), subResource.getStates(), basePackage));
+        dataModels.add(new PutRelationState(currentResource.getName(), subResource.getName(), subResource.isUseEtags(), basePackage));
         dataModels.add(new RelationRelTypes(currentResource.getName(), subResource.getName(), basePackage));
         dataModels.add(new RelationUri(currentResource.getName(), subResource.getName(), currentResource.getPathElement(), subResource.getPathElement(), basePackage));
 

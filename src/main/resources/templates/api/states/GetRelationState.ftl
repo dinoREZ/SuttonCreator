@@ -32,17 +32,9 @@ public class Get${primaryName}${secondaryName}State extends AbstractGetRelationS
 
     @Override
     protected void defineTransitionLinks() {
-        <#list states as state>
-        <#if state.stateType == "GET_ALL">
         addLink(${primaryName}${secondaryName}Uri.REL_PATH, ${primaryName}${secondaryName}RelTypes.GET_ALL_LINKED, primaryId);
-        </#if>
-        <#if state.stateType == "PUT">
         addLink(${primaryName}${secondaryName}Uri.REL_PATH_ID, ${primaryName}${secondaryName}RelTypes.UPDATE, primaryId, requestedId);
-        </#if>
-        <#if state.stateType == "DELETE">
-        addLink(${primaryName}${secondaryName}Uri.REL_PATH_ID, ${primaryName}${secondaryName}RelTypes.DELETE_LINK, primaryId, requestedId);
-        </#if>
-        </#list>
+        addLink(${primaryName}${secondaryName}Uri.REL_PATH_ID, ${primaryName}${secondaryName}RelTypes.DELETE, primaryId, requestedId);
     }
 
     <#if useEtags>

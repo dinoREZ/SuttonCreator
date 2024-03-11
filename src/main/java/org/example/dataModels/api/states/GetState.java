@@ -1,11 +1,8 @@
 package org.example.dataModels.api.states;
 
-import org.example.State;
 import org.example.dataModels.DataModel;
 
 import javax.ws.rs.core.CacheControl;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class GetState implements DataModel {
@@ -13,19 +10,16 @@ public class GetState implements DataModel {
     private String name;
     private boolean useEtags;
     private CacheControl cacheControl;
-    private final List<State> states;
     private String basePackage;
 
 
     public GetState() {
-        states = new ArrayList<>();
     }
 
-    public GetState(String name, boolean useEtags, CacheControl cacheControl, List<State> states, String basePackage) {
+    public GetState(String name, boolean useEtags, CacheControl cacheControl, String basePackage) {
         this.name = name;
         this.useEtags = useEtags;
         this.cacheControl = cacheControl;
-        this.states = states;
         this.basePackage = basePackage;
     }
 
@@ -53,14 +47,6 @@ public class GetState implements DataModel {
         this.cacheControl = cacheControl;
     }
 
-    public List<State> getStates() {
-        return states;
-    }
-
-    public void addState(State state) {
-        states.add(state);
-    }
-
     public String getBasePackage() {
         return basePackage;
     }
@@ -79,11 +65,11 @@ public class GetState implements DataModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GetState getState = (GetState) o;
-        return useEtags == getState.useEtags && Objects.equals(name, getState.name) && Objects.equals(cacheControl, getState.cacheControl) && Objects.equals(states, getState.states) && Objects.equals(basePackage, getState.basePackage);
+        return useEtags == getState.useEtags && Objects.equals(name, getState.name) && Objects.equals(cacheControl, getState.cacheControl) && Objects.equals(basePackage, getState.basePackage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, useEtags, cacheControl, states, basePackage);
+        return Objects.hash(name, useEtags, cacheControl, basePackage);
     }
 }

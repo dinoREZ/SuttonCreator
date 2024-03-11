@@ -27,11 +27,7 @@ public class Get${primaryName}${secondaryName}CollectionState extends AbstractGe
 
     @Override
     protected void defineTransitionLinks() {
-        <#list states as state>
-        <#if state.stateType == "POST">
         addLink(${primaryName}${secondaryName}Uri.REL_PATH, ${primaryName}${secondaryName}RelTypes.CREATE, primaryId);
-        </#if>
-        </#list>
     }
 
     @Override

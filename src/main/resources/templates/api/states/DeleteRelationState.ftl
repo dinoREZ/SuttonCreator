@@ -33,11 +33,7 @@ public class Delete${primaryName}${secondaryName}State extends AbstractDeleteRel
 
     @Override
     protected void defineTransitionLinks() {
-        <#list states as state>
-        <#if state.stateType == "GET_ALL">
         addLink(${primaryName}${secondaryName}Uri.REL_PATH, ${primaryName}${secondaryName}RelTypes.GET_ALL_LINKED, primaryId);
-        </#if>
-        </#list>
     }
 
     @Override

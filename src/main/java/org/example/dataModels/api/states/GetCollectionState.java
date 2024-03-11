@@ -1,20 +1,16 @@
 package org.example.dataModels.api.states;
 
-import org.example.State;
 import org.example.dataModels.DataModel;
 
-import java.util.List;
 import java.util.Objects;
 
 public class GetCollectionState implements DataModel {
 
     private final String name;
-    private final List<State> states;
     private final String basePackage;
 
-    public GetCollectionState(String name, List<State> states, String basePackage) {
+    public GetCollectionState(String name, String basePackage) {
         this.name = name;
-        this.states = states;
         this.basePackage = basePackage;
     }
 
@@ -22,9 +18,6 @@ public class GetCollectionState implements DataModel {
         return name;
     }
 
-    public List<State> getStates() {
-        return states;
-    }
 
     public String getBasePackage() {
         return basePackage;
@@ -40,11 +33,11 @@ public class GetCollectionState implements DataModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GetCollectionState that = (GetCollectionState) o;
-        return Objects.equals(name, that.name) && Objects.equals(states, that.states) && Objects.equals(basePackage, that.basePackage);
+        return Objects.equals(name, that.name) && Objects.equals(basePackage, that.basePackage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, states, basePackage);
+        return Objects.hash(name, basePackage);
     }
 }
