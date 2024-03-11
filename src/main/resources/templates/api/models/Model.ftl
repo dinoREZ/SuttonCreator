@@ -3,6 +3,7 @@ package ${basePackage}.api.models;
 import com.owlike.genson.annotation.JsonConverter;
 import de.fhws.fiw.fds.sutton.server.api.converter.JsonServerLinkConverter;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
+import de.fhws.fiw.fds.sutton.server.utils.JsonDateTimeConverter;
 import org.glassfish.jersey.linking.InjectLink;
 
 import javax.ws.rs.core.Link;
@@ -31,10 +32,12 @@ public class ${name} extends AbstractModel {
 <#--Getters and Setters-->
 <#list attributes as attributeName, class>
 
+    <#if class == "java.time.LocalDate">@JsonConverter(JsonDateTimeConverter.class)</#if>
     public ${class} get${attributeName?cap_first}() {
         return ${attributeName};
     }
 
+    <#if class == "java.time.LocalDate">@JsonConverter(JsonDateTimeConverter.class)</#if>
     public void set${attributeName?cap_first}(${class} ${attributeName}) {
         this.${attributeName} = ${attributeName};
     }

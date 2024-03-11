@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "${name}s")
+@Table(name = "${name}")
 public class ${name}DB extends AbstractDBModel {
 
 <#list attributes as attributeName, class>
