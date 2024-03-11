@@ -31,7 +31,16 @@ public class ${primaryName}${secondaryName}QueryBy<#list query.queryParameters a
     @Override
     public List<Predicate> getAdditionalPredicates(CriteriaBuilder cb, From from) {
         <#list query.queryParameters as queryParameter>
-        final Predicate match${queryParameter.name?cap_first} =  cb.like(from.get("${queryParameter.name}"), "%" + this.${queryParameter.name} + "%");
+        <#if queryParameter.comparisonType == "like">
+        final Predicate match${queryParameter.name?cap_first} =  cb.like(from.get("${queryParameter.name}"), <#if queryParameter.pathParameter>"%" + this.${queryParameter.name} + "%"<#else>${queryParameter.defaultValue}</#if>);
+        </#if>
+        <#if queryParameter.comparisonType == "likeIgnoreCase">
+        final Predicate match${queryParameter.name?cap_first} =  cb.like(cb.lower(from.get("${queryParameter.name}")), <#if queryParameter.pathParameter>"%" + this.${queryParameter.name}.toLowerCase() + "%"<#else>${queryParameter.defaultValue}</#if>);
+        </#if>
+        <#if queryParameter.comparisonType != "like" && queryParameter.comparisonType != "likeIgnoreCase">
+        final Predicate match${queryParameter.name?cap_first} =  cb.${queryParameter.comparisonType}(from.get("${queryParameter.name}"), <#if queryParameter.pathParameter>this.${queryParameter.name}<#else>${queryParameter.defaultValue}</#if>);
+        </#if>
+
         </#list>
         return List.of(<#list query.queryParameters as queryParameter>match${queryParameter.name?cap_first}<#sep>, </#list>);
     }
