@@ -2,6 +2,7 @@ package org.example.dataModels;
 
 import org.example.Resource;
 
+import javax.ws.rs.core.CacheControl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,6 +63,16 @@ public class MetaModel {
 
     public MetaModel setUsesInMemory(boolean usesInMemory) {
         this.usesInMemory = usesInMemory;
+        return this;
+    }
+
+    public MetaModel setUseEtagsForAllResources(boolean useEtags) {
+        getResources().forEach(resource -> resource.setUseEtags(useEtags));
+        return this;
+    }
+
+    public MetaModel setCacheControlForAllResources(CacheControl cacheControl) {
+        getResources().forEach(resource -> resource.setCacheControl(cacheControl));
         return this;
     }
 }

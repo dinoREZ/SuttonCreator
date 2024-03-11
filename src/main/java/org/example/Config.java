@@ -3,6 +3,8 @@ package org.example;
 import org.example.dataModels.MetaModel;
 import org.glassfish.jersey.linking.InjectLink;
 
+import javax.ws.rs.core.CacheControl;
+
 public class Config {
 
     public static String RESOURCE_PATH = "src/main/resources";
@@ -12,7 +14,7 @@ public class Config {
     public static final MetaModel META_MODEL = new MetaModel()
             .setBasePackage("implementation")
             .setBaseContextPath("test")
-            .setUsesInMemory(false)
+            .setUsesInMemory(true)
             .addResource(new Resource()
                     .setName("Student")
                     .addAttribute("String" , "firstName")
@@ -58,6 +60,7 @@ public class Config {
                             .addLink("selfLink", Link.SelfLinkOnPrimary("courses"))
                             .setPathElement("courses")
                     )
-            );
-
+            )
+            .setCacheControlForAllResources(new CacheControl())
+            .setUseEtagsForAllResources(true);
 }

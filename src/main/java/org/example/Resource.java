@@ -58,16 +58,18 @@ public class Resource {
         return useEtags;
     }
 
-    public void setUseEtags(boolean useEtags) {
+    public Resource setUseEtags(boolean useEtags) {
         this.useEtags = useEtags;
+        return this;
     }
 
     public CacheControl getCacheControl() {
         return cacheControl;
     }
 
-    public void setCacheControl(CacheControl cacheControl) {
+    public Resource setCacheControl(CacheControl cacheControl) {
         this.cacheControl = cacheControl;
+        return this;
     }
 
     public String getPathElement() {
