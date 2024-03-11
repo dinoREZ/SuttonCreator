@@ -17,14 +17,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ${primaryName}${secondaryName}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation extends AbstractReadAllRelationsByPrimaryIdOperation<${primaryName}DB, ${secondaryName}DB, ${primaryName}${secondaryName}DB> {
-    private String name;
-    private String room;
+    <#list query.attributes as attributeTriple>
+    private final ${attributeTriple.left} ${attributeTriple.middle};
+    </#list>
 
     public ${primaryName}${secondaryName}QueryBy<#list query.attributes as attributeTriple>${attributeTriple.middle?cap_first}</#list>Operation(EntityManagerFactory emf, long primaryId, <#list query.attributes as attributeTriple>${attributeTriple.left} ${attributeTriple.middle}, </#list>SearchParameter searchParameter) {
         super(emf, ${primaryName}${secondaryName}DB.class, primaryId, searchParameter);
-        this.name = name;
-        this.room = room;
-        this.searchParameter = searchParameter;
+        <#list query.attributes as attributeTriple>
+        this.${attributeTriple.middle} = ${attributeTriple.middle};
+        </#list>
     }
 
     @Override
