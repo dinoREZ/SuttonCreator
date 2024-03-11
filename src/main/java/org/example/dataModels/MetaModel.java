@@ -24,14 +24,7 @@ public class MetaModel {
     }
 
     public List<Resource> getResources() {
-        return primaryResources.stream()
-                // This flatMap adds all the SubResource of each Resource to the stream
-                .flatMap(resource -> {
-                    List<Resource> subResources = new ArrayList<>(resource.getSubResources());
-                    subResources.add(resource);
-                    return subResources.stream();
-                })
-                .collect(Collectors.toList());
+        return primaryResources;
     }
 
     public MetaModel addResource(Resource resource) {
