@@ -33,8 +33,20 @@ public class Get${primaryName}${secondaryName}State extends AbstractGetRelationS
     @Override
     protected void defineTransitionLinks() {
         addLink(${primaryName}${secondaryName}Uri.REL_PATH, ${primaryName}${secondaryName}RelTypes.GET_ALL_LINKED, primaryId);
-        addLink(${primaryName}${secondaryName}Uri.REL_PATH_ID, ${primaryName}${secondaryName}RelTypes.UPDATE, primaryId, requestedId);
-        addLink(${primaryName}${secondaryName}Uri.REL_PATH_ID, ${primaryName}${secondaryName}RelTypes.DELETE, primaryId, requestedId);
+        if(isLinked()) {
+            addLink(${primaryName}${secondaryName}Uri.REL_PATH_ID, ${primaryName}${secondaryName}RelTypes.UPDATE, primaryId, requestedId);
+            addLink(${primaryName}${secondaryName}Uri.REL_PATH_ID, ${primaryName}${secondaryName}RelTypes.DELETE, primaryId, requestedId);
+        } else {
+            addLink(${primaryName}${secondaryName}Uri.REL_PATH_ID, ${primaryName}${secondaryName}RelTypes.CREATE_LINK, primaryId);
+        }
+
+    }
+
+    private boolean isLinked() {
+        return !DaoFactory.getInstance()
+                .get${primaryName}${secondaryName}Dao()
+                .readById(this.primaryId, this.requestedId)
+                .isEmpty();
     }
 
     <#if useEtags>

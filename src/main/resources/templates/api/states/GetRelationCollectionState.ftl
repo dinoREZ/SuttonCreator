@@ -28,6 +28,7 @@ public class Get${primaryName}${secondaryName}CollectionState extends AbstractGe
     @Override
     protected void defineTransitionLinks() {
         addLink(${primaryName}${secondaryName}Uri.REL_PATH, ${primaryName}${secondaryName}RelTypes.CREATE, primaryId);
+        addLink(${primaryName}${secondaryName}Uri.REL_PATH_SHOW_ALL, ${primaryName}${secondaryName}RelTypes.GET_ALL, primaryId);
     }
 
     @Override
