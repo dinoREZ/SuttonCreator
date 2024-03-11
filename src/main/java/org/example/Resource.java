@@ -13,6 +13,10 @@ public class Resource {
     private boolean useEtags;
     private CacheControl cacheControl;
     private String pathElement;
+    private String defaultSorting;
+    private boolean usePaging;
+    private int defaultPagingOffset;
+    private int defaultPagingSize;
     private final Map<String, String> attributes;
     private final Map<String, Link> links;
     private final List<Query> queries;
@@ -78,6 +82,42 @@ public class Resource {
 
     public Resource setPathElement(String pathElement) {
         this.pathElement = pathElement;
+        return this;
+    }
+
+    public String getDefaultSorting() {
+        return defaultSorting;
+    }
+
+    public Resource setDefaultSorting(String defaultSorting) {
+        this.defaultSorting = defaultSorting;
+        return this;
+    }
+
+    public boolean isUsePaging() {
+        return usePaging;
+    }
+
+    public Resource setUsePaging(boolean usePaging) {
+        this.usePaging = usePaging;
+        return this;
+    }
+
+    public int getDefaultPagingOffset() {
+        return defaultPagingOffset;
+    }
+
+    public Resource setDefaultPagingOffset(int defaultPagingOffset) {
+        this.defaultPagingOffset = defaultPagingOffset;
+        return this;
+    }
+
+    public int getDefaultPagingSize() {
+        return defaultPagingSize;
+    }
+
+    public Resource setDefaultPagingSize(int defaultPagingSize) {
+        this.defaultPagingSize = defaultPagingSize;
         return this;
     }
 

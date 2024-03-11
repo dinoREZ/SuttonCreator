@@ -9,16 +9,15 @@ import de.fhws.fiw.fds.sutton.server.database.searchParameter.SearchParameter;
 import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 
 public class ${primaryName}${secondaryName}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query extends AbstractRelationQuery<${secondaryName}> {
-    <#list query.queryParameters as queryParameter>
+    <#list query.pathQueryParameters as queryParameter>
     private ${queryParameter.type} ${queryParameter.name};
     </#list>
 
-    public ${primaryName}${secondaryName}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(long primaryId,  <#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>int offset, int size) {
+    public ${primaryName}${secondaryName}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(long primaryId,  <#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}<#sep>, </#list>) {
         super(primaryId);
         <#list query.pathQueryParameters as queryParameter>
         this.${queryParameter.name} = ${queryParameter.name};
         </#list>
-        this.pagingBehavior = new PagingBehaviorUsingOffsetSize<Course>(offset, size);
     }
 
     @Override

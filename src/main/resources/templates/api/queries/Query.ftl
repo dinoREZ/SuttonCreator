@@ -10,15 +10,14 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 
 public class ${name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query extends AbstractQuery<${name}> {
 
-    <#list query.queryParameters as queryParameter>
+    <#list query.pathQueryParameters as queryParameter>
     private ${queryParameter.type} ${queryParameter.name};
     </#list>
 
-    public ${name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(<#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>int offset, int size) {
+    public ${name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(<#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}<#sep>, </#list>) {
         <#list query.pathQueryParameters as queryParameter>
         this.${queryParameter.name} = ${queryParameter.name};
         </#list>
-        this.pagingBehavior = new PagingBehaviorUsingOffsetSize<${name}>(offset, size);
     }
 
     @Override
