@@ -12,7 +12,7 @@ public class ${primaryName}${secondaryName}DaoImpl extends AbstractInMemoryRelat
 
     <#list queries as query>
     @Override
-    public CollectionModelResult<${secondaryName}> readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(long primaryId, <#list query.queryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
+    public CollectionModelResult<${secondaryName}> readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(long primaryId, <#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
         return readByPredicate(primaryId,
                 ${secondaryName?lower_case} -> (
                     <#list query.queryParameters as queryParameter>

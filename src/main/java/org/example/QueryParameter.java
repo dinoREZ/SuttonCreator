@@ -35,7 +35,12 @@ public class QueryParameter {
         return defaultValue;
     }
 
-    public QueryParameter setDefaultValue(String defaultValue) {
+    public QueryParameter setDefaultValueString(String defaultValue) {
+        this.defaultValue = '"' + defaultValue + '"';
+        return this;
+    }
+
+    public QueryParameter setDefaultValueExpression(String defaultValue) {
         this.defaultValue = defaultValue;
         return this;
     }

@@ -12,13 +12,13 @@ import java.util.List;
 
 public class ${name}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation extends AbstractReadAllOperation<${name}DB> {
 
-    <#list query.queryParameters as queryParameter>
+    <#list query.pathQueryParameters as queryParameter>
     private final ${queryParameter.type} ${queryParameter.name};
     </#list>
 
-    public ${name}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation(EntityManagerFactory emf,<#list query.queryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
+    public ${name}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation(EntityManagerFactory emf,<#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
         super(emf, ${name}DB.class, searchParameter);
-        <#list query.queryParameters as queryParameter>
+        <#list query.pathQueryParameters as queryParameter>
         this.${queryParameter.name} = ${queryParameter.name};
         </#list>
     }

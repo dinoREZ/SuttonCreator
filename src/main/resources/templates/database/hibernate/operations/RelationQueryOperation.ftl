@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ${primaryName}${secondaryName}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation extends AbstractReadAllRelationsByPrimaryIdOperation<${primaryName}DB, ${secondaryName}DB, ${primaryName}${secondaryName}DB> {
-    <#list query.queryParameters as queryParameter>
+    <#list query.pathQueryParameters as queryParameter>
     private final ${queryParameter.type} ${queryParameter.name};
     </#list>
 
-    public ${primaryName}${secondaryName}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation(EntityManagerFactory emf, long primaryId, <#list query.queryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
+    public ${primaryName}${secondaryName}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation(EntityManagerFactory emf, long primaryId, <#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
         super(emf, ${primaryName}${secondaryName}DB.class, primaryId, searchParameter);
-        <#list query.queryParameters as queryParameter>
+        <#list query.pathQueryParameters as queryParameter>
         this.${queryParameter.name} = ${queryParameter.name};
         </#list>
     }

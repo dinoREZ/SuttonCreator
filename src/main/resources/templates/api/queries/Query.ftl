@@ -14,8 +14,8 @@ public class ${name}By<#list query.queryParameters as queryParameter>${queryPara
     private ${queryParameter.type} ${queryParameter.name};
     </#list>
 
-    public ${name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(<#list query.queryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>int offset, int size) {
-        <#list query.queryParameters as queryParameter>
+    public ${name}By<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Query(<#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>int offset, int size) {
+        <#list query.pathQueryParameters as queryParameter>
         this.${queryParameter.name} = ${queryParameter.name};
         </#list>
         this.pagingBehavior = new PagingBehaviorUsingOffsetSize<${name}>(offset, size);
@@ -23,6 +23,6 @@ public class ${name}By<#list query.queryParameters as queryParameter>${queryPara
 
     @Override
     protected CollectionModelResult<${name}> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
-        return DaoFactory.getInstance().get${name}Dao().readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(<#list query.queryParameters as queryParameter>${queryParameter.name}, </#list>searchParameter);
+        return DaoFactory.getInstance().get${name}Dao().readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(<#list query.pathQueryParameters as queryParameter>${queryParameter.name}, </#list>searchParameter);
     }
 }

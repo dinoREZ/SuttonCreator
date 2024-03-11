@@ -9,7 +9,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 public class ${name}DaoImpl extends AbstractInMemoryStorage<${name}> implements ${name}Dao {
     <#list queries as query>
     @Override
-    public CollectionModelResult<${name}> readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(<#list query.queryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
+    public CollectionModelResult<${name}> readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(<#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
         return readByPredicate(
                 ${name?lower_case} -> (
                     <#list query.queryParameters as queryParameter>

@@ -18,8 +18,8 @@ public class ${name}DaoHibernateImpl implements ${name}DaoHibernate {
 
     <#list queries as query>
     @Override
-    public CollectionModelHibernateResult<${name}DB> readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(<#list query.queryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
-        return new ${name}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation(emf, <#list query.queryParameters as queryParameter>${queryParameter.name}, </#list>searchParameter).start();
+    public CollectionModelHibernateResult<${name}DB> readBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>(<#list query.pathQueryParameters as queryParameter>${queryParameter.type} ${queryParameter.name}, </#list>SearchParameter searchParameter) {
+        return new ${name}QueryBy<#list query.queryParameters as queryParameter>${queryParameter.name?cap_first}</#list>Operation(emf, <#list query.pathQueryParameters as queryParameter>${queryParameter.name}, </#list>searchParameter).start();
     }
     </#list>
 
