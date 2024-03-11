@@ -72,6 +72,6 @@ public class QueryParameter {
     }
 
     public enum ComparisonType {
-        like, likeIgnoreCase, equals, greater, greaterEquals, lower, lowerEquals
+        like, likeIgnoreCase, equal, greaterThan, greaterThanOrEqualTo, lessThan, lessThanOrEqualTo
     }
 }

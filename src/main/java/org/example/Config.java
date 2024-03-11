@@ -49,7 +49,7 @@ public class Config {
                                             .setType("int")
                                             .setName("roomNumber")
                                             .setPathParameter(true)
-                                            .setComparisonType(QueryParameter.ComparisonType.equals)
+                                            .setComparisonType(QueryParameter.ComparisonType.equal)
                                             .setDefaultValue("0"))
                                     .setSubPathElement("")
                             )
